@@ -10,6 +10,7 @@ import app.kidsInSeoul.member.repository.MemberRepository;
 import app.kidsInSeoul.member.web.dto.request.MemberLoginRequestDto;
 import app.kidsInSeoul.member.web.dto.request.MemberSaveRequestDto;
 import app.kidsInSeoul.member.web.dto.response.MemberLoginResponseDto;
+import app.kidsInSeoul.member.web.dto.response.MemberResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -88,5 +89,24 @@ public class MemberService {
         if (memberRepository.existsByUserId(userId)) {
             throw new CustomException(ErrorCode.EXIST_USER_ID);
         }
+    }
+
+    public MemberResponse getMember(Long memberId) {
+
+        Member findMember = memberRepository.findById(memberId)
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_MEMBER));
+
+
+        MemberResponse memberResponse = MemberResponse.builder()
+                .id(findMember.getId())
+                .name(findMember.getName())
+                .nickname(findMember.getNickname())
+                .userId(findMember.getUserId())
+                .email(findMember.getEmail())
+                .phoneNum(findMember.getPhoneNum())
+                .birthDate(findMember.getBirthDate())
+                .build();
+
+        return memberResponse;
     }
 }
