@@ -27,13 +27,12 @@ public class ScheduleApiController {
     }
 
 
-    /*
     // 월별 스케줄 조회
     @GetMapping("/schedule/view/{month}")
     public ResponseEntity<ScheduleResponseDto> findByMonth(@PathVariable int month,@AuthenticationPrincipal CustomUserDetails userDetails) {
 
     }
-    */
+
 
     // 일별 스케줄 조회
 
