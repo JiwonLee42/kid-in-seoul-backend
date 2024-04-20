@@ -1,6 +1,7 @@
-package app.kidsInSeoul.posts.web;
+package app.kidsInSeoul.posts.web.request;
 
 
+import app.kidsInSeoul.member.repository.Member;
 import app.kidsInSeoul.posts.repository.Posts;
 import app.kidsInSeoul.region.repository.Region;
 import lombok.Builder;

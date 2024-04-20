@@ -22,21 +22,25 @@ public class QMember extends EntityPathBase<Member> {
 
     public static final QMember member = new QMember("member1");
 
-    public final DatePath<java.time.LocalDate> birth_date = createDate("birth_date", java.time.LocalDate.class);
+    public final DatePath<java.time.LocalDate> birthDate = createDate("birthDate", java.time.LocalDate.class);
 
     public final StringPath email = createString("email");
 
-    public final StringPath id = createString("id");
-
-    public final NumberPath<Long> member_id = createNumber("member_id", Long.class);
+    public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final StringPath name = createString("name");
 
+    public final StringPath nickname = createString("nickname");
+
     public final StringPath password = createString("password");
 
-    public final StringPath phone_num = createString("phone_num");
+    public final StringPath phoneNum = createString("phoneNum");
 
     public final app.kidsInSeoul.region.repository.QRegion region;
+
+    public final ListPath<String, StringPath> roles = this.<String, StringPath>createList("roles", String.class, StringPath.class, PathInits.DIRECT2);
+
+    public final StringPath userId = createString("userId");
 
     public QMember(String variable) {
         this(Member.class, forVariable(variable), INITS);

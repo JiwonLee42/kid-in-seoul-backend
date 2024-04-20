@@ -1,5 +1,6 @@
 package app.kidsInSeoul.posts.repository;
 
+import app.kidsInSeoul.member.repository.Member;
 import app.kidsInSeoul.region.repository.Region;
 import jakarta.persistence.*;
 import lombok.Builder;
