@@ -27,10 +27,11 @@ public class PostsSaveRequestDto {
         this.region = region;
     }
 
-    public Posts toEntity() {
+    public Posts toEntity(Member member) {
         return Posts.builder()
                 .title(title)
                 .content(content)
+                .member(member)
                 .build();
     }
 
