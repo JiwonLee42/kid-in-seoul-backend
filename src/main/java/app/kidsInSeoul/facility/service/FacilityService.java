@@ -38,7 +38,10 @@ public class FacilityService {
                 .build();
     }
 
+    /*
     public LibraryResponseDto getLibrary(Long libraryId) {
 
     }
+
+     */
 }

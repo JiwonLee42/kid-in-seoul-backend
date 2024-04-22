@@ -1,4 +1,4 @@
-package app.kidsInSeoul.posts.web.response;
+package app.kidsInSeoul.posts.web.dto.response;
 
 import app.kidsInSeoul.member.repository.Member;
 import app.kidsInSeoul.posts.repository.Comment;

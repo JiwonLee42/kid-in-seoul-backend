@@ -1,4 +1,4 @@
-package app.kidsInSeoul.posts.web.request;
+package app.kidsInSeoul.posts.web.dto.request;
 
 
 import lombok.Builder;

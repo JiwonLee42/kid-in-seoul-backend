@@ -28,7 +28,6 @@ public class Posts {
     @CreatedDate
     private LocalDateTime createdDate = LocalDateTime.now();
 
-
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;

@@ -1,2 +1,6 @@
-package app.kidsInSeoul.posts.repository;public interface CommentRepository {
+package app.kidsInSeoul.posts.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface CommentRepository extends JpaRepository<Comment,Long> {
 }

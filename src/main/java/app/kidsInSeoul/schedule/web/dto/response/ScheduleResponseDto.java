@@ -1,11 +1,10 @@
-package app.kidsInSeoul.schedule.web.response;
+package app.kidsInSeoul.schedule.web.dto.response;
 
-import app.kidsInSeoul.member.repository.Member;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Getter
 @NoArgsConstructor
@@ -16,20 +15,21 @@ public class ScheduleResponseDto {
 
     private String content;
 
-    private LocalDateTime start_date;
+    private LocalDate date;
 
-    private LocalDateTime end_date;
+    private LocalTime startTime;
 
-    private Member member;
+    private LocalTime endTime;
 
 
     @Builder
-    public ScheduleResponseDto(Long schedule_id, String title, String content, LocalDateTime start_date, LocalDateTime end_date, Member member){
+    public ScheduleResponseDto(Long schedule_id, String title, String content,LocalDate date, LocalTime startTime, LocalTime endTime){
         this.schedule_id = schedule_id;
         this.title = title;
         this.content = content;
-        this.start_date = start_date;
-        this.end_date = end_date;
+        this.date = date;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
 }

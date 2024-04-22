@@ -1,13 +1,11 @@
-package app.kidsInSeoul.schedule.web.request;
-
-
+package app.kidsInSeoul.schedule.web.dto.request;
 import app.kidsInSeoul.member.repository.Member;
 import app.kidsInSeoul.schedule.repository.Schedule;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Getter
 @NoArgsConstructor
@@ -17,18 +15,19 @@ public class ScheduleSaveRequestDto {
 
     private String content;
 
-    private LocalDateTime start_date;
-
-    private LocalDateTime end_date;
+    private LocalDate date;
+    private LocalTime startTime;
+    private LocalTime endTime;
 
     private Member member;
 
     @Builder
-    public ScheduleSaveRequestDto(String title, String content, LocalDateTime start_date, LocalDateTime end_date, Member member){
+    public ScheduleSaveRequestDto(String title, String content, LocalDate date, LocalTime startTime,LocalTime endTime, Member member){
         this.title = title;
         this.content = content;
-        this.start_date = start_date;
-        this.end_date = end_date;
+        this.date = date;
+        this.startTime = startTime;
+        this.endTime = endTime;
         this.member = member;
     }
 
@@ -36,9 +35,11 @@ public class ScheduleSaveRequestDto {
         return Schedule.builder()
                 .title(title)
                 .content(content)
-                .start_date(start_date)
-                .end_date(end_date)
+                .date(date)
+                .startTime(startTime)
+                .endTime(endTime)
                 .member(member)
                 .build();
     }
+
 }
