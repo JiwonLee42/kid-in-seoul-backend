@@ -1,4 +1,4 @@
-package app.kidsInSeoul.posts.web;
+package app.kidsInSeoul.posts.web.request;
 
 
 import lombok.Builder;

@@ -1,6 +1,7 @@
-package app.kidsInSeoul.posts.web;
+package app.kidsInSeoul.posts.web.request;
 
 
+import app.kidsInSeoul.member.repository.Member;
 import app.kidsInSeoul.posts.repository.Posts;
 import app.kidsInSeoul.region.repository.Region;
 import lombok.Builder;
@@ -26,10 +27,11 @@ public class PostsSaveRequestDto {
         this.region = region;
     }
 
-    public Posts toEntity() {
+    public Posts toEntity(Member member) {
         return Posts.builder()
                 .title(title)
                 .content(content)
+                .member(member)
                 .build();
     }
 

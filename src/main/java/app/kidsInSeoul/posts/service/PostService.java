@@ -1,8 +1,8 @@
-package app.kidsInSeoul.service;
+package app.kidsInSeoul.posts.service;
 
-import app.kidsInSeoul.posts.web.PostResponseDto;
-import app.kidsInSeoul.posts.web.PostUpdateRequestDto;
-import app.kidsInSeoul.posts.web.PostsSaveRequestDto;
+import app.kidsInSeoul.posts.web.response.PostResponseDto;
+import app.kidsInSeoul.posts.web.request.PostUpdateRequestDto;
+import app.kidsInSeoul.posts.web.request.PostsSaveRequestDto;
 import app.kidsInSeoul.posts.repository.Posts;
 import app.kidsInSeoul.posts.repository.PostsRepository;
 import app.kidsInSeoul.posts.repository.QPosts;
