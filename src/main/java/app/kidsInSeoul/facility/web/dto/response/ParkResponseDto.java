@@ -1,5 +1,6 @@
 package app.kidsInSeoul.facility.web.dto.response;
 
+import app.kidsInSeoul.facility.repository.Park;
 import lombok.*;
 
 @Getter
@@ -12,6 +13,11 @@ public class ParkResponseDto {
     private String name; // 공원 이름
     private String regionSi; // 시
     private String regionGu; // 구
-    private String street; // 도로명주소
-    private String operatingTime; // 운영시간
+    private String regionDong; // 동
+    private String address; // 주소
+    private String callNumber; // 대표전화
+    private String mainCategory; // 대분류
+
+    public ParkResponseDto(Park park) {
+    }
 }

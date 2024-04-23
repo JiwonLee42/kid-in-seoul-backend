@@ -4,6 +4,10 @@
     <annotationProcessing>
       <profile name="Gradle Imported" enabled="true">
         <outputRelativeToContentRoot value="true" />
+<<<<<<< HEAD
+        <processorPath useClasspath="false">
+          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.30/f195ee86e6c896ea47a1d39defbe20eb59cd149d/lombok-1.18.30.jar" />
+=======
         <option name="querydsl.generatedAnnotationClass" value="javax.annotation.Generated" />
         <processorPath useClasspath="false">
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.24/13a394eed5c4f9efb2a6d956e2086f1d81e857d9/lombok-1.18.24.jar" />
@@ -17,13 +21,17 @@
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.github.classgraph/classgraph/4.8.108/1c175d4ce7a1fa67463bad731f37f1a284dab790/classgraph-4.8.108.jar" />
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.mysema.commons/mysema-commons-lang/0.2.4/d09c8489d54251a6c22fbce804bdd4a070557317/mysema-commons-lang-0.2.4.jar" />
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.eclipse.jdt/ecj/3.26.0/4837be609a3368a0f7e7cf0dc1bdbc7fe94993de/ecj-3.26.0.jar" />
+>>>>>>> develop
         </processorPath>
         <module name="kidsInSeoul.main" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="17" />
   </component>
+<<<<<<< HEAD
+=======
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_STRING" value="--warning-mode=all --stacktrace " />
   </component>
+>>>>>>> develop
 </project>

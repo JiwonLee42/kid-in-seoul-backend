@@ -1,5 +1,6 @@
 package app.kidsInSeoul.facility.web.dto.response;
 
+import app.kidsInSeoul.facility.repository.Library;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -20,4 +21,7 @@ public class LibraryResponseDto {
     private BigDecimal latitude;
     private BigDecimal longitude;
     private String operatingTime;
+
+    public LibraryResponseDto(Library library) {
+    }
 }

@@ -1,5 +1,6 @@
 package app.kidsInSeoul.facility.web.dto.response;
 
+import app.kidsInSeoul.facility.repository.OutdoorFacility;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -19,7 +20,10 @@ public class OutdoorFacilityResponseDto {
     private String address; // 기본주소
     private String detailAddress; // 상세주소
     private int postNum; // 우편번호
-    private boolean isFree; // 사용료 무료여부
+    private boolean free; // 사용료 무료여부
     private int fee; // 사용료
     private String urlLink; // 안내 url
+
+    public OutdoorFacilityResponseDto(OutdoorFacility outdoorFacility) {
+    }
 }
