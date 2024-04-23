@@ -1,5 +1,6 @@
 package app.kidsInSeoul.facility.web.dto.response;
 
+import app.kidsInSeoul.facility.repository.KidsCafe;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -23,4 +24,19 @@ public class KidsCafeResponseDto {
     private String usageCapacity; // 이용정원(개인)
     private String availableAge; // 신청가능 연령
 
+    @Builder
+    public KidsCafeResponseDto(KidsCafe kidsCafe) {
+        id = kidsCafe.getId();
+        name = kidsCafe.getName();
+        regionGu = kidsCafe.getRegionGu();
+        regionDong = kidsCafe.getRegionDong();
+        latitude = kidsCafe.getLatitude();
+        longitude = kidsCafe.getLongitude();
+        address = kidsCafe.getAddress();
+        phoneNum = kidsCafe.getPhoneNum();
+        closedDays = kidsCafe.getClosedDays();
+        operatingDays = kidsCafe.getOperatingDays();
+        usageCapacity = kidsCafe.getUsageCapacity();
+        availableAge = kidsCafe.getAvailableAge();
+    }
 }
