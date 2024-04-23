@@ -40,7 +40,10 @@ public enum ErrorCode {
 
 
     //경로 예외
-    NOT_VALID_URI(HttpStatus.BAD_REQUEST, "유효한 경로로 요청해주세요.");
+    NOT_VALID_URI(HttpStatus.BAD_REQUEST, "유효한 경로로 요청해주세요."),
+
+    //게시글 예외
+    NOT_FOUND_POST(HttpStatus.NOT_FOUND, "해당 게시글이 존재하지 않습니다.");
 
 
     private final HttpStatus httpStatus;

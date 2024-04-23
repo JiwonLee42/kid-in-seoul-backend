@@ -1,5 +1,6 @@
 package app.kidsInSeoul.member.repository;
 
+import app.kidsInSeoul.region.repository.Region;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,6 +17,7 @@ import java.util.List;
 @Entity
 public class Member {
 
+
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
     private Long id;
@@ -28,6 +30,10 @@ public class Member {
     private String phoneNum;
     private String email;
 
+    @OneToOne
+    @JoinColumn(name = "region_id")
+    private Region region;
+
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
     private List<String> roles = new ArrayList<>();
@@ -37,7 +43,7 @@ public class Member {
     }
 
     @Builder
-    public Member(String userId, String password, LocalDate birthDate, String name, String nickname, String phoneNum, String email) {
+    public Member(String userId, String password, LocalDate birthDate, String name, String nickname, String phoneNum, String email, Region region) {
         this.userId = userId;
         this.password = password;
         this.birthDate = birthDate;
@@ -45,5 +51,6 @@ public class Member {
         this.nickname = nickname;
         this.phoneNum = phoneNum;
         this.email = email;
+        this.region = region;
     }
 }
