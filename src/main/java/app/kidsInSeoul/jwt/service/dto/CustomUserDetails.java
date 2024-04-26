@@ -19,6 +19,7 @@ public class CustomUserDetails implements UserDetails {
     }
 
     public Member getMember() {
+        System.out.println("getMember ... function call");
         return member;
     }
 

@@ -2,6 +2,7 @@ package app.kidsInSeoul.jwt.web;
 
 import app.kidsInSeoul.common.exception.CustomException;
 import app.kidsInSeoul.common.exception.ErrorCode;
+import app.kidsInSeoul.jwt.service.CustomUserDetailsService;
 import app.kidsInSeoul.jwt.web.dto.TokenDto;
 import app.kidsInSeoul.jwt.web.repository.RefreshToken;
 import io.jsonwebtoken.*;
@@ -12,7 +13,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 import java.time.Duration;
@@ -24,7 +24,7 @@ import java.util.List;
 @Component
 public class JwtTokenProvider {
 
-    @Value("${application.jwt.secret}")
+    @Value("${jwt.secret}")
     private String secretKey;
     @Value("${jwt.secret_refresh}")
     private String refreshSecretKey;
@@ -34,7 +34,7 @@ public class JwtTokenProvider {
     // 리프레시 토큰 유효시간 2주
     private long refreshTokenValidTime = Duration.ofDays(14).toMillis();
 
-    private final UserDetailsService userDetailsService;
+    private final CustomUserDetailsService userDetailsService;
 
     // 객체 초기화, secretKey를 Base64로 인코딩
     @PostConstruct
