@@ -37,8 +37,8 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf((csrf) -> csrf.disable())  //csrf 보안 토큰 disable 처리
-                .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(
+                .csrf((csrf) -> csrf.disable()); //csrf 보안 토큰 disable 처리
+        http    .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(
                         SessionCreationPolicy.STATELESS))  // 토큰 기반 인증이므로 세션 사용하지 X
                 .exceptionHandling((exceptionConfig) ->
                         exceptionConfig.authenticationEntryPoint(customAuthenticationEntryPoint).accessDeniedHandler(customAccessDeniedHandler)
@@ -65,7 +65,7 @@ public class WebSecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.addAllowedOrigin("http://lovalhost:8080");
+        configuration.addAllowedOrigin("http://localhost:8080");
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("*");
         configuration.setAllowCredentials(true); // 인증정보 포함한 요청 허용
@@ -76,6 +76,6 @@ public class WebSecurityConfig {
     }
 
     private static final String[] AUTH_WHITELIST = {
-            "/member/**",
+            "/members/**",
     };
 }

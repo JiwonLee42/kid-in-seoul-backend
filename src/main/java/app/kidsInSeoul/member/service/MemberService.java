@@ -40,6 +40,7 @@ public class MemberService {
         checkDuplicateMemberNickname(dto.getNickname());
 
         Member member = Member.builder()
+                .userId(dto.getUserId())
                 .name(dto.getName())
                 .nickname(dto.getNickname())
                 .email(dto.getEmail())

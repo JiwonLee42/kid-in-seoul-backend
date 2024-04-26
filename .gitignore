@@ -1,2 +1,4 @@
 .gradle/
 .idea/
+h2
+src/main/resources/application.yml

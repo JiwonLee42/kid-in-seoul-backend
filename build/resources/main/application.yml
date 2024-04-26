@@ -1,19 +1,36 @@
+#spring:
+#  datasource:
+#    url: jdbc:mysql://database-1.czaqk6wqaxh8.ap-northeast-2.rds.amazonaws.com:3306/kids_in_seoul?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+#    username: admin
+#    password: kidsinseoul00
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    properties:
+#      hibernate:
+#        #        show_sql: true
+#        format_sql: true
+#        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+#        #default_batch_fetch_size: 100
+
 spring:
   datasource:
-    url: jdbc:mysql://kids-in-seoul-db.czaqk6wqaxh8.ap-northeast-2.rds.amazonaws.com:3306/kids_in_seoul?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
-    username: admin
-    password: kidsinseoul0309
-    driver-class-name: com.mysql.cj.jdbc.Driver
-
+    url: jdbc:h2:tcp://localhost/~/kids-in-seoul
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     properties:
       hibernate:
-        #        show_sql: true
+# show_sql: true
         format_sql: true
-        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-        #default_batch_fetch_size: 100
+        logging.level:
+        org.hibernate.SQL: debug
+        org.hibernate.type: trace
 
 jwt:
   secret: d913973a67d478ef73ba715f3193bbd58179b160b2bcf744061a1e802c5ea11cb661bfbe61a7af987090b49972c3144604c594a4e93bd7394d043379685e1a3c
