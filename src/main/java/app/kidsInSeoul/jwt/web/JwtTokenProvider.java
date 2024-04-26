@@ -24,7 +24,7 @@ import java.util.List;
 @Component
 public class JwtTokenProvider {
 
-    @Value("${application.jwt.secret}")
+    @Value("${jwt.secret}")
     private String secretKey;
     @Value("${jwt.secret_refresh}")
     private String refreshSecretKey;
