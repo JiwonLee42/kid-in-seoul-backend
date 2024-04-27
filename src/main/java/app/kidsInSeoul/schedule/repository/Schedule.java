@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Getter
@@ -19,7 +18,8 @@ public class Schedule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long schedule_id;
+    @Column(name = "schedule_id")
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "member_id")
@@ -49,7 +49,7 @@ public class Schedule {
     private Library library;
 
     @ManyToOne
-    @JoinColumn(name = "park", nullable = true)
+    @JoinColumn(name = "park_id", nullable = true)
     private Park park;
 
     @ManyToOne

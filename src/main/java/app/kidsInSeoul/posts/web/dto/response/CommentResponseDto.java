@@ -12,15 +12,15 @@ public class CommentResponseDto {
     private Long comment_id;
     private String content;
     private Member member;
-    private Posts post;
+    private Long postId;
     private LocalDateTime created_at;
 
     @Builder
-    public CommentResponseDto(Comment entity){
-        this.comment_id = entity.getComment_id();
+    public CommentResponseDto(Comment entity, Posts post){
+        this.comment_id = entity.getId();
         this.content = entity.getContent();
         this.member = entity.getMember();
-        this.post = entity.getPost();
+        this.postId = post.getId();
         this.created_at = entity.getCreatedDate();
     }
 

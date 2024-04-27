@@ -18,7 +18,8 @@ public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long comment_id;
+    @Column(name = "comment_id")
+    private Long id;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
     private Posts post;
@@ -27,7 +28,7 @@ public class Comment {
     private Comment parentComment; // 부모 댓글
     @OneToMany(mappedBy = "parentComment")
     private List<Comment> childComments = new ArrayList<>(); // 자식 댓글
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
     @Column(name = "is_recomment", columnDefinition = "false")

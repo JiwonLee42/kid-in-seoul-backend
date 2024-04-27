@@ -1,2 +1,5 @@
-package app.kidsInSeoul.kindergarden.web.dto.response;public class KindergardenResponseDto {
+package app.kidsInSeoul.kindergarden.web.dto.response;
+
+public class KindergardenResponseDto {
+
 }

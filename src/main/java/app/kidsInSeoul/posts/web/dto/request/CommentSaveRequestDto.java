@@ -12,17 +12,16 @@ import lombok.NoArgsConstructor;
 public class CommentSaveRequestDto {
 
     private String content;
-    private Member member;
-    private Posts post;
+
+    private Long postId;
 
     @Builder
-    public CommentSaveRequestDto(String content,Member member,Posts post){
+    public CommentSaveRequestDto(String content,Long postId){
         this.content = content;
-        this.member = member;
-        this.post = post;
+        this.postId = postId;
     }
 
-    public Comment toEntity(Member member) {
+    public Comment toEntity(Member member, Posts post) {
         return Comment.builder()
                 .content(content)
                 .member(member)

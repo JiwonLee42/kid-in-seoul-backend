@@ -6,8 +6,10 @@ import app.kidsInSeoul.posts.service.PostService;
 import app.kidsInSeoul.posts.web.dto.request.CommentSaveRequestDto;
 import app.kidsInSeoul.posts.web.dto.request.PostUpdateRequestDto;
 import app.kidsInSeoul.posts.web.dto.request.PostsSaveRequestDto;
+import app.kidsInSeoul.posts.web.dto.request.ReCommentSaveRequestDto;
 import app.kidsInSeoul.posts.web.dto.response.CommentResponseDto;
 import app.kidsInSeoul.posts.web.dto.response.PostResponseDto;
+import app.kidsInSeoul.region.repository.Region;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,9 +30,10 @@ public class PostApiController {
     private CommentService commentService;
 
 
+
     @PostMapping("/posts/write")
     public ResponseEntity<PostResponseDto> save(@RequestBody PostsSaveRequestDto requestDto, @AuthenticationPrincipal CustomUserDetails userDetails){
-        PostResponseDto responseDto = postsService.save(requestDto,userDetails.getMember());
+        PostResponseDto responseDto = postsService.save(requestDto, userDetails.getMember(), requestDto.getMember().getRegion());
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
     }
 
@@ -44,8 +47,9 @@ public class PostApiController {
     }
 
     @PutMapping("/posts/edit/{post_id}")
-    public PostUpdateRequestDto editById (@PathVariable Long id, @RequestBody PostUpdateRequestDto requestDto){
-        return postsService.update(id,requestDto);
+    public ResponseEntity<PostResponseDto> editById (@PathVariable Long id, @RequestBody PostUpdateRequestDto requestDto, @AuthenticationPrincipal CustomUserDetails userDetails){
+        PostResponseDto responseDto = postsService.update(id,requestDto,userDetails.getMember());
+        return ResponseEntity.status(HttpStatus.OK).body(responseDto);
     }
 
     @DeleteMapping("/posts/delete/{post_id}")
@@ -55,8 +59,8 @@ public class PostApiController {
     }
 
     @GetMapping("/posts/region/{region_id}")
-    public ResponseEntity<List<Posts>> findByRegion (@PathVariable Long id) {
-        List<Posts> posts = postsService.findByRegion(id);
+    public ResponseEntity<List<PostResponseDto>> findByRegion (@PathVariable Long id) {
+        List<PostResponseDto> posts = postsService.findByRegion(id);
         return ResponseEntity.status(HttpStatus.OK).body(posts);
     }
 
@@ -67,7 +71,7 @@ public class PostApiController {
     }
 
     @PostMapping("/posts/recomment/write")
-    public ResponseEntity<CommentResponseDto> saveReComment(@RequestBody CommentSaveRequestDto requestDto, @AuthenticationPrincipal CustomUserDetails userDetails){
+    public ResponseEntity<CommentResponseDto> saveReComment(@RequestBody ReCommentSaveRequestDto requestDto, @AuthenticationPrincipal CustomUserDetails userDetails){
         CommentResponseDto responseDto = commentService.reSave(requestDto, userDetails.getMember());
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
     }
@@ -89,9 +93,5 @@ public class PostApiController {
         commentService.deleteCommentById(id,userDetails.getMember());
         return ResponseEntity.ok("댓글이 성공적으로 삭제되었습니다.");
     }
-
-
-
-
 
 }

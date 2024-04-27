@@ -22,7 +22,7 @@ public class PostResponseDto {
 
     @Builder
     public PostResponseDto(Posts entity){
-        this.id = entity.getPost_id();
+        this.id = entity.getId();
         this.title = entity.getTitle();
         this.content = entity.getContent();
         this.member = entity.getMember();

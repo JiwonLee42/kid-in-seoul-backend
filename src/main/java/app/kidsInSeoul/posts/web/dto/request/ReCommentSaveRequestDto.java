@@ -13,29 +13,26 @@ import lombok.NoArgsConstructor;
 public class ReCommentSaveRequestDto {
     private String content;
     private Member member;
-    private Posts post;
-    private Comment parentComment;
+    private Long postId;
+
+    private Long commentId;
 
     @Builder
-    public ReCommentSaveRequestDto(String content, Member member, Posts post, Comment comment){
+    public ReCommentSaveRequestDto(String content, Member member,Long postId, Long commentId){
         this.content = content;
         this.member = member;
-        this.post = post;
-        this.parentComment = comment;
+        this.postId = postId;
+        this.commentId = commentId;
     }
 
-    public Comment toEntity(Member member) {
+    public Comment toEntity(Member member,Posts post, Comment parentComment) {
         Comment newComment = Comment.builder()
                 .content(content)
                 .member(member)
                 .post(post)
                 .parentComment(parentComment)
+                .is_recomment(true)
                 .build();
-
-        // 만약 부모 댓글이 있으면, 부모 댓글의 childComments에 새로운 댓글을 추가
-        if (parentComment != null) {
-            parentComment.getChildComments().add(newComment);
-        }
 
         return newComment;
     }

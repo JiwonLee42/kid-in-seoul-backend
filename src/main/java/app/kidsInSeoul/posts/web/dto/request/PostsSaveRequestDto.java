@@ -17,21 +17,22 @@ public class PostsSaveRequestDto {
 
     private Member member;
 
-    private Region region;
+    private Long regionId;
 
     @Builder
-    public PostsSaveRequestDto(String title, String content,Member member, Region region){
+    public PostsSaveRequestDto(String title, String content,Member member, Long regionId){
         this.title = title;
         this.content = content;
         this.member = member;
-        this.region = region;
+        this.regionId = regionId;
     }
 
-    public Posts toEntity(Member member) {
+    public Posts toEntity(Member member, Region region) {
         return Posts.builder()
                 .title(title)
                 .content(content)
                 .member(member)
+                .region(region)
                 .build();
     }
 

@@ -1,5 +1,6 @@
 package app.kidsInSeoul.schedule.web.dto.response;
 
+import app.kidsInSeoul.schedule.repository.Schedule;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +10,7 @@ import java.time.LocalTime;
 @Getter
 @NoArgsConstructor
 public class ScheduleResponseDto {
-    private Long schedule_id;
+    private Long id;
 
     private String title;
 
@@ -21,15 +22,39 @@ public class ScheduleResponseDto {
 
     private LocalTime endTime;
 
+    private String facilityName;
+
 
     @Builder
-    public ScheduleResponseDto(Long schedule_id, String title, String content,LocalDate date, LocalTime startTime, LocalTime endTime){
-        this.schedule_id = schedule_id;
-        this.title = title;
-        this.content = content;
-        this.date = date;
-        this.startTime = startTime;
-        this.endTime = endTime;
+    public ScheduleResponseDto(Schedule schedule){
+        this.id = schedule.getId();
+        this.title = schedule.getTitle();
+        this.content = schedule.getContent();
+        this.date = schedule.getDate();
+        this.startTime = schedule.getStartTime();
+        this.endTime = schedule.getEndTime();
+
+        if(schedule.getKidsCafe()!=null){
+            this.facilityName = schedule.getKidsCafe().getName();
+        }
+
+        if(schedule.getPark()!=null){
+            this.facilityName = schedule.getPark().getName();
+        }
+
+        if(schedule.getLibrary()!=null){
+            this.facilityName = schedule.getLibrary().getName();
+        }
+
+        if(schedule.getOutdoorFacility()!=null){
+            this.facilityName = schedule.getOutdoorFacility().getName();
+        }
+
+        if(schedule.getArtEducation()!=null){
+            this.facilityName = schedule.getArtEducation().getName();
+        }
+
+
     }
 
 }
