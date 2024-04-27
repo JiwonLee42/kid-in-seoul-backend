@@ -16,6 +16,7 @@ import java.time.LocalTime;
 @Entity
 public class Schedule {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "schedule_id")
@@ -40,6 +41,12 @@ public class Schedule {
     @Column(nullable = false)
     private LocalTime endTime;
 
+    @Column(name = "is_withchild", columnDefinition = "false")
+    private boolean isWithChild;
+
+    @Column(nullable = false)
+    private String type;
+
     @ManyToOne
     @JoinColumn(name ="kids_cafe_id", nullable = true)
     private KidsCafe kidsCafe;
@@ -53,16 +60,17 @@ public class Schedule {
     private Park park;
 
     @ManyToOne
-    @JoinColumn(name = "arteducation_id", nullable = true)
-    private ArtEducation artEducation;
+    @JoinColumn(name = "art_gallery_edu_id", nullable = true)
+    private ArtGalleryEdu artGalleryEdu;
 
     @ManyToOne
     @JoinColumn(name = "outdoorfacility_id",nullable = true)
     private OutdoorFacility outdoorFacility;
 
 
+
     @Builder
-    public Schedule(Member member, String title, String content,LocalDate date,LocalTime startTime,LocalTime endTime,KidsCafe kidsCafe,Library library, Park park, ArtEducation artEducation,OutdoorFacility outdoorFacility){
+    public Schedule(Member member, String title, String content,LocalDate date,LocalTime startTime,LocalTime endTime,KidsCafe kidsCafe,Library library, Park park, ArtGalleryEdu artGalleryEdu,OutdoorFacility outdoorFacility, boolean isWithChild, String type){
         this.member = member;
         this.title = title;
         this.content = content;
@@ -72,16 +80,20 @@ public class Schedule {
         this.kidsCafe = kidsCafe;
         this.library = library;
         this.park = park;
-        this.artEducation = artEducation;
+        this.artGalleryEdu = artGalleryEdu;
         this.outdoorFacility = outdoorFacility;
+        this.isWithChild = isWithChild;
+        this.type = type;
     }
 
-    public void update(String title,String content, LocalDate date, LocalTime startTime, LocalTime endTime){
+    public void update(String title,String content, LocalDate date, LocalTime startTime, LocalTime endTime, boolean isWithChild, String type){
         this.title = title;
         this.content = content;
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.isWithChild = isWithChild;
+        this.type = type;
     }
 
 }

@@ -1,5 +1,4 @@
 package app.kidsInSeoul.schedule.service;
-
 import app.kidsInSeoul.facility.repository.*;
 import app.kidsInSeoul.member.repository.Member;
 import app.kidsInSeoul.schedule.repository.Schedule;
@@ -90,7 +89,7 @@ public class ScheduleService {
         if(!schedule.getMember().equals(currentUser)) {
             throw  new ResponseStatusException(HttpStatus.FORBIDDEN,"스케줄 작성자가 아닙니다.");
         }
-        schedule.update(requestDto.getTitle(),requestDto.getContent(),requestDto.getDate(),requestDto.getStartTime(),requestDto.getEndTime());
+        schedule.update(requestDto.getTitle(),requestDto.getContent(),requestDto.getDate(),requestDto.getStartTime(),requestDto.getEndTime(), requestDto.isWithChild(),requestDto.getType());
     }
 
 
