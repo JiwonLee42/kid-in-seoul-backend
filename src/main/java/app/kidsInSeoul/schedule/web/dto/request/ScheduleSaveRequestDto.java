@@ -25,10 +25,15 @@ public class ScheduleSaveRequestDto {
 
     private String type;
 
-    private Long facilityId;
+    private Long kidscafeId;
+
+    private Long libraryId;
+
+    private Long parkId;
+    private Long outdoorId;
 
     @Builder
-    public ScheduleSaveRequestDto(String title, String content, LocalDate date, LocalTime startTime, LocalTime endTime, boolean isWithChild,Member member,Long facilityId,String type){
+    public ScheduleSaveRequestDto(String title, String content, LocalDate date, LocalTime startTime, LocalTime endTime, boolean isWithChild,Member member,String type,Long kidscafeId,Long parkId,Long libraryId, Long outdoorId){
         this.title = title;
         this.content = content;
         this.date = date;
@@ -36,11 +41,15 @@ public class ScheduleSaveRequestDto {
         this.endTime = endTime;
         this.member = member;
         this.isWithChild = isWithChild;
-        this.facilityId = facilityId;
+        this.kidscafeId = kidscafeId;
+        this.libraryId = libraryId;
+        this.outdoorId = outdoorId;
+        this.parkId = parkId;
         this.type = type;
     }
 
-    public Schedule toEntity(Member member, Facility facility) {
+
+    public Schedule toEntity(Member member, KidsCafe kidsCafe, Library library, Park park, OutdoorFacility outdoorFacility) {
         return Schedule.builder()
                 .title(title)
                 .content(content)
@@ -48,7 +57,10 @@ public class ScheduleSaveRequestDto {
                 .startTime(startTime)
                 .endTime(endTime)
                 .member(member)
-                .facility(facility)
+                .kidsCafe(kidsCafe)
+                .library(library)
+                .park(park)
+                .outdoorFacility(outdoorFacility)
                 .isWithChild(isWithChild)
                 .type(type)
                 .build();

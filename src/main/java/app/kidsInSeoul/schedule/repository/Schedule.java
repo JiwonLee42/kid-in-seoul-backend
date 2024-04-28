@@ -48,20 +48,39 @@ public class Schedule {
     private String type;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "facility_id", nullable = true)
-    private Facility facility;
+    @JoinColumn(name = "kids_cafe_id", nullable = true)
+    private KidsCafe kidsCafe;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "library_id", nullable = true)
+    private Library library;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "outdoor_facility_id", nullable = true)
+    private OutdoorFacility outdoorFacility;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "park_id", nullable = true)
+    private Park park;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "art_gallery_id", nullable = true)
+    private ArtGalleryEdu artGalleryEdu;
 
 
 
     @Builder
-    public Schedule(Member member, String title, String content,LocalDate date,LocalTime startTime,LocalTime endTime,Facility facility, boolean isWithChild, String type){
+    public Schedule(Member member, String title, String content,LocalDate date,LocalTime startTime,LocalTime endTime,ArtGalleryEdu artGalleryEdu,KidsCafe kidsCafe,Library library,Park park,OutdoorFacility outdoorFacility, boolean isWithChild, String type){
         this.member = member;
         this.title = title;
         this.content = content;
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.facility = facility;
+        this.artGalleryEdu = artGalleryEdu;
+        this.kidsCafe = kidsCafe;
+        this.library = library;
+        this.outdoorFacility = outdoorFacility;
         this.isWithChild = isWithChild;
         this.type = type;
     }

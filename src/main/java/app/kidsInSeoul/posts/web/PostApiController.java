@@ -12,11 +12,14 @@ import app.kidsInSeoul.posts.web.dto.response.PostResponseDto;
 import app.kidsInSeoul.region.repository.Region;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.print.Pageable;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -54,10 +57,20 @@ public class PostApiController {
     }
 
     @GetMapping("/posts/region/{regionId}")
-    public ResponseEntity<List<PostResponseDto>> findByRegion (@PathVariable Long regionId) {
-        List<PostResponseDto> posts = postsService.findByRegion(regionId);
+    public ResponseEntity<List<PostResponseDto>> findByRegion (@PathVariable Long regionId, @RequestParam("size") int size) {
+        PageRequest pageRequest = PageRequest.of(0, size, Sort.by(Sort.Direction.DESC, "createdDate"));
+        List<PostResponseDto> posts = postsService.findByRegion(regionId,pageRequest);
         return ResponseEntity.status(HttpStatus.OK).body(posts);
     }
+
+    @GetMapping("/posts/region/like/{regionId}")
+    public ResponseEntity<List<PostResponseDto>> findByRegionByLiked (@PathVariable Long regionId, @RequestParam("size") int size) {
+        PageRequest pageRequest = PageRequest.of(0, size, Sort.by(Sort.Direction.DESC, "createdDate"));
+        List<PostResponseDto> posts = postsService.findByRegion(regionId,pageRequest);
+        return ResponseEntity.status(HttpStatus.OK).body(posts);
+    }
+
+
 
     @PostMapping("/posts/comment/write")
     public ResponseEntity<CommentResponseDto> saveComment(@RequestBody CommentSaveRequestDto requestDto, @AuthenticationPrincipal CustomUserDetails userDetails){
@@ -88,5 +101,12 @@ public class PostApiController {
         commentService.deleteCommentById(commentId,userDetails.getMember());
         return ResponseEntity.ok("댓글이 성공적으로 삭제되었습니다.");
     }
+
+    @PatchMapping("/posts/like/{postId}")
+    public ResponseEntity<String> likePosts(@PathVariable Long postId){
+        postsService.likePosts(postId);
+        return ResponseEntity.ok("좋아요 반영되었습니다.");
+    }
+
 
 }
