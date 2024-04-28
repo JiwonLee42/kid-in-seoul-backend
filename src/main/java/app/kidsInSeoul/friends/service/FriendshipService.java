@@ -2,22 +2,20 @@ package app.kidsInSeoul.friends.service;
 
 import app.kidsInSeoul.common.exception.CustomException;
 import app.kidsInSeoul.common.exception.ErrorCode;
-import app.kidsInSeoul.friends.dto.response.WaitingFriendListDto;
+import app.kidsInSeoul.friends.web.dto.response.FriendListDto;
+import app.kidsInSeoul.friends.web.dto.response.WaitingFriendListDto;
 import app.kidsInSeoul.friends.repository.Friendship;
 import app.kidsInSeoul.friends.repository.FriendshipRepository;
 import app.kidsInSeoul.member.repository.Member;
 import app.kidsInSeoul.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
+import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Transactional
 @RequiredArgsConstructor
 @Service
 public class FriendshipService {
@@ -26,6 +24,7 @@ public class FriendshipService {
     private final MemberRepository memberRepository;
 
 
+    @Transactional
     // 중복되는 친구 요청 검사
     public boolean validateDuplicateFriendship (String toUserId, Member fromUser) {
         List<Friendship> existFriendshipList = friendshipRepository.findByFriendUserId(fromUser.getUserId());
@@ -37,6 +36,7 @@ public class FriendshipService {
         return true;
     }
 
+    @Transactional
     // 친구 요청 보내는 메서드
     public void createFriendship(String toUserId, Member fromUser) throws Exception {
 
@@ -80,6 +80,7 @@ public class FriendshipService {
     }
 
 
+    @Transactional
     //받은 친구요청 중, 수락되지 않은 요청을 조회하는 메서드
     public List<WaitingFriendListDto> getWaitingFriendList(Member loginUser) throws Exception {
 
@@ -103,6 +104,7 @@ public class FriendshipService {
         return result;
     }
 
+    @Transactional
 
     public String approveFriendshipRequest(Long friendshipId) throws Exception {
         // 누를 친구 요청과 매칭되는 상대방 친구 요청 둘 다 가져옴
@@ -114,5 +116,26 @@ public class FriendshipService {
         counterFriendship.acceptFriendshipRequest();
 
         return "승인 성공";
+    }
+
+    @Transactional
+    // 친구목록 조회
+    public List<FriendListDto> getFriendList(Member member) {
+        List<Friendship> friendshipList = member.getFriendshipList();
+        List<FriendListDto> result = new ArrayList<>();
+
+        for (Friendship f : friendshipList) {
+            // 수락된 요청만 조회
+            if (f.getStatus().equals("ACCEPT")) {
+                Member friend = memberRepository.findByUserId(f.getFriendUserId()).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_MEMBER));
+                result.add(FriendListDto.builder()
+                                .id(friend.getId())
+                                .userId(friend.getUserId())
+                                .nickname(friend.getNickname())
+                        .build());
+            }
+        }
+
+        return result;
     }
 }
