@@ -31,6 +31,11 @@ public enum ErrorCode {
     PERMISSION_DENIED(HttpStatus.UNAUTHORIZED, "타인의 글은 수정 및 삭제할 수 없습니다"),
     NOT_FOUND_SEARCH_WORD(HttpStatus.NOT_FOUND,"해당 최근 검색어가 존재하지 않습니다."),
 
+    //친구 예외
+    NOT_FOUND_FRIENDSHIP(HttpStatus.NOT_FOUND,"해당 친구관계 정보가 존재하지 않습니다."),
+    EXIST_FRIENDSHIP(HttpStatus.CONFLICT, "이미 존재하는 친구요청입니다."),
+
+
     //sms 인증 예외
     SMS_CERTIFICATION_NUMBER_MISMATCH_EXCEPTION(HttpStatus.UNAUTHORIZED, "인증번호가 일치하지 않습니다."),
 
