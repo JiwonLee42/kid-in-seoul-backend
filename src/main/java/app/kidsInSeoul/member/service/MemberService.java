@@ -13,6 +13,7 @@ import app.kidsInSeoul.member.web.dto.response.MemberLoginResponseDto;
 import app.kidsInSeoul.member.web.dto.response.MemberResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -90,6 +91,15 @@ public class MemberService {
         if (memberRepository.existsByUserId(userId)) {
             throw new CustomException(ErrorCode.EXIST_USER_ID);
         }
+    }
+
+    // 해당 회원 ID 인 회원이 존재하는지 확인하는 메서드
+    public boolean isExistByUserId(String userId) {
+        if (memberRepository.existsByUserId(userId)) {
+            log.info("해당 회원이 존재합니다.");
+            return true;
+        }
+        return false;
     }
 
     public MemberResponse getMember(Long memberId) {

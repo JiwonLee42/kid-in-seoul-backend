@@ -76,6 +76,6 @@ public class WebSecurityConfig {
     }
 
     private static final String[] AUTH_WHITELIST = {
-            "/members/**", "/sms-certification/**"
+            "/members/**", "/sms-certification/**", "friendship/**"
     };
 }
