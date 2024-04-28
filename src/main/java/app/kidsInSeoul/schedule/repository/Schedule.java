@@ -22,7 +22,7 @@ public class Schedule {
     @Column(name = "schedule_id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
@@ -41,47 +41,27 @@ public class Schedule {
     @Column(nullable = false)
     private LocalTime endTime;
 
-    @Column(name = "is_withchild", columnDefinition = "false")
+    @Column(name = "is_withchild")
     private boolean isWithChild;
 
     @Column(nullable = false)
     private String type;
 
-    @ManyToOne
-    @JoinColumn(name ="kids_cafe_id", nullable = true)
-    private KidsCafe kidsCafe;
-
-    @ManyToOne
-    @JoinColumn(name = "library_id", nullable = true)
-    private Library library;
-
-    @ManyToOne
-    @JoinColumn(name = "park_id", nullable = true)
-    private Park park;
-
-    @ManyToOne
-    @JoinColumn(name = "art_gallery_edu_id", nullable = true)
-    private ArtGalleryEdu artGalleryEdu;
-
-    @ManyToOne
-    @JoinColumn(name = "outdoorfacility_id",nullable = true)
-    private OutdoorFacility outdoorFacility;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "facility_id", nullable = true)
+    private Facility facility;
 
 
 
     @Builder
-    public Schedule(Member member, String title, String content,LocalDate date,LocalTime startTime,LocalTime endTime,KidsCafe kidsCafe,Library library, Park park, ArtGalleryEdu artGalleryEdu,OutdoorFacility outdoorFacility, boolean isWithChild, String type){
+    public Schedule(Member member, String title, String content,LocalDate date,LocalTime startTime,LocalTime endTime,Facility facility, boolean isWithChild, String type){
         this.member = member;
         this.title = title;
         this.content = content;
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.kidsCafe = kidsCafe;
-        this.library = library;
-        this.park = park;
-        this.artGalleryEdu = artGalleryEdu;
-        this.outdoorFacility = outdoorFacility;
+        this.facility = facility;
         this.isWithChild = isWithChild;
         this.type = type;
     }

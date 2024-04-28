@@ -12,15 +12,15 @@ public class Region {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long region_id;
+    @Column(name = "region_id")
+    private Long id;
 
     @Column(name = "region_name", nullable = false)
     private String region_name;
 
     // 빌더 추가
     @Builder
-    public Region(Long region_id, String region_name) {
-        this.region_id = region_id;
+    public Region(String region_name) {
         this.region_name = region_name;
     }
 }

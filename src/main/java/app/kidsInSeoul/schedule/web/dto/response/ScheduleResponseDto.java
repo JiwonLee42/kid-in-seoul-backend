@@ -34,26 +34,9 @@ public class ScheduleResponseDto {
         this.startTime = schedule.getStartTime();
         this.endTime = schedule.getEndTime();
 
-        if(schedule.getKidsCafe()!=null){
-            this.facilityName = schedule.getKidsCafe().getName();
+        if(schedule.getFacility()!=null){
+            this.facilityName = schedule.getFacility().getName();
         }
-
-        if(schedule.getPark()!=null){
-            this.facilityName = schedule.getPark().getName();
-        }
-
-        if(schedule.getLibrary()!=null){
-            this.facilityName = schedule.getLibrary().getName();
-        }
-
-        if(schedule.getOutdoorFacility()!=null){
-            this.facilityName = schedule.getOutdoorFacility().getName();
-        }
-
-        if(schedule.getArtGalleryEdu()!=null){
-            this.facilityName = schedule.getArtGalleryEdu().getName();
-        }
-
 
     }
 

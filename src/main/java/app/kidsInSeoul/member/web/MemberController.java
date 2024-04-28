@@ -34,6 +34,7 @@ public class MemberController {
                 .email(member.getEmail())
                 .userId(member.getUserId())
                 .phoneNum(member.getPhoneNum())
+                .region_id(member.getRegion().getId())
                 .build();
 
         return ResponseEntity.status(HttpStatus.OK).body(memberSaveResponseDto);

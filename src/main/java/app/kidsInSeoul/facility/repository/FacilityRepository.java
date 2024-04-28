@@ -1,2 +1,6 @@
-package app.kidsInSeoul.facility.repository;public interface FacilityRepository {
+package app.kidsInSeoul.facility.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface FacilityRepository extends JpaRepository<Facility,Long> {
 }

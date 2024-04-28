@@ -20,13 +20,16 @@ public class Kindergarden {
     @Column(name = "kg_name")
     private String name;
 
+    @Column(name = "region_gu")
+    private String regionName;
+
     private String address;
 
     @Column(name = "phone_num")
     private String phoneNum;
 
     @ManyToOne
-    @JoinColumn(name = "region_id")
+    @JoinColumn(name = "region_id", nullable = true)
     Region region;
 
     private String feature;

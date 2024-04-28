@@ -36,10 +36,11 @@ dependencies {
 
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
-	implementation 'mysql:mysql-connector-java:8.0.35'
+	//implementation 'mysql:mysql-connector-java:8.0.35'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
-	runtimeOnly 'mysql:mysql-connector-java'
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	runtimeOnly 'com.mysql:mysql-connector-j'
 
 	// JUnit
 	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
