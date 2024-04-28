@@ -23,9 +23,21 @@ public class KindergardenController {
 
     KindergardenService kindergardenService;
 
-    @GetMapping("/view")
+    @GetMapping("/view-region")
     public ResponseEntity<List<KindergardenResponseDto>> findByRegionId(@AuthenticationPrincipal CustomUserDetails userDetails) {
         List<KindergardenResponseDto> kindergardens = kindergardenService.findByRegionId(userDetails.getMember().getRegion().getId());
+        return ResponseEntity.status(HttpStatus.OK).body(kindergardens);
+    }
+
+    @GetMapping("/view-region/night")
+    public ResponseEntity<List<KindergardenResponseDto>> findByRegionIdOpNight(@AuthenticationPrincipal CustomUserDetails userDetails) {
+        List<KindergardenResponseDto> kindergardens = kindergardenService.findNightOp(userDetails.getMember().getRegion().getId());
+        return ResponseEntity.status(HttpStatus.OK).body(kindergardens);
+    }
+
+    @GetMapping("/view-all")
+    public ResponseEntity<List<KindergardenResponseDto>> findAll() {
+        List<KindergardenResponseDto> kindergardens = kindergardenService.findAll();
         return ResponseEntity.status(HttpStatus.OK).body(kindergardens);
     }
 

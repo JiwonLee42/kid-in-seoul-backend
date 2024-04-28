@@ -14,8 +14,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Builder
 @Entity
-@DiscriminatorValue("art_gallery_edu")
-public class ArtGalleryEdu extends Facility {
+public class ArtGalleryEdu {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "art_gallery_edu_id")
     private Long id;
@@ -25,6 +24,8 @@ public class ArtGalleryEdu extends Facility {
     private LocalDate eduStart;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     private LocalDate eduEnd;
+
+    private String name;
     private LocalDate content;
     private String eduLimit;
     private String url;

@@ -22,6 +22,11 @@ public class PostResponseDto {
 
     private Long regionId;
 
+    private int likeNum;
+
+    private String authorName;
+
+    private String authorId;
 
     @Builder
     public PostResponseDto(Posts entity){
@@ -29,8 +34,11 @@ public class PostResponseDto {
         this.title = entity.getTitle();
         this.content = entity.getContent();
         this.memberId = entity.getMember().getId();
+        this.authorName = entity.getMember().getNickname();
+        this.authorId = entity.getMember().getUserId();
         this.created_at = entity.getCreatedDate();
         this.regionId = entity.getRegion().getId();
+        this.likeNum = entity.getLikeNum();
     }
 
 }

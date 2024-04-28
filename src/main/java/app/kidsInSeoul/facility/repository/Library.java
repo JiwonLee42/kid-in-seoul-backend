@@ -14,11 +14,13 @@ import java.math.BigDecimal;
 @Builder
 @Entity
 @DiscriminatorValue("library")
-public class Library extends Facility {
+public class Library {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "library_id")
     private Long id;
+
+    private String name;
     private String regionGu;
     private String street;
     private String phoneNum;

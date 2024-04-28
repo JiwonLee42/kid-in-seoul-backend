@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
@@ -37,6 +38,10 @@ public class Posts {
     @JoinColumn(name = "region_id")
     private Region region;
 
+    @Column(name = "like_num")
+    @ColumnDefault("0")
+    private int likeNum;
+
     @Builder
     public Posts(String title, String content, Member member, Region region) {
         this.title = title;
@@ -44,6 +49,7 @@ public class Posts {
         this.member = member;
         this.region = region;
     }
+
     public void update(String title, String content) {
         this.title = title;
         this.content = content;
