@@ -14,11 +14,11 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Builder
 @Entity
-public class ArtGalleryEdu {
+@DiscriminatorValue("art_gallery_edu")
+public class ArtGalleryEdu extends Facility {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "art_gallery_edu_id")
     private Long id;
-    private String name;
     private String target;
     private String eduSpot;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")

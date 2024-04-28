@@ -16,12 +16,13 @@ import java.time.LocalTime;
 @Entity
 public class Schedule {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "schedule_id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
@@ -40,48 +41,39 @@ public class Schedule {
     @Column(nullable = false)
     private LocalTime endTime;
 
-    @ManyToOne
-    @JoinColumn(name ="kids_cafe_id", nullable = true)
-    private KidsCafe kidsCafe;
+    @Column(name = "is_withchild")
+    private boolean isWithChild;
 
-    @ManyToOne
-    @JoinColumn(name = "library_id", nullable = true)
-    private Library library;
+    @Column(nullable = false)
+    private String type;
 
-    @ManyToOne
-    @JoinColumn(name = "park_id", nullable = true)
-    private Park park;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "facility_id", nullable = true)
+    private Facility facility;
 
-    @ManyToOne
-    @JoinColumn(name = "arteducation_id", nullable = true)
-    private ArtEducation artEducation;
-
-    @ManyToOne
-    @JoinColumn(name = "outdoorfacility_id",nullable = true)
-    private OutdoorFacility outdoorFacility;
 
 
     @Builder
-    public Schedule(Member member, String title, String content,LocalDate date,LocalTime startTime,LocalTime endTime,KidsCafe kidsCafe,Library library, Park park, ArtEducation artEducation,OutdoorFacility outdoorFacility){
+    public Schedule(Member member, String title, String content,LocalDate date,LocalTime startTime,LocalTime endTime,Facility facility, boolean isWithChild, String type){
         this.member = member;
         this.title = title;
         this.content = content;
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.kidsCafe = kidsCafe;
-        this.library = library;
-        this.park = park;
-        this.artEducation = artEducation;
-        this.outdoorFacility = outdoorFacility;
+        this.facility = facility;
+        this.isWithChild = isWithChild;
+        this.type = type;
     }
 
-    public void update(String title,String content, LocalDate date, LocalTime startTime, LocalTime endTime){
+    public void update(String title,String content, LocalDate date, LocalTime startTime, LocalTime endTime, boolean isWithChild, String type){
         this.title = title;
         this.content = content;
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.isWithChild = isWithChild;
+        this.type = type;
     }
 
 }

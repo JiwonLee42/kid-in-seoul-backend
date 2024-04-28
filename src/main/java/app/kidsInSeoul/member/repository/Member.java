@@ -30,7 +30,7 @@ public class Member {
     private String phoneNum;
     private String email;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "region_id")
     private Region region;
 

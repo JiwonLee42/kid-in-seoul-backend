@@ -31,7 +31,7 @@ public class KindergardenSaveRequestDto {
     public KindergardenSaveRequestDto(Region region,String name, String address, String feature, String type, String faxNum,String postNum,String phoneNum){
         this.name = name;
         this.address = address;
-        this.regionId = region.getRegion_id();
+        this.regionId = region.getId();
         this.feature = feature;
         this.type = type;
         this.faxNum = faxNum;

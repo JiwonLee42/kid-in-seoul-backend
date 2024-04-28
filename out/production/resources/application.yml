@@ -1,20 +1,21 @@
 spring:
   datasource:
-    url: jdbc:mysql://kis-db-instance.czaqk6wqaxh8.ap-northeast-2.rds.amazonaws.com:3306/kids_in_seoul?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    url: jdbc:mysql://kis-db.c9eigs2o4tct.ap-northeast-2.rds.amazonaws.com:3306/kis_db?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: admin
-    password: kidsinseoul0309
+    password: kidsinseoul0510
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
+    generate-ddl: false
     hibernate:
       ddl-auto: update
     properties:
       hibernate:
-        #        show_sql: true
+        globally_quoted_identifiers: false
+        show_sql: true
         format_sql: true
-        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-        #default_batch_fetch_size: 100
-
+        dialect: org.hibernate.dialect.MySQLDialect
+        default_batch_fetch_size: 100
 jwt:
   secret: d913973a67d478ef73ba715f3193bbd58179b160b2bcf744061a1e802c5ea11cb661bfbe61a7af987090b49972c3144604c594a4e93bd7394d043379685e1a3c
   secret_refresh: 1bc76915039947696df7c21439c5995cbd7e7d10559613d4c13c44cb05d9f2b176e7c8e7da6f972de6b269442e41f29f2316e84bf515fe5fed8396790838658a

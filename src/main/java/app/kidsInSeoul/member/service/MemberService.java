@@ -11,12 +11,16 @@ import app.kidsInSeoul.member.web.dto.request.MemberLoginRequestDto;
 import app.kidsInSeoul.member.web.dto.request.MemberSaveRequestDto;
 import app.kidsInSeoul.member.web.dto.response.MemberLoginResponseDto;
 import app.kidsInSeoul.member.web.dto.response.MemberResponse;
+import app.kidsInSeoul.region.repository.Region;
+import app.kidsInSeoul.region.repository.RegionRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Collections;
 
@@ -29,6 +33,8 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
     private final JwtService jwtService;
+
+    private final RegionRepository regionRepository;
     private final RedisTemplate redisTemplate;
 
 
@@ -39,6 +45,9 @@ public class MemberService {
         checkDuplicatedMemberEmail(dto.getEmail());
         checkDuplicateMemberNickname(dto.getNickname());
 
+        Region region = regionRepository.findById(dto.getRegionId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 지역이 없습니다."));
+
         Member member = Member.builder()
                 .userId(dto.getUserId())
                 .name(dto.getName())
@@ -47,6 +56,7 @@ public class MemberService {
                 .phoneNum(dto.getPhoneNum())
                 .password(passwordEncoder.encode(dto.getPassword()))
                 .roles(Collections.singletonList("ROLE_USER"))
+                .region(region)
                 .build();
 
         memberRepository.save(member);

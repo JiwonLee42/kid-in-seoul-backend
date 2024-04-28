@@ -13,17 +13,18 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RequiredArgsConstructor
-@RestController("/schedule")
+@RequestMapping("/schedule")
+@RestController
 public class ScheduleApiController {
 
-    ScheduleService scheduleService;
+    private final ScheduleService scheduleService;
 
 
     // 스케줄 등록
     @PostMapping("/add")
     public ResponseEntity<Long> save(@RequestBody ScheduleSaveRequestDto requestDto, @AuthenticationPrincipal CustomUserDetails userDetails) {
         Long scheduleId = scheduleService.save(requestDto, userDetails.getMember());
-        return ResponseEntity.status(HttpStatus.CREATED).body(scheduleId);
+        return ResponseEntity.status(HttpStatus.OK).body(scheduleId);
     }
 
 
@@ -43,16 +44,18 @@ public class ScheduleApiController {
 
 
     // 스케줄 삭제
-    @DeleteMapping("/delete/{schedule_id}")
+    @DeleteMapping("/delete/{scheduleId}")
     public ResponseEntity<String> deleteById(@PathVariable Long scheduleId, @AuthenticationPrincipal CustomUserDetails userDetails){
         scheduleService.deleteById(scheduleId,userDetails.getMember());
+        System.out.println(userDetails.getMember().getUserId());
         return ResponseEntity.ok("스케줄이 성공적으로 삭제되었습니다.");
     }
 
     // 스케줄 수정
-    @PutMapping("/edit/{schedule_id}")
+    @PutMapping("/edit/{scheduleId}")
     public ResponseEntity<String> edit(@PathVariable Long scheduleId, @RequestBody ScheduleUpdateRequestDto requestDto, @AuthenticationPrincipal CustomUserDetails userDetails){
         scheduleService.update(scheduleId,requestDto,userDetails.getMember());
+        System.out.println("업데이트: " + requestDto.toString());
         return ResponseEntity.ok("스케줄이 성공적으로 수정되었습니다.");
     }
 

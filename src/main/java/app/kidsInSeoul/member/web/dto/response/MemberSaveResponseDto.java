@@ -15,4 +15,6 @@ public class MemberSaveResponseDto {
     private String userId;
     private String email;
     private String phoneNum;
+
+    private Long region_id;
 }

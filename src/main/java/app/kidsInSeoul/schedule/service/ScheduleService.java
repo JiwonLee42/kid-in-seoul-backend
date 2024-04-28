@@ -1,5 +1,4 @@
 package app.kidsInSeoul.schedule.service;
-
 import app.kidsInSeoul.facility.repository.*;
 import app.kidsInSeoul.member.repository.Member;
 import app.kidsInSeoul.schedule.repository.Schedule;
@@ -21,43 +20,24 @@ public class ScheduleService {
 
     private final ScheduleRepository scheduleRepository;
 
-    private KidsCafeRepository kidsCafeRepository;
+    private final KidsCafeRepository kidsCafeRepository;
 
-    private OutdoorFacilityRepository outdoorFacilityRepository;
+    private final OutdoorFacilityRepository outdoorFacilityRepository;
 
-    private ParkRepository parkRepository;
+    private final ParkRepository parkRepository;
 
-    private LibraryRepository libraryRepository;
+    private final LibraryRepository libraryRepository;
 
 
     @Transactional
     public Long save(ScheduleSaveRequestDto requestDto, Member member){
-        KidsCafe kidsCafe = null;
-        Library library = null;
-        OutdoorFacility outdoorFacility = null;
-        Park park = null;
-
-        if (requestDto.getKidscafeId() != null) {
-            kidsCafe = kidsCafeRepository.findById(requestDto.getKidscafeId())
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 키즈카페가 없습니다."));
+        Facility facility = null;
+        if (requestDto.getFacilityId() != null) {
+            facility = kidsCafeRepository.findById(requestDto.getFacilityId())
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 시설이 없습니다."));
         }
 
-        if (requestDto.getLibraryId() != null) {
-            library = libraryRepository.findById(requestDto.getLibraryId())
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 도서관이 없습니다."));
-        }
-
-        if (requestDto.getOutdoorId() != null) {
-            outdoorFacility = outdoorFacilityRepository.findById(requestDto.getOutdoorId())
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 야외시설이 없습니다."));
-        }
-
-        if (requestDto.getParkId() != null) {
-            park = parkRepository.findById(requestDto.getParkId())
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 공원이 없습니다."));
-        }
-
-        return scheduleRepository.save(requestDto.toEntity(member, kidsCafe, library, park, outdoorFacility)).getId();
+        return scheduleRepository.save(requestDto.toEntity(member, facility)).getId();
 
     }
 
@@ -78,8 +58,8 @@ public class ScheduleService {
     public void deleteById(Long id,Member currentUser) {
         Schedule schedule = scheduleRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 스케줄이 없습니다. id=" + id));
-        if(!schedule.getMember().equals(currentUser)) {
-            throw  new ResponseStatusException(HttpStatus.FORBIDDEN,"스케줄 작성자가 아닙니다.");
+        if(!schedule.getMember().getId().equals(currentUser.getId())) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN,"스케줄 작성자가 아닙니다.");
         }
         scheduleRepository.deleteById(id);
     }
@@ -87,10 +67,10 @@ public class ScheduleService {
     @Transactional
     public void update(Long id, ScheduleUpdateRequestDto requestDto,Member currentUser) {
         Schedule schedule = scheduleRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 스케줄이 없습니다. id = " + id));
-        if(!schedule.getMember().equals(currentUser)) {
-            throw  new ResponseStatusException(HttpStatus.FORBIDDEN,"스케줄 작성자가 아닙니다.");
+        if(!schedule.getMember().getId().equals(currentUser.getId())) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN,"스케줄 작성자가 아닙니다.");
         }
-        schedule.update(requestDto.getTitle(),requestDto.getContent(),requestDto.getDate(),requestDto.getStartTime(),requestDto.getEndTime());
+        schedule.update(requestDto.getTitle(),requestDto.getContent(),requestDto.getDate(),requestDto.getStartTime(),requestDto.getEndTime(), requestDto.isWithChild(),requestDto.getType());
     }
 
 

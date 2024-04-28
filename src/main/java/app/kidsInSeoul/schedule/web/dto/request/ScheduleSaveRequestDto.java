@@ -1,8 +1,5 @@
 package app.kidsInSeoul.schedule.web.dto.request;
-import app.kidsInSeoul.facility.repository.KidsCafe;
-import app.kidsInSeoul.facility.repository.Library;
-import app.kidsInSeoul.facility.repository.OutdoorFacility;
-import app.kidsInSeoul.facility.repository.Park;
+import app.kidsInSeoul.facility.repository.*;
 import app.kidsInSeoul.member.repository.Member;
 import app.kidsInSeoul.schedule.repository.Schedule;
 import lombok.Builder;
@@ -24,28 +21,26 @@ public class ScheduleSaveRequestDto {
     private LocalTime endTime;
     private Member member;
 
-    private Long kidscafeId;
+    private boolean isWithChild;
 
-    private Long libraryId;
+    private String type;
 
-    private Long parkId;
-    private Long outdoorId;
+    private Long facilityId;
 
     @Builder
-    public ScheduleSaveRequestDto(String title, String content, LocalDate date, LocalTime startTime, LocalTime endTime, Member member,Long kidscafeId,Long outdoorId,Long libraryId, Long parkId){
+    public ScheduleSaveRequestDto(String title, String content, LocalDate date, LocalTime startTime, LocalTime endTime, boolean isWithChild,Member member,Long facilityId,String type){
         this.title = title;
         this.content = content;
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
         this.member = member;
-        this.kidscafeId = kidscafeId;
-        this.libraryId = libraryId;
-        this.outdoorId = outdoorId;
-        this.parkId = parkId;
+        this.isWithChild = isWithChild;
+        this.facilityId = facilityId;
+        this.type = type;
     }
 
-    public Schedule toEntity(Member member, KidsCafe kidsCafe, Library library, Park park, OutdoorFacility outdoorFacility) {
+    public Schedule toEntity(Member member, Facility facility) {
         return Schedule.builder()
                 .title(title)
                 .content(content)
@@ -53,10 +48,9 @@ public class ScheduleSaveRequestDto {
                 .startTime(startTime)
                 .endTime(endTime)
                 .member(member)
-                .kidsCafe(kidsCafe)
-                .library(library)
-                .park(park)
-                .outdoorFacility(outdoorFacility)
+                .facility(facility)
+                .isWithChild(isWithChild)
+                .type(type)
                 .build();
     }
 
