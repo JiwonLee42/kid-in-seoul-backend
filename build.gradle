@@ -42,7 +42,13 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 
-	// JUnit
+	//cool sms
+	implementation 'net.nurigo:sdk:4.3.0'
+	//Redis
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
+	//junit
+
 	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
 	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 }
