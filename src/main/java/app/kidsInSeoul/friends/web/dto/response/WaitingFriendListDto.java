@@ -1,4 +1,4 @@
-package app.kidsInSeoul.friends.dto.response;
+package app.kidsInSeoul.friends.web.dto.response;
 
 import lombok.*;
 
