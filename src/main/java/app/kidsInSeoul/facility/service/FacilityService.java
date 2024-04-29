@@ -3,14 +3,12 @@ package app.kidsInSeoul.facility.service;
 import app.kidsInSeoul.common.exception.CustomException;
 import app.kidsInSeoul.common.exception.ErrorCode;
 import app.kidsInSeoul.facility.repository.*;
+import app.kidsInSeoul.facility.web.FacilityController;
 import app.kidsInSeoul.facility.web.dto.response.*;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,33 +18,28 @@ import java.util.stream.Collectors;
 @Service
 public class FacilityService {
 
-    private final ArtGalleryEduRepository artGalleryEduRepository;
+    private final ArtGalleryRepository artGalleryRepository;
     private final KidsCafeRepository kidsCafeRepository;
     private final LibraryRepository libraryRepository;
     private final OutdoorFacilityRepository outdoorFacilityRepository;
     private final ParkRepository parkRepository;
 
-    public List<ArtGalleryEduResponseDto> getArtGalleryEduList() {
-        List<ArtGalleryEdu> findAll = artGalleryEduRepository.findAll();
-        return findAll.stream().map(ArtGalleryEduResponseDto::new).collect(Collectors.toList());
+    public List<ArtGalleryResponseDto> getArtGalleryList() {
+        List<ArtGallery> findAll = artGalleryRepository.findAll();
+        return findAll.stream().map(ArtGalleryResponseDto::new).collect(Collectors.toList());
     }
 
-    public ArtGalleryEduResponseDto getArtGalleryEdu(Long artGalleryEduId) {
-        ArtGalleryEdu artGalleryEdu = artGalleryEduRepository.findById(artGalleryEduId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_FACILITY));
+    public ArtGalleryResponseDto getArtGallery(Long artGalleryEduId) {
+        ArtGallery artGalleryEdu = artGalleryRepository.findById(artGalleryEduId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_FACILITY));
 
-        return ArtGalleryEduResponseDto.builder()
+        return ArtGalleryResponseDto.builder()
                 .id(artGalleryEdu.getId())
                 .name(artGalleryEdu.getName())
-                .target(artGalleryEdu.getTarget())
-                .eduSpot(artGalleryEdu.getEduSpot())
-                .eduStart(artGalleryEdu.getEduStart())
-                .eduEnd(artGalleryEdu.getEduEnd())
-                .content(artGalleryEdu.getContent())
-                .eduLimit(artGalleryEdu.getEduLimit())
                 .url(artGalleryEdu.getUrl())
-                .eduFee(artGalleryEdu.getEduFee())
-                .recruitStart(artGalleryEdu.getRecruitStart())
-                .recruitEnd(artGalleryEdu.getRecruitEnd())
+                .phoneNum(artGalleryEdu.getPhoneNum())
+                .address(artGalleryEdu.getAddress())
+                .adultFee(artGalleryEdu.getAdultFee())
+                .childFee(artGalleryEdu.getChildFee())
                 .build();
 
     }
@@ -141,5 +134,57 @@ public class FacilityService {
                 .mainCategory(park.getMainCategory())
                 .callNumber(park.getCallNumber())
                 .build();
+    }
+
+    public List<FacilityResponseDto> getAllFacilities() {
+
+        List<ArtGallery> findArtGalleries = artGalleryRepository.findAll();
+        List<KidsCafe> findKidsCafes = kidsCafeRepository.findAll();
+        List<Library> findLibraries = libraryRepository.findAll();
+        List<OutdoorFacility> findOutdoorFacilities = outdoorFacilityRepository.findAll();
+        List<Park> findParks = parkRepository.findAll();
+
+        List<FacilityResponseDto> result = new ArrayList<>();
+        for (ArtGallery o: findArtGalleries) {
+            result.add(FacilityResponseDto.builder()
+                    .id(o.getId())
+                    .name(o.getName())
+                    .type("ART_GALLERY")
+                    .build());
+        }
+
+        for (KidsCafe o: findKidsCafes) {
+            result.add(FacilityResponseDto.builder()
+                    .id(o.getId())
+                    .name(o.getName())
+                    .type("KIDS_CAFE")
+                    .build());
+        }
+
+        for (Library o: findLibraries) {
+            result.add(FacilityResponseDto.builder()
+                    .id(o.getId())
+                    .name(o.getName())
+                    .type("LIBRARY")
+                    .build());
+        }
+
+        for (OutdoorFacility o: findOutdoorFacilities) {
+            result.add(FacilityResponseDto.builder()
+                    .id(o.getId())
+                    .name(o.getName())
+                    .type("OUTDOOR")
+                    .build());
+        }
+
+        for (Park o: findParks) {
+            result.add(FacilityResponseDto.builder()
+                    .id(o.getId())
+                    .name(o.getName())
+                    .type("PARK")
+                    .build());
+        }
+
+        return result;
     }
 }

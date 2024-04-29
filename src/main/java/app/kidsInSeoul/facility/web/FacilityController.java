@@ -1,18 +1,13 @@
 package app.kidsInSeoul.facility.web;
 
-import app.kidsInSeoul.facility.repository.ArtGalleryEdu;
-import app.kidsInSeoul.facility.repository.Library;
-import app.kidsInSeoul.facility.repository.OutdoorFacility;
 import app.kidsInSeoul.facility.service.FacilityService;
 import app.kidsInSeoul.facility.web.dto.response.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -25,13 +20,13 @@ public class FacilityController {
     private final FacilityService facilityService;
 
     @GetMapping("/art-gallery-edu/list")
-    public ResponseEntity<List<ArtGalleryEduResponseDto>> getArtGalleryEdu() {
-        return ResponseEntity.status(HttpStatus.OK).body(facilityService.getArtGalleryEduList());
+    public ResponseEntity<List<ArtGalleryResponseDto>> getArtGalleryEdu() {
+        return ResponseEntity.status(HttpStatus.OK).body(facilityService.getArtGalleryList());
     }
 
     @GetMapping("/art-gallery-edu/{artGalleryEduId}")
-    public ResponseEntity<ArtGalleryEduResponseDto> getArtGalleryEdu(@PathVariable Long artGalleryEduId) {
-        return ResponseEntity.status(HttpStatus.OK).body(facilityService.getArtGalleryEdu(artGalleryEduId));
+    public ResponseEntity<ArtGalleryResponseDto> getArtGalleryEdu(@PathVariable Long artGalleryEduId) {
+        return ResponseEntity.status(HttpStatus.OK).body(facilityService.getArtGallery(artGalleryEduId));
     }
 
     @GetMapping("/kids-cafe/list")
@@ -72,6 +67,10 @@ public class FacilityController {
     @GetMapping("/park/{parkId}")
     public ResponseEntity<ParkResponseDto> getPark(@PathVariable Long parkId) {
         return ResponseEntity.status(HttpStatus.OK).body(facilityService.getPark(parkId));
+    }
+    @GetMapping("/all")
+    public ResponseEntity<List<FacilityResponseDto>> getAllFacilities() {
+        return ResponseEntity.status(HttpStatus.OK).body(facilityService.getAllFacilities());
     }
 
 }

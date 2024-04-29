@@ -1,5 +1,6 @@
 package app.kidsInSeoul.member.repository;
 
+import app.kidsInSeoul.friends.repository.Friendship;
 import app.kidsInSeoul.region.repository.Region;
 import jakarta.persistence.*;
 import lombok.*;
@@ -33,6 +34,9 @@ public class Member {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "region_id")
     private Region region;
+
+    @OneToMany(mappedBy = "member", fetch = FetchType.EAGER)
+    private List<Friendship> friendshipList = new ArrayList<>();
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default

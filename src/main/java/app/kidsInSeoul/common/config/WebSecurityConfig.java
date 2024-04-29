@@ -47,6 +47,7 @@ public class WebSecurityConfig {
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(AUTH_WHITELIST).permitAll()
+                        .requestMatchers( "/","/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers( "/","/swagger-ui/**", "/v3/api-docs/**").permitAll()
                 .anyRequest().authenticated()); // 그외 나머지 요청은 인증 필요
@@ -79,7 +80,6 @@ public class WebSecurityConfig {
     }
 
     private static final String[] AUTH_WHITELIST = {
-            "/members/**",
             "/schedule/**",
             "/posts/**",
             "/kindergarden/**",
