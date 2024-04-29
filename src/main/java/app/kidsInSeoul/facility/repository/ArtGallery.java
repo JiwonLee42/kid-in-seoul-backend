@@ -20,7 +20,7 @@ public class ArtGallery {
     private Long id;
     private String name;
     private String address;
-    private String eduSpot;
+    private String phoneNum;
     private String url;
     private int adultFee;
     private int childFee;
