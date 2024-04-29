@@ -59,6 +59,20 @@ public class ScheduleApiController {
         return ResponseEntity.ok("스케줄이 성공적으로 수정되었습니다.");
     }
 
+    // ======= 친구 스케줄 조회 =======
+    // 월별 스케줄 조회
+    @GetMapping("/friend/view-month")
+    public ResponseEntity<List<ScheduleResponseDto>> findFriendsScheduleByMonth(@RequestParam int year, @RequestParam int month, @AuthenticationPrincipal CustomUserDetails userDetails) {
+        List<ScheduleResponseDto> responseDto = scheduleService.findByMonth(year,month,userDetails.getMember());
+        return ResponseEntity.status(HttpStatus.OK).body(responseDto);
+    }
+
+    // 일별 스케줄 조회
+    @GetMapping("/friend/view-day")
+    public ResponseEntity<List<ScheduleResponseDto>> findFriendsScheduleByDay(@RequestParam int year, @RequestParam int month,@RequestParam int day, @AuthenticationPrincipal CustomUserDetails userDetails) {
+        List<ScheduleResponseDto> responseDto = scheduleService.findByDay(year,month,day,userDetails.getMember());
+        return ResponseEntity.status(HttpStatus.OK).body(responseDto);
+    }
 
 
 }
