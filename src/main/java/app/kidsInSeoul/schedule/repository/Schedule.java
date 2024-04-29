@@ -65,19 +65,18 @@ public class Schedule {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "art_gallery_id", nullable = true)
-    private ArtGalleryEdu artGalleryEdu;
-
+    private ArtGallery artGallery;
 
 
     @Builder
-    public Schedule(Member member, String title, String content,LocalDate date,LocalTime startTime,LocalTime endTime,ArtGalleryEdu artGalleryEdu,KidsCafe kidsCafe,Library library,Park park,OutdoorFacility outdoorFacility, boolean isWithChild, String type){
+    public Schedule(Member member, String title, String content,LocalDate date,LocalTime startTime,LocalTime endTime,ArtGallery artGallery,KidsCafe kidsCafe,Library library,Park park,OutdoorFacility outdoorFacility, boolean isWithChild, String type){
         this.member = member;
         this.title = title;
         this.content = content;
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.artGalleryEdu = artGalleryEdu;
+        this.artGallery = artGallery;
         this.kidsCafe = kidsCafe;
         this.library = library;
         this.outdoorFacility = outdoorFacility;
