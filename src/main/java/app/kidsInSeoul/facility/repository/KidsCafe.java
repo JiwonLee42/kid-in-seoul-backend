@@ -11,10 +11,12 @@ import java.math.BigDecimal;
 @Builder
 @Entity
 @DiscriminatorValue("kidscafe")
-public class KidsCafe extends Facility {
+public class KidsCafe  {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "kids_cafe_id")
     private Long id;
+
+    private String name;
     private String regionGu; // 자치구명
     private String regionDong; // 행정동명
     private BigDecimal latitude; // 위도

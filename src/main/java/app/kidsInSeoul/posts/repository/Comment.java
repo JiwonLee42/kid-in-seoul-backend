@@ -41,6 +41,7 @@ public class Comment {
     @CreatedDate
     private LocalDateTime createdDate = LocalDateTime.now();
 
+
     @Builder
     public Comment(Posts post, Comment parentComment, List<Comment> childComments, Member member, Boolean is_recomment, String content) {
         this.post = post;

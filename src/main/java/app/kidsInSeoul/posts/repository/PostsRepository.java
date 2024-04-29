@@ -1,14 +1,20 @@
 package app.kidsInSeoul.posts.repository;
 
 import io.lettuce.core.dynamic.annotation.Param;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import java.util.List;
-import java.util.Optional;
+public interface PostsRepository extends JpaRepository<Posts,Long>  {
 
-public interface PostsRepository extends JpaRepository<Posts,Long> {
+    @Query("select u from Posts u where u.region.id = :regionId order by u.createdDate")
+    Page<Posts> findByRegionId(@Param("regionId") Long regionId, Pageable pageable);
 
-    @Query("select u from Posts u where u.region.id = :regionId")
-    Optional<List<Posts>> findByRegionId(@Param("regionId") Long regionId);
+    @Query("select u from Posts u where u.region.id = :regionId order by u.likeNum")
+    Page<Posts> findByRegionIdMostLiked(@Param("regionId") Long regionId, Pageable pageable);
 
+    @Modifying
+    @Query("UPDATE Posts p SET p.likeNum = p.likeNum + 1 WHERE p.id = :postId")
+    int incrementLikes(@Param("postId") Long postId);
 }

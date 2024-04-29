@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Entity
 @DiscriminatorValue("park")
-public class Park extends Facility{
+public class Park {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

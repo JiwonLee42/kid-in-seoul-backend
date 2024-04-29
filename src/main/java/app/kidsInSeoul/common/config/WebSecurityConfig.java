@@ -49,7 +49,9 @@ public class WebSecurityConfig {
                         .requestMatchers(AUTH_WHITELIST).permitAll()
                         .requestMatchers( "/","/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers( "/","/swagger-ui/**", "/v3/api-docs/**").permitAll()
                 .anyRequest().authenticated()); // 그외 나머지 요청은 인증 필요
+
 
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         // JwtAuthenticationFilter를 UsernamePasswordAuthenticationFilter 전에 실행
@@ -73,6 +75,7 @@ public class WebSecurityConfig {
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
+
         return source;
     }
 
@@ -80,7 +83,6 @@ public class WebSecurityConfig {
             "/schedule/**",
             "/posts/**",
             "/kindergarden/**",
-            "/members/**", "/sms-certification/**", "friendship/**",
             "/swagger-ui/**"
     };
 }

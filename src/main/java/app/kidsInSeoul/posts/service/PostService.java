@@ -11,6 +11,8 @@ import app.kidsInSeoul.region.repository.RegionRepository;
 import io.micrometer.common.util.StringUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -66,10 +68,26 @@ public class PostService {
 
 
     @Transactional(readOnly = true)
-    public List<PostResponseDto> findByRegion(Long regionId){
-        List<Posts> posts = postsRepository.findByRegionId(regionId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 지역이 없습니다. id=" + regionId));
-        return posts.stream().map(b -> new PostResponseDto(b)).collect(Collectors.toList());
+    public List<PostResponseDto> findByRegion(Long regionId, Pageable pageable){
+        Page<Posts> posts = postsRepository.findByRegionId(regionId,pageable);
+        return posts.getContent().stream()
+                .map(PostResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<PostResponseDto> findByRegionByLiked(Long regionId, Pageable pageable){
+        Page<Posts> posts = postsRepository.findByRegionIdMostLiked(regionId,pageable);
+        return posts.getContent().stream()
+                .map(PostResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public int likePosts(Long postId){
+        Posts posts = postsRepository.findById(postId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 게시글이 없습니다. id=" + postId));
+        return postsRepository.incrementLikes(postId);
     }
 
 

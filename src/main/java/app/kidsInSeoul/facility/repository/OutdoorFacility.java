@@ -14,11 +14,13 @@ import java.math.BigDecimal;
 @Builder
 @Entity
 @DiscriminatorValue("outdoor_facility")
-public class OutdoorFacility extends Facility {
+public class OutdoorFacility  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "outdoor_facility_id")
     private Long id;
+
+    private String name;
     private String regionGu; // 자치구명
     private String ageClassification; // 연령구분
     private BigDecimal latitude; // 위도
