@@ -3,11 +3,13 @@ package app.kidsInSeoul.facility.service;
 import app.kidsInSeoul.common.exception.CustomException;
 import app.kidsInSeoul.common.exception.ErrorCode;
 import app.kidsInSeoul.facility.repository.*;
+import app.kidsInSeoul.facility.web.FacilityController;
 import app.kidsInSeoul.facility.web.dto.response.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,26 +18,26 @@ import java.util.stream.Collectors;
 @Service
 public class FacilityService {
 
-    private final ArtGalleryRepository artGalleryEduRepository;
+    private final ArtGalleryRepository artGalleryRepository;
     private final KidsCafeRepository kidsCafeRepository;
     private final LibraryRepository libraryRepository;
     private final OutdoorFacilityRepository outdoorFacilityRepository;
     private final ParkRepository parkRepository;
 
-    public List<ArtGalleryResponseDto> getArtGalleryEduList() {
-        List<ArtGallery> findAll = artGalleryEduRepository.findAll();
+    public List<ArtGalleryResponseDto> getArtGalleryList() {
+        List<ArtGallery> findAll = artGalleryRepository.findAll();
         return findAll.stream().map(ArtGalleryResponseDto::new).collect(Collectors.toList());
     }
 
-    public ArtGalleryResponseDto getArtGalleryEdu(Long artGalleryEduId) {
-        ArtGallery artGalleryEdu = artGalleryEduRepository.findById(artGalleryEduId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_FACILITY));
+    public ArtGalleryResponseDto getArtGallery(Long artGalleryEduId) {
+        ArtGallery artGalleryEdu = artGalleryRepository.findById(artGalleryEduId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_FACILITY));
 
         return ArtGalleryResponseDto.builder()
                 .id(artGalleryEdu.getId())
                 .name(artGalleryEdu.getName())
+                .url(artGalleryEdu.getUrl())
                 .eduSpot(artGalleryEdu.getEduSpot())
                 .address(artGalleryEdu.getAddress())
-                .url(artGalleryEdu.getUrl())
                 .adultFee(artGalleryEdu.getAdultFee())
                 .childFee(artGalleryEdu.getChildFee())
                 .build();
@@ -132,5 +134,57 @@ public class FacilityService {
                 .mainCategory(park.getMainCategory())
                 .callNumber(park.getCallNumber())
                 .build();
+    }
+
+    public List<FacilityResponseDto> getAllFacilities() {
+
+        List<ArtGallery> findArtGalleries = artGalleryRepository.findAll();
+        List<KidsCafe> findKidsCafes = kidsCafeRepository.findAll();
+        List<Library> findLibraries = libraryRepository.findAll();
+        List<OutdoorFacility> findOutdoorFacilities = outdoorFacilityRepository.findAll();
+        List<Park> findParks = parkRepository.findAll();
+
+        List<FacilityResponseDto> result = new ArrayList<>();
+        for (ArtGallery o: findArtGalleries) {
+            result.add(FacilityResponseDto.builder()
+                    .id(o.getId())
+                    .name(o.getName())
+                    .type("ART_GALLERY")
+                    .build());
+        }
+
+        for (KidsCafe o: findKidsCafes) {
+            result.add(FacilityResponseDto.builder()
+                    .id(o.getId())
+                    .name(o.getName())
+                    .type("KIDS_CAFE")
+                    .build());
+        }
+
+        for (Library o: findLibraries) {
+            result.add(FacilityResponseDto.builder()
+                    .id(o.getId())
+                    .name(o.getName())
+                    .type("LIBRARY")
+                    .build());
+        }
+
+        for (OutdoorFacility o: findOutdoorFacilities) {
+            result.add(FacilityResponseDto.builder()
+                    .id(o.getId())
+                    .name(o.getName())
+                    .type("OUTDOOR")
+                    .build());
+        }
+
+        for (Park o: findParks) {
+            result.add(FacilityResponseDto.builder()
+                    .id(o.getId())
+                    .name(o.getName())
+                    .type("PARK")
+                    .build());
+        }
+
+        return result;
     }
 }
