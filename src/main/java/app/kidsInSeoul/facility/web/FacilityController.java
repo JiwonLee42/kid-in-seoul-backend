@@ -21,12 +21,12 @@ public class FacilityController {
 
     @GetMapping("/art-gallery-edu/list")
     public ResponseEntity<List<ArtGalleryResponseDto>> getArtGalleryEdu() {
-        return ResponseEntity.status(HttpStatus.OK).body(facilityService.getArtGalleryEduList());
+        return ResponseEntity.status(HttpStatus.OK).body(facilityService.getArtGalleryList());
     }
 
     @GetMapping("/art-gallery-edu/{artGalleryEduId}")
     public ResponseEntity<ArtGalleryResponseDto> getArtGalleryEdu(@PathVariable Long artGalleryEduId) {
-        return ResponseEntity.status(HttpStatus.OK).body(facilityService.getArtGalleryEdu(artGalleryEduId));
+        return ResponseEntity.status(HttpStatus.OK).body(facilityService.getArtGallery(artGalleryEduId));
     }
 
     @GetMapping("/kids-cafe/list")
@@ -67,6 +67,10 @@ public class FacilityController {
     @GetMapping("/park/{parkId}")
     public ResponseEntity<ParkResponseDto> getPark(@PathVariable Long parkId) {
         return ResponseEntity.status(HttpStatus.OK).body(facilityService.getPark(parkId));
+    }
+    @GetMapping("/all")
+    public ResponseEntity<List<FacilityResponseDto>> getAllFacilities() {
+        return ResponseEntity.status(HttpStatus.OK).body(facilityService.getAllFacilities());
     }
 
 }
