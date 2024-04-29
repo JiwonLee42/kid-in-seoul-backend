@@ -41,11 +41,11 @@ public class MemberController {
     }
 
     // 휴대폰 인증
-    @PostMapping("/verify-phone")
-    public ResponseEntity verifyPhone(@RequestBody MemberPhoneVerifyRequestDto memberPhoneVerifyRequestDto) {
-
-        return (ResponseEntity) ResponseEntity.status(HttpStatus.OK);
-    }
+//    @PostMapping("/verify-phone")
+//    public ResponseEntity verifyPhone(@RequestBody MemberPhoneVerifyRequestDto memberPhoneVerifyRequestDto) {
+//
+//        return (ResponseEntity) ResponseEntity.status(HttpStatus.OK);
+//    }
 
     // 로그인
     @PostMapping("/members/login")
