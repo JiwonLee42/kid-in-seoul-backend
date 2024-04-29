@@ -18,7 +18,6 @@ public class Park {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
     private String name;
     private String regionSi; // 시
     private String regionGu; // 구
