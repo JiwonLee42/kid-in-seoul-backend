@@ -22,6 +22,7 @@ public class CommentResponseDto {
     private LocalDateTime created_at;
     private String author;
 
+
     @Builder
     public CommentResponseDto(Comment entity){
         this.comment_id = entity.getId();

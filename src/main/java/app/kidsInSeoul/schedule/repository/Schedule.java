@@ -49,12 +49,11 @@ public class Schedule {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "facility_id", nullable = true)
-    private Facility facility;
-
+    Facility facility;
 
 
     @Builder
-    public Schedule(Member member, String title, String content,LocalDate date,LocalTime startTime,LocalTime endTime,Facility facility, boolean isWithChild, String type){
+    public Schedule(Member member, String title, String content,LocalDate date,LocalTime startTime,LocalTime endTime, Facility facility, boolean isWithChild, String type){
         this.member = member;
         this.title = title;
         this.content = content;
@@ -66,7 +65,7 @@ public class Schedule {
         this.type = type;
     }
 
-    public void update(String title,String content, LocalDate date, LocalTime startTime, LocalTime endTime, boolean isWithChild, String type){
+    public void update(String title,String content, LocalDate date, LocalTime startTime, LocalTime endTime, boolean isWithChild, String type, Facility facility){
         this.title = title;
         this.content = content;
         this.date = date;
@@ -74,6 +73,7 @@ public class Schedule {
         this.endTime = endTime;
         this.isWithChild = isWithChild;
         this.type = type;
+        this.facility = facility;
     }
 
 }

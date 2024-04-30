@@ -28,7 +28,7 @@ public class ScheduleSaveRequestDto {
     private Long facilityId;
 
     @Builder
-    public ScheduleSaveRequestDto(String title, String content, LocalDate date, LocalTime startTime, LocalTime endTime, boolean isWithChild,Member member,Long facilityId,String type){
+    public ScheduleSaveRequestDto(String title, String content, LocalDate date, LocalTime startTime, LocalTime endTime, boolean isWithChild, Member member, String type, Long facilityId){
         this.title = title;
         this.content = content;
         this.date = date;
@@ -39,6 +39,7 @@ public class ScheduleSaveRequestDto {
         this.facilityId = facilityId;
         this.type = type;
     }
+
 
     public Schedule toEntity(Member member, Facility facility) {
         return Schedule.builder()

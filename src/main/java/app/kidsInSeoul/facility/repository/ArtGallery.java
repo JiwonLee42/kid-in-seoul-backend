@@ -13,12 +13,10 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@DiscriminatorValue("art_gallery")
 @Entity
-public class ArtGallery {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "art_gallery_id")
-    private Long id;
-    private String name;
+public class ArtGallery extends Facility{
+    //private String name;
     private String address;
     private String phoneNum;
     private String url;

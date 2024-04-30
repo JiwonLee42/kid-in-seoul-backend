@@ -28,19 +28,20 @@ public class ScheduleService {
 
     private final LibraryRepository libraryRepository;
 
+    private final ArtGalleryRepository artGalleryRepository;
+
+    private final FacilityRepository facilityRepository;
+
 
     @Transactional
     public Long save(ScheduleSaveRequestDto requestDto, Member member){
-        Facility facility = null;
-        if (requestDto.getFacilityId() != null) {
-            facility = kidsCafeRepository.findById(requestDto.getFacilityId())
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 시설이 없습니다."));
-        }
+
+        Facility facility = facilityRepository.findById(requestDto.getFacilityId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 시설이 없습니다."));
 
         return scheduleRepository.save(requestDto.toEntity(member, facility)).getId();
 
     }
-
 
     @Transactional(readOnly = true)
     public List<ScheduleResponseDto> findByMonth(int year, int month, Member member) {
@@ -55,7 +56,7 @@ public class ScheduleService {
     }
 
     @Transactional
-    public void deleteById(Long id,Member currentUser) {
+    public void deleteById(Long id, Member currentUser) {
         Schedule schedule = scheduleRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 스케줄이 없습니다. id=" + id));
         if(!schedule.getMember().getId().equals(currentUser.getId())) {
@@ -65,13 +66,17 @@ public class ScheduleService {
     }
 
     @Transactional
-    public void update(Long id, ScheduleUpdateRequestDto requestDto,Member currentUser) {
+    public void update(Long id, ScheduleUpdateRequestDto requestDto, Member currentUser) {
         Schedule schedule = scheduleRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 스케줄이 없습니다. id = " + id));
         if(!schedule.getMember().getId().equals(currentUser.getId())) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN,"스케줄 작성자가 아닙니다.");
         }
-        schedule.update(requestDto.getTitle(),requestDto.getContent(),requestDto.getDate(),requestDto.getStartTime(),requestDto.getEndTime(), requestDto.isWithChild(),requestDto.getType());
-    }
 
+        Facility facility = facilityRepository.findById(requestDto.getFacilityId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 시설이 없습니다."));
+
+
+        schedule.update(requestDto.getTitle(),requestDto.getContent(),requestDto.getDate(),requestDto.getStartTime(),requestDto.getEndTime(), requestDto.isWithChild(),requestDto.getType(), facility);
+    }
 
 }

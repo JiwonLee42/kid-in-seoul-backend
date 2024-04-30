@@ -24,6 +24,8 @@ public class ScheduleResponseDto {
 
     private String facilityName;
 
+    private Long facilityId;
+
 
     @Builder
     public ScheduleResponseDto(Schedule schedule){
@@ -33,10 +35,8 @@ public class ScheduleResponseDto {
         this.date = schedule.getDate();
         this.startTime = schedule.getStartTime();
         this.endTime = schedule.getEndTime();
-
-        if(schedule.getFacility()!=null){
-            this.facilityName = schedule.getFacility().getName();
-        }
+        this.facilityName = schedule.getFacility().getName();
+        this.facilityId = schedule.getFacility().getId();
 
     }
 

@@ -41,4 +41,10 @@ public class KindergardenService {
         return kindergardens.stream().map(b -> new KindergardenResponseDto(b)).collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
+    public List<KindergardenResponseDto> findAll() {
+        List<Kindergarden> kindergardens = kindergardenRepository.findAll();
+        return kindergardens.stream().map(b -> new KindergardenResponseDto(b)).collect(Collectors.toList());
+    }
+
 }
