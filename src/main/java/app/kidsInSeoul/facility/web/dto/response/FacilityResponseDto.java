@@ -11,4 +11,5 @@ public class FacilityResponseDto {
     private Long id;
     private String name;
     private String type;
+    private Long likeCount;
 }

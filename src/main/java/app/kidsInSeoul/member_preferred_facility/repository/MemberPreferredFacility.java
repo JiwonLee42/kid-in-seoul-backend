@@ -1,6 +1,7 @@
 package app.kidsInSeoul.member_preferred_facility.repository;
 
-import app.kidsInSeoul.facility.repository.ArtGallery;
+import app.kidsInSeoul.BaseTimeEntity;
+import app.kidsInSeoul.facility.repository.*;
 import app.kidsInSeoul.member.repository.Member;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -15,11 +16,14 @@ import org.hibernate.annotations.OnDeleteAction;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class MemberPreferredFacility {
+@Table(name="member_preferred_facility", uniqueConstraints = {@UniqueConstraint(
+        name = "member_facility_unique",
+        columnNames = {"member_id", "facility_id"} )})
+public class MemberPreferredFacility extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "member_preferred_facility")
+    @Column(name = "member_preferred_facility_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -31,7 +35,7 @@ public class MemberPreferredFacility {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "art_gallery_id")
-    private ArtGallery artGallery;
-
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Facility facility;
 
 }

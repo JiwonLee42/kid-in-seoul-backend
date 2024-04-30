@@ -5,6 +5,8 @@ import app.kidsInSeoul.common.exception.ErrorCode;
 import app.kidsInSeoul.facility.repository.*;
 import app.kidsInSeoul.facility.web.FacilityController;
 import app.kidsInSeoul.facility.web.dto.response.*;
+import app.kidsInSeoul.member.repository.Member;
+import app.kidsInSeoul.member_preferred_facility.repository.MemberPreferredFacilityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,22 +26,32 @@ public class FacilityService {
     private final OutdoorFacilityRepository outdoorFacilityRepository;
     private final ParkRepository parkRepository;
 
+    private final MemberPreferredFacilityRepository memberPreferredFacilityRepository;
+
     public List<ArtGalleryResponseDto> getArtGalleryList() {
         List<ArtGallery> findAll = artGalleryRepository.findAll();
         return findAll.stream().map(ArtGalleryResponseDto::new).collect(Collectors.toList());
     }
 
-    public ArtGalleryResponseDto getArtGallery(Long artGalleryEduId) {
-        ArtGallery artGalleryEdu = artGalleryRepository.findById(artGalleryEduId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_FACILITY));
+    public ArtGalleryResponseDto getArtGallery(Member member, Long facilityId) {
+        ArtGallery artGallery = artGalleryRepository.findById(facilityId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_FACILITY));
+
+        boolean isPreferred = false;
+
+        if (memberPreferredFacilityRepository.existsByMemberAndFacility(member, artGallery)) {
+            isPreferred = true;
+        }
 
         return ArtGalleryResponseDto.builder()
-                .id(artGalleryEdu.getId())
-                .name(artGalleryEdu.getName())
-                .url(artGalleryEdu.getUrl())
-                .eduSpot(artGalleryEdu.getPhoneNum())
-                .address(artGalleryEdu.getAddress())
-                .adultFee(artGalleryEdu.getAdultFee())
-                .childFee(artGalleryEdu.getChildFee())
+                .id(artGallery.getId())
+                .name(artGallery.getName())
+                .url(artGallery.getUrl())
+                .phoneNum(artGallery.getPhoneNum())
+                .address(artGallery.getAddress())
+                .adultFee(artGallery.getAdultFee())
+                .childFee(artGallery.getChildFee())
+                .likeCount(artGallery.getLikeCount())
+                .isPreferred(isPreferred)
                 .build();
 
     }
@@ -49,8 +61,14 @@ public class FacilityService {
         return findAll.stream().map(KidsCafeResponseDto::new).collect(Collectors.toList());
     }
 
-    public KidsCafeResponseDto getKidsCafe(Long kidsCafeId) {
-        KidsCafe kidsCafe = kidsCafeRepository.findById(kidsCafeId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_FACILITY));
+    public KidsCafeResponseDto getKidsCafe(Member member, Long facilityId) {
+        KidsCafe kidsCafe = kidsCafeRepository.findById(facilityId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_FACILITY));
+
+        boolean isPreferred = false;
+
+        if (memberPreferredFacilityRepository.existsByMemberAndFacility(member, kidsCafe)) {
+            isPreferred = true;
+        }
 
         return KidsCafeResponseDto.builder()
                 .id(kidsCafe.getId())
@@ -65,6 +83,8 @@ public class FacilityService {
                 .closedDays(kidsCafe.getClosedDays())
                 .operatingDays(kidsCafe.getOperatingDays())
                 .usageCapacity(kidsCafe.getUsageCapacity())
+                .likeCount(kidsCafe.getLikeCount())
+                .isPreferred(isPreferred)
                 .build();
     }
 
@@ -73,8 +93,14 @@ public class FacilityService {
         return findAll.stream().map(LibraryResponseDto::new).collect(Collectors.toList());
     }
 
-    public LibraryResponseDto getLibrary(Long libraryId) {
-        Library library = libraryRepository.findById(libraryId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_FACILITY));
+    public LibraryResponseDto getLibrary(Member member, Long facilityId) {
+        Library library = libraryRepository.findById(facilityId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_FACILITY));
+
+        boolean isPreferred = false;
+
+        if (memberPreferredFacilityRepository.existsByMemberAndFacility(member, library)) {
+            isPreferred = true;
+        }
 
         return LibraryResponseDto.builder()
                 .id(library.getId())
@@ -87,6 +113,8 @@ public class FacilityService {
                 .regionGu(library.getRegionGu())
                 .street(library.getStreet())
                 .postNum(library.getPostNum())
+                .likeCount(library.getLikeCount())
+                .isPreferred(isPreferred)
                 .build();
     }
 
@@ -96,8 +124,14 @@ public class FacilityService {
         return findAll.stream().map(OutdoorFacilityResponseDto::new).collect(Collectors.toList());
     }
 
-    public OutdoorFacilityResponseDto getOutdoorFacility(Long outdoorFacilityId) {
-        OutdoorFacility outdoorFacility = outdoorFacilityRepository.findById(outdoorFacilityId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_FACILITY));
+    public OutdoorFacilityResponseDto getOutdoorFacility(Member member, Long facilityId) {
+        OutdoorFacility outdoorFacility = outdoorFacilityRepository.findById(facilityId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_FACILITY));
+
+        boolean isPreferred = false;
+
+        if (memberPreferredFacilityRepository.existsByMemberAndFacility(member, outdoorFacility)) {
+            isPreferred = true;
+        }
 
         return OutdoorFacilityResponseDto.builder()
                 .id(outdoorFacility.getId())
@@ -112,6 +146,8 @@ public class FacilityService {
                 .free(outdoorFacility.isFree())
                 .fee(outdoorFacility.getFee())
                 .urlLink(outdoorFacility.getUrlLink())
+                .likeCount(outdoorFacility.getLikeCount())
+                .isPreferred(isPreferred)
                 .build();
     }
 
@@ -121,8 +157,14 @@ public class FacilityService {
         return findAll.stream().map(ParkResponseDto::new).collect(Collectors.toList());
     }
 
-    public ParkResponseDto getPark(Long parkId) {
-        Park park = parkRepository.findById(parkId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_FACILITY));
+    public ParkResponseDto getPark(Member member, Long facilityId) {
+        Park park = parkRepository.findById(facilityId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_FACILITY));
+
+        boolean isPreferred = false;
+
+        if (memberPreferredFacilityRepository.existsByMemberAndFacility(member, park)) {
+            isPreferred = true;
+        }
 
         return ParkResponseDto.builder()
                 .id(park.getId())
@@ -133,6 +175,8 @@ public class FacilityService {
                 .address(park.getAddress())
                 .mainCategory(park.getMainCategory())
                 .callNumber(park.getCallNumber())
+                .likeCount(park.getLikeCount())
+                .isPreferred(isPreferred)
                 .build();
     }
 
@@ -145,11 +189,13 @@ public class FacilityService {
         List<Park> findParks = parkRepository.findAll();
 
         List<FacilityResponseDto> result = new ArrayList<>();
+
         for (ArtGallery o: findArtGalleries) {
             result.add(FacilityResponseDto.builder()
                     .id(o.getId())
                     .name(o.getName())
                     .type("ART_GALLERY")
+                    .likeCount(o.getLikeCount())
                     .build());
         }
 
@@ -158,6 +204,7 @@ public class FacilityService {
                     .id(o.getId())
                     .name(o.getName())
                     .type("KIDS_CAFE")
+                    .likeCount(o.getLikeCount())
                     .build());
         }
 
@@ -166,6 +213,7 @@ public class FacilityService {
                     .id(o.getId())
                     .name(o.getName())
                     .type("LIBRARY")
+                    .likeCount(o.getLikeCount())
                     .build());
         }
 
@@ -174,6 +222,7 @@ public class FacilityService {
                     .id(o.getId())
                     .name(o.getName())
                     .type("OUTDOOR")
+                    .likeCount(o.getLikeCount())
                     .build());
         }
 
@@ -182,6 +231,7 @@ public class FacilityService {
                     .id(o.getId())
                     .name(o.getName())
                     .type("PARK")
+                    .likeCount(o.getLikeCount())
                     .build());
         }
 
