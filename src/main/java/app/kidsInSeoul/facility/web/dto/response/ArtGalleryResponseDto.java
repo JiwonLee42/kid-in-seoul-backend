@@ -16,6 +16,8 @@ public class ArtGalleryResponseDto {
     private String url;
     private int adultFee;
     private int childFee;
+    private Long likeCount;
+    private boolean isPreferred;
 
     public ArtGalleryResponseDto(ArtGallery artGalleryEdu) {
     }

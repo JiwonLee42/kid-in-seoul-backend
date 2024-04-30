@@ -23,6 +23,8 @@ public class KidsCafeResponseDto {
     private String operatingDays; // 운영일
     private String usageCapacity; // 이용정원(개인)
     private String availableAge; // 신청가능 연령
+    private Long likeCount;
+    private boolean isPreferred;
 
     @Builder
     public KidsCafeResponseDto(KidsCafe kidsCafe) {
