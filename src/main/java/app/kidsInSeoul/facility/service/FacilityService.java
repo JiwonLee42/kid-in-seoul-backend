@@ -29,17 +29,17 @@ public class FacilityService {
         return findAll.stream().map(ArtGalleryResponseDto::new).collect(Collectors.toList());
     }
 
-    public ArtGalleryResponseDto getArtGallery(Long artGalleryEduId) {
-        ArtGallery artGalleryEdu = artGalleryRepository.findById(artGalleryEduId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_FACILITY));
+    public ArtGalleryResponseDto getArtGallery(Long facilityId) {
+        ArtGallery artGallery = artGalleryRepository.findById(facilityId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_FACILITY));
 
         return ArtGalleryResponseDto.builder()
-                .id(artGalleryEdu.getId())
-                .name(artGalleryEdu.getName())
-                .url(artGalleryEdu.getUrl())
-                .phoneNum(artGalleryEdu.getPhoneNum())
-                .address(artGalleryEdu.getAddress())
-                .adultFee(artGalleryEdu.getAdultFee())
-                .childFee(artGalleryEdu.getChildFee())
+                .id(artGallery.getId())
+                .name(artGallery.getName())
+                .url(artGallery.getUrl())
+                .phoneNum(artGallery.getPhoneNum())
+                .address(artGallery.getAddress())
+                .adultFee(artGallery.getAdultFee())
+                .childFee(artGallery.getChildFee())
                 .build();
 
     }
@@ -49,8 +49,8 @@ public class FacilityService {
         return findAll.stream().map(KidsCafeResponseDto::new).collect(Collectors.toList());
     }
 
-    public KidsCafeResponseDto getKidsCafe(Long kidsCafeId) {
-        KidsCafe kidsCafe = kidsCafeRepository.findById(kidsCafeId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_FACILITY));
+    public KidsCafeResponseDto getKidsCafe(Long facilityId) {
+        KidsCafe kidsCafe = kidsCafeRepository.findById(facilityId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_FACILITY));
 
         return KidsCafeResponseDto.builder()
                 .id(kidsCafe.getId())
@@ -73,8 +73,8 @@ public class FacilityService {
         return findAll.stream().map(LibraryResponseDto::new).collect(Collectors.toList());
     }
 
-    public LibraryResponseDto getLibrary(Long libraryId) {
-        Library library = libraryRepository.findById(libraryId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_FACILITY));
+    public LibraryResponseDto getLibrary(Long facilityId) {
+        Library library = libraryRepository.findById(facilityId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_FACILITY));
 
         return LibraryResponseDto.builder()
                 .id(library.getId())
@@ -96,8 +96,8 @@ public class FacilityService {
         return findAll.stream().map(OutdoorFacilityResponseDto::new).collect(Collectors.toList());
     }
 
-    public OutdoorFacilityResponseDto getOutdoorFacility(Long outdoorFacilityId) {
-        OutdoorFacility outdoorFacility = outdoorFacilityRepository.findById(outdoorFacilityId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_FACILITY));
+    public OutdoorFacilityResponseDto getOutdoorFacility(Long facilityId) {
+        OutdoorFacility outdoorFacility = outdoorFacilityRepository.findById(facilityId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_FACILITY));
 
         return OutdoorFacilityResponseDto.builder()
                 .id(outdoorFacility.getId())
@@ -121,8 +121,8 @@ public class FacilityService {
         return findAll.stream().map(ParkResponseDto::new).collect(Collectors.toList());
     }
 
-    public ParkResponseDto getPark(Long parkId) {
-        Park park = parkRepository.findById(parkId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_FACILITY));
+    public ParkResponseDto getPark(Long facilityId) {
+        Park park = parkRepository.findById(facilityId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_FACILITY));
 
         return ParkResponseDto.builder()
                 .id(park.getId())
@@ -145,6 +145,7 @@ public class FacilityService {
         List<Park> findParks = parkRepository.findAll();
 
         List<FacilityResponseDto> result = new ArrayList<>();
+
         for (ArtGallery o: findArtGalleries) {
             result.add(FacilityResponseDto.builder()
                     .id(o.getId())

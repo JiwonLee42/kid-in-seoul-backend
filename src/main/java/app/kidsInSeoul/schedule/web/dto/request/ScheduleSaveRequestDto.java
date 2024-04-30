@@ -25,18 +25,10 @@ public class ScheduleSaveRequestDto {
 
     private String type;
 
-    private Long kidscafeId;
-
-    private Long libraryId;
-
-    private Long parkId;
-
-    private Long outdoorId;
-
-    private Long artGalleryId;
+    private Long facilityId;
 
     @Builder
-    public ScheduleSaveRequestDto(String title, String content, LocalDate date, LocalTime startTime, LocalTime endTime, boolean isWithChild,Member member,String type,Long artGalleryId, Long kidscafeId,Long parkId,Long libraryId, Long outdoorId){
+    public ScheduleSaveRequestDto(String title, String content, LocalDate date, LocalTime startTime, LocalTime endTime, boolean isWithChild, Member member, String type, Long facilityId){
         this.title = title;
         this.content = content;
         this.date = date;
@@ -44,16 +36,12 @@ public class ScheduleSaveRequestDto {
         this.endTime = endTime;
         this.member = member;
         this.isWithChild = isWithChild;
-        this.kidscafeId = kidscafeId;
-        this.libraryId = libraryId;
-        this.outdoorId = outdoorId;
-        this.parkId = parkId;
-        this.artGalleryId = artGalleryId;
+        this.facilityId = facilityId;
         this.type = type;
     }
 
 
-    public Schedule toEntity(Member member, KidsCafe kidsCafe, Library library, Park park, OutdoorFacility outdoorFacility, ArtGallery artGallery) {
+    public Schedule toEntity(Member member, Facility facility) {
         return Schedule.builder()
                 .title(title)
                 .content(content)
@@ -61,11 +49,7 @@ public class ScheduleSaveRequestDto {
                 .startTime(startTime)
                 .endTime(endTime)
                 .member(member)
-                .kidsCafe(kidsCafe)
-                .library(library)
-                .park(park)
-                .outdoorFacility(outdoorFacility)
-                .artGallery(artGallery)
+                .facility(facility)
                 .isWithChild(isWithChild)
                 .type(type)
                 .build();
