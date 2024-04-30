@@ -2,6 +2,9 @@ package app.kidsInSeoul.member.service;
 
 import app.kidsInSeoul.common.exception.CustomException;
 import app.kidsInSeoul.common.exception.ErrorCode;
+import app.kidsInSeoul.facility.repository.Facility;
+import app.kidsInSeoul.facility.repository.FacilityRepository;
+import app.kidsInSeoul.facility.web.dto.response.MemberPreferredFacilityResponse;
 import app.kidsInSeoul.jwt.service.JwtService;
 import app.kidsInSeoul.jwt.web.JwtTokenProvider;
 import app.kidsInSeoul.jwt.web.dto.TokenDto;
@@ -11,6 +14,8 @@ import app.kidsInSeoul.member.web.dto.request.MemberLoginRequestDto;
 import app.kidsInSeoul.member.web.dto.request.MemberSaveRequestDto;
 import app.kidsInSeoul.member.web.dto.response.MemberLoginResponseDto;
 import app.kidsInSeoul.member.web.dto.response.MemberResponse;
+import app.kidsInSeoul.member_preferred_facility.repository.MemberPreferredFacility;
+import app.kidsInSeoul.member_preferred_facility.repository.MemberPreferredFacilityRepository;
 import app.kidsInSeoul.region.repository.Region;
 import app.kidsInSeoul.region.repository.RegionRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +28,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -37,6 +44,9 @@ public class MemberService {
 
     private final RegionRepository regionRepository;
     private final RedisTemplate redisTemplate;
+
+    private final MemberPreferredFacilityRepository memberPreferredFacilityRepository;
+    private final FacilityRepository facilityRepository;
 
 
     @Transactional
@@ -136,5 +146,52 @@ public class MemberService {
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_MEMBER));
 
         return member;
+    }
+
+    // ======= 멤버의 시설 좋아요 처리 =======
+
+    @Transactional
+    public void savePreferredFacility(Member member, Long facilityId) {
+        Facility facility = facilityRepository.findById(facilityId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_FACILITY));
+
+        // 이미 좋아요한 시설일 경우
+        if (memberPreferredFacilityRepository.existsByMemberAndFacility(member, facility)) {
+            throw new CustomException(ErrorCode.EXIST_USER_PREFERRED_FACILITY);
+        }
+
+        facility.plusLikeCount();
+
+        MemberPreferredFacility memberPreferredFacility = MemberPreferredFacility.builder()
+                .member(member)
+                .facility(facility)
+                .build();
+
+        memberPreferredFacilityRepository.save(memberPreferredFacility);
+    }
+
+    @Transactional
+    public void deletePreferredFacility(Member member, Long facilityId) {
+        Facility facility = facilityRepository.findById(facilityId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_FACILITY));
+
+        facility.minusLikeCount();
+        memberPreferredFacilityRepository.deleteByMemberAndFacility(member, facility);
+    }
+
+    public List<MemberPreferredFacilityResponse> getPreferredFacilityList(Member member) {
+
+        List<MemberPreferredFacilityResponse> result = new ArrayList<>();
+        List<MemberPreferredFacility> findPreferredFacilityList = memberPreferredFacilityRepository.findByMember(member);
+
+        for (MemberPreferredFacility p : findPreferredFacilityList) {
+            result.add(MemberPreferredFacilityResponse.builder()
+                    .id(p.getId())
+                    .facilityId(p.getFacility().getId())
+                    .likeCount(p.getFacility().getLikeCount())
+                    .name(p.getFacility().getName())
+                    .facilityType(p.getFacility().getFacilityType())
+                    .build());
+        }
+
+        return result;
     }
 }

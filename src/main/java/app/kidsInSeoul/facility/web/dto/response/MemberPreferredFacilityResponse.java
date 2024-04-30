@@ -7,9 +7,10 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class FacilityResponseDto {
+public class MemberPreferredFacilityResponse {
     private Long id;
+    private Long facilityId;
     private String name;
-    private String type;
+    private String facilityType;
     private Long likeCount;
 }

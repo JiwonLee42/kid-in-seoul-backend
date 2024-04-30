@@ -23,6 +23,8 @@ public class OutdoorFacilityResponseDto {
     private boolean free; // 사용료 무료여부
     private int fee; // 사용료
     private String urlLink; // 안내 url
+    private Long likeCount;
+    private boolean isPreferred;
 
     public OutdoorFacilityResponseDto(OutdoorFacility outdoorFacility) {
     }

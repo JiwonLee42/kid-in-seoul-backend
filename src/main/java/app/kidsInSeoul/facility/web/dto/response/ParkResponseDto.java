@@ -17,6 +17,8 @@ public class ParkResponseDto {
     private String address; // 주소
     private String callNumber; // 대표전화
     private String mainCategory; // 대분류
+    private Long likeCount;
+    private boolean isPreferred;
 
     public ParkResponseDto(Park park) {
     }

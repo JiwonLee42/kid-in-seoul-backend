@@ -1,5 +1,6 @@
 package app.kidsInSeoul.member.web;
 
+import app.kidsInSeoul.facility.web.dto.response.MemberPreferredFacilityResponse;
 import app.kidsInSeoul.jwt.service.dto.CustomUserDetails;
 import app.kidsInSeoul.member.repository.Member;
 import app.kidsInSeoul.member.service.MemberService;
@@ -14,6 +15,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequestMapping("/members")
 @RequiredArgsConstructor
@@ -63,6 +66,39 @@ public class MemberController {
         MemberResponse memberResponse = memberService.getMember(userDetails.getMember().getId());
 
         return ResponseEntity.status(HttpStatus.OK).body(memberResponse);
+    }
+
+    // ====== 시설 좋아요 ======
+
+    // 회원-시설 좋아요 관계 등록
+    @PostMapping("/preferred-facility/{facilityId}")
+    public ResponseEntity<Void> likeFacility(@AuthenticationPrincipal CustomUserDetails userDetail,
+                                             @PathVariable(value = "facilityId") Long facilityId) {
+        Member member = userDetail.getMember();
+        memberService.savePreferredFacility(member, facilityId);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    // 회원-시설 좋아요 관계 취소
+    @DeleteMapping("/preferred-facility/{facilityId}")
+    public ResponseEntity<Void> deleteLikeFacility(@AuthenticationPrincipal CustomUserDetails userDetail,
+                                             @PathVariable(value = "facilityId") Long facilityId) {
+
+        Member member = userDetail.getMember();
+        memberService.deletePreferredFacility(member, facilityId);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
+    // 회원-시설 좋아요 관계 조회
+    @GetMapping("/preferred-facility")
+    public ResponseEntity<List<MemberPreferredFacilityResponse>> preferredFacilityList(@AuthenticationPrincipal CustomUserDetails userDetail) {
+        Member member = userDetail.getMember();
+        List<MemberPreferredFacilityResponse> preferredFacilityList =  memberService.getPreferredFacilityList(member);
+
+        return ResponseEntity.status(HttpStatus.OK).body(preferredFacilityList);
     }
 
 }

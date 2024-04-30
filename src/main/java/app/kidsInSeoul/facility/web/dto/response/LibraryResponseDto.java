@@ -21,6 +21,8 @@ public class LibraryResponseDto {
     private BigDecimal latitude;
     private BigDecimal longitude;
     private String operatingTime;
+    private Long likeCount;
+    private boolean isPreferred;
 
     public LibraryResponseDto(Library library) {
     }
