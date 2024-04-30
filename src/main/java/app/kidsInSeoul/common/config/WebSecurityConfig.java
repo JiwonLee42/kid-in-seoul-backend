@@ -83,6 +83,7 @@ public class WebSecurityConfig {
             "/schedule/**",
             "/posts/**",
             "/kindergarden/**",
-            "/swagger-ui/**"
+            "/swagger-ui/**",
+            "/members/**"
     };
 }

@@ -12,6 +12,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @RequestMapping("/schedule")
@@ -75,5 +76,8 @@ public class ScheduleApiController {
         List<ScheduleResponseDto> responseDto = scheduleService.findByDay(year, month, day, memberService.findMemberById(memberId));
         return ResponseEntity.status(HttpStatus.OK).body(responseDto);
     }
+
+
+
 
 }

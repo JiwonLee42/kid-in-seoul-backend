@@ -84,10 +84,11 @@ public class PostService {
     }
 
     @Transactional
-    public int likePosts(Long postId){
+    public PostResponseDto likePosts(Long postId){
         Posts posts = postsRepository.findById(postId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 게시글이 없습니다. id=" + postId));
-        return postsRepository.incrementLikes(postId);
+        postsRepository.incrementLikes(postId);
+        return new PostResponseDto(posts);
     }
 
 
