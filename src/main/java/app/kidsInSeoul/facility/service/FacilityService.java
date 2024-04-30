@@ -36,7 +36,7 @@ public class FacilityService {
                 .id(artGalleryEdu.getId())
                 .name(artGalleryEdu.getName())
                 .url(artGalleryEdu.getUrl())
-                .phoneNum(artGalleryEdu.getPhoneNum())
+                .eduSpot(artGalleryEdu.getPhoneNum())
                 .address(artGalleryEdu.getAddress())
                 .adultFee(artGalleryEdu.getAdultFee())
                 .childFee(artGalleryEdu.getChildFee())

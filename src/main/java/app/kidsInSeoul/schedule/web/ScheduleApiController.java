@@ -11,6 +11,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @RequestMapping("/schedule")
@@ -58,6 +59,15 @@ public class ScheduleApiController {
         System.out.println("업데이트: " + requestDto.toString());
         return ResponseEntity.ok("스케줄이 성공적으로 수정되었습니다.");
     }
+
+    // 아이와 함께한 시간 조회
+
+    @GetMapping("/view/with-child")
+    public ResponseEntity<List<Map<String,String>>> findTimeWithChild(@AuthenticationPrincipal CustomUserDetails userDetails) {
+        List<Map<String,String>> result = scheduleService.findTimeChild(userDetails.getMember());
+        return ResponseEntity.ok(result);
+    }
+
 
 
 

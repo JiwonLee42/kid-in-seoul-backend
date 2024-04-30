@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,4 +23,7 @@ public interface ScheduleRepository extends JpaRepository<Schedule,Long>  {
             "and day(s.date) = :day " +
             "and s.member = :member " )
     List<Schedule> findByDay(@Param("year") int year, @Param("month") int month,@Param("day") int day ,@Param("member") Member member);
+
+    @Query("SELECT s.startTime, s.endTime, s.date FROM Schedule s WHERE s.isWithChild = 1 AND s.date BETWEEN :startDate AND :endDate AND s.member = :member ")
+    List<Object[]> getDateTimeInfo(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate,@Param("member") Member member);
 }

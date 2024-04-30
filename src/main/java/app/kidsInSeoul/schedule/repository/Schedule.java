@@ -42,7 +42,8 @@ public class Schedule {
     private LocalTime endTime;
 
     @Column(name = "is_withchild")
-    private boolean isWithChild;
+  //  @Convert(converter = BooleanToYNConverter.class)
+    private Boolean isWithChild;
 
     @Column(nullable = false)
     private String type;
@@ -79,6 +80,7 @@ public class Schedule {
         this.artGallery = artGallery;
         this.kidsCafe = kidsCafe;
         this.library = library;
+        this.park = park;
         this.outdoorFacility = outdoorFacility;
         this.isWithChild = isWithChild;
         this.type = type;

@@ -17,6 +17,7 @@ spring:
         default_batch_fetch_size: 100
         org.hibernate.SQL: debug
         org.hibernate.type: trace
+        type: boolean_true_false
 
   data:
     redis:

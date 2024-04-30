@@ -66,7 +66,7 @@ public class PostApiController {
     @GetMapping("/posts/region/like/{regionId}")
     public ResponseEntity<List<PostResponseDto>> findByRegionByLiked (@PathVariable Long regionId, @RequestParam("size") int size) {
         PageRequest pageRequest = PageRequest.of(0, size, Sort.by(Sort.Direction.DESC, "createdDate"));
-        List<PostResponseDto> posts = postsService.findByRegion(regionId,pageRequest);
+        List<PostResponseDto> posts = postsService.findByRegionByLiked(regionId,pageRequest);
         return ResponseEntity.status(HttpStatus.OK).body(posts);
     }
 
@@ -103,9 +103,9 @@ public class PostApiController {
     }
 
     @PatchMapping("/posts/like/{postId}")
-    public ResponseEntity<String> likePosts(@PathVariable Long postId){
-        postsService.likePosts(postId);
-        return ResponseEntity.ok("좋아요 반영되었습니다.");
+    public ResponseEntity<PostResponseDto> likePosts(@PathVariable Long postId){
+        PostResponseDto postResponseDto =  postsService.likePosts(postId);
+        return ResponseEntity.ok(postResponseDto);
     }
 
 
