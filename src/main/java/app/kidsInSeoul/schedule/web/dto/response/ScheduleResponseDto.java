@@ -24,6 +24,8 @@ public class ScheduleResponseDto {
 
     private String facilityName;
 
+    private Long facilityId;
+
 
     @Builder
     public ScheduleResponseDto(Schedule schedule){
@@ -33,26 +35,8 @@ public class ScheduleResponseDto {
         this.date = schedule.getDate();
         this.startTime = schedule.getStartTime();
         this.endTime = schedule.getEndTime();
-
-        if(schedule.getKidsCafe()!=null){
-            this.facilityName = schedule.getKidsCafe().getName();
-        }
-
-        if(schedule.getPark()!=null){
-            this.facilityName = schedule.getPark().getName();
-        }
-
-        if(schedule.getLibrary()!=null){
-            this.facilityName = schedule.getLibrary().getName();
-        }
-
-        if(schedule.getOutdoorFacility()!=null){
-            this.facilityName = schedule.getOutdoorFacility().getName();
-        }
-
-        if(schedule.getArtGallery()!=null){
-            this.facilityName = schedule.getArtGallery().getName();
-        }
+        this.facilityName = schedule.getFacility().getName();
+        this.facilityId = schedule.getFacility().getId();
 
     }
 
