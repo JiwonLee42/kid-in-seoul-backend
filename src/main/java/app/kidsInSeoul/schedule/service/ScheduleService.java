@@ -79,5 +79,4 @@ public class ScheduleService {
         schedule.update(requestDto.getTitle(),requestDto.getContent(),requestDto.getDate(),requestDto.getStartTime(),requestDto.getEndTime(), requestDto.isWithChild(),requestDto.getType(), facility);
     }
 
-
 }
