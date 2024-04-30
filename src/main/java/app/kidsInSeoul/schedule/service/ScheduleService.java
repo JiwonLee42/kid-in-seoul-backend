@@ -28,6 +28,8 @@ public class ScheduleService {
 
     private final LibraryRepository libraryRepository;
 
+    private final ArtGalleryRepository artGalleryRepository;
+
 
     @Transactional
     public Long save(ScheduleSaveRequestDto requestDto, Member member){
@@ -35,6 +37,8 @@ public class ScheduleService {
         Library library = null;
         OutdoorFacility outdoorFacility = null;
         Park park = null;
+        ArtGallery artGallery = null;
+
 
 
         if (requestDto.getKidscafeId() != null) {
@@ -57,7 +61,12 @@ public class ScheduleService {
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 공원이 없습니다."));
         }
 
-        return scheduleRepository.save(requestDto.toEntity(member, kidsCafe, library, park, outdoorFacility)).getId();
+        if (requestDto.getParkId() != null) {
+            artGallery = artGalleryRepository.findById(requestDto.getParkId())
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 공원이 없습니다."));
+        }
+
+        return scheduleRepository.save(requestDto.toEntity(member, kidsCafe, library, park, outdoorFacility, artGallery)).getId();
 
     }
     @Transactional(readOnly = true)
