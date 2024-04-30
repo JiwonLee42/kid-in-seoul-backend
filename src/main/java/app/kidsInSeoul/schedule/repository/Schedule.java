@@ -48,43 +48,24 @@ public class Schedule {
     private String type;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "kids_cafe_id", nullable = true)
-    private KidsCafe kidsCafe;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "library_id", nullable = true)
-    private Library library;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "outdoor_facility_id", nullable = true)
-    private OutdoorFacility outdoorFacility;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "park_id", nullable = true)
-    private Park park;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "art_gallery_id", nullable = true)
-    private ArtGallery artGallery;
+    @JoinColumn(name = "facility_id", nullable = true)
+    Facility facility;
 
 
     @Builder
-    public Schedule(Member member, String title, String content,LocalDate date,LocalTime startTime,LocalTime endTime,ArtGallery artGallery,KidsCafe kidsCafe,Library library,Park park,OutdoorFacility outdoorFacility, boolean isWithChild, String type){
+    public Schedule(Member member, String title, String content,LocalDate date,LocalTime startTime,LocalTime endTime, Facility facility, boolean isWithChild, String type){
         this.member = member;
         this.title = title;
         this.content = content;
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.artGallery = artGallery;
-        this.kidsCafe = kidsCafe;
-        this.library = library;
-        this.outdoorFacility = outdoorFacility;
+        this.facility = facility;
         this.isWithChild = isWithChild;
         this.type = type;
     }
 
-    public void update(String title,String content, LocalDate date, LocalTime startTime, LocalTime endTime, boolean isWithChild, String type){
+    public void update(String title,String content, LocalDate date, LocalTime startTime, LocalTime endTime, boolean isWithChild, String type, Facility facility){
         this.title = title;
         this.content = content;
         this.date = date;
@@ -92,6 +73,7 @@ public class Schedule {
         this.endTime = endTime;
         this.isWithChild = isWithChild;
         this.type = type;
+        this.facility = facility;
     }
 
 }
