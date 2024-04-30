@@ -1,6 +1,6 @@
 package app.kidsInSeoul.member_preferred_facility.repository;
 
-import app.kidsInSeoul.facility.repository.ArtGallery;
+import app.kidsInSeoul.facility.repository.*;
 import app.kidsInSeoul.member.repository.Member;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -15,6 +15,9 @@ import org.hibernate.annotations.OnDeleteAction;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Table(name="member_preferred_facility", uniqueConstraints = {@UniqueConstraint(
+        name = "member_facility_unique",
+        columnNames = {"member_id", "art_gallery_id"} )})
 public class MemberPreferredFacility {
 
     @Id
@@ -33,5 +36,20 @@ public class MemberPreferredFacility {
     @JoinColumn(name = "art_gallery_id")
     private ArtGallery artGallery;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "kidscafe_id")
+    private KidsCafe kidsCafe;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "library_id")
+    private Library library;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "outdoor_facility_id")
+    private OutdoorFacility outdoorFacility;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "park_id")
+    private Park park;
 
 }
