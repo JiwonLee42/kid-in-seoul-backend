@@ -33,7 +33,7 @@ public class ScheduleSaveRequestDto {
     private Long outdoorId;
 
     @Builder
-    public ScheduleSaveRequestDto(String title, String content, LocalDate date, LocalTime startTime, LocalTime endTime, boolean isWithChild,Member member,String type,Long kidscafeId,Long parkId,Long libraryId, Long outdoorId){
+    public ScheduleSaveRequestDto(String title, String content, LocalDate date, LocalTime startTime, LocalTime endTime, boolean isWithChild,Member member,String type,Long artGalleryId, Long kidscafeId,Long parkId,Long libraryId, Long outdoorId){
         this.title = title;
         this.content = content;
         this.date = date;
@@ -49,7 +49,7 @@ public class ScheduleSaveRequestDto {
     }
 
 
-    public Schedule toEntity(Member member, KidsCafe kidsCafe, Library library, Park park, OutdoorFacility outdoorFacility) {
+    public Schedule toEntity(Member member, KidsCafe kidsCafe, Library library, Park park, OutdoorFacility outdoorFacility, ArtGallery artGallery) {
         return Schedule.builder()
                 .title(title)
                 .content(content)
@@ -61,6 +61,7 @@ public class ScheduleSaveRequestDto {
                 .library(library)
                 .park(park)
                 .outdoorFacility(outdoorFacility)
+                .artGallery(artGallery)
                 .isWithChild(isWithChild)
                 .type(type)
                 .build();

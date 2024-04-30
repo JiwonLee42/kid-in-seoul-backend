@@ -50,8 +50,8 @@ public class ScheduleResponseDto {
             this.facilityName = schedule.getOutdoorFacility().getName();
         }
 
-        if(schedule.getArtGalleryEdu()!=null){
-            this.facilityName = schedule.getArtGalleryEdu().getName();
+        if(schedule.getArtGallery()!=null){
+            this.facilityName = schedule.getArtGallery().getName();
         }
 
     }
