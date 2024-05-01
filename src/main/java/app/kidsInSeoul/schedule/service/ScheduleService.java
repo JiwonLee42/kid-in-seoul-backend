@@ -82,7 +82,69 @@ public class ScheduleService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 시설이 없습니다."));
 
 
-        schedule.update(requestDto.getTitle(),requestDto.getContent(),requestDto.getDate(),requestDto.getStartTime(),requestDto.getEndTime(), requestDto.isWithChild(),requestDto.getType(), facility);
+        schedule.update(requestDto.getTitle(),requestDto.getContent(),requestDto.getDate(),requestDto.getStartTime(),requestDto.getEndTime(), requestDto.getIsWithChild(),requestDto.getType(), facility);
+    }
+
+    @Transactional
+    public List<Map<String, String>> findTimeChild(Member currentUser) {
+        List<Map<String, String>> resultList = getDateTimeInfo(currentUser);
+        return resultList;
+    }
+
+    public List<Map<String, String>> getDateTimeInfo(Member member) {
+        LocalDate endDate = LocalDate.now();
+        LocalDate startDate = endDate.minusDays(6);
+        System.out.println("시간 출력!" + endDate.toString() + "~" + startDate.toString());
+
+        List<Object[]> dateTimeInfo = scheduleRepository.getDateTimeInfo(startDate, endDate, member);
+        List<Integer> timesWithChild = findTimeWithChild(dateTimeInfo);
+
+        Map<DayOfWeek, Integer> dayTimeMap = calculateDayTimeMap(dateTimeInfo, timesWithChild);
+
+        List<Map<String, String>> result = createResultList(endDate, dayTimeMap);
+
+        return result;
+    }
+
+    private Map<DayOfWeek, Integer> calculateDayTimeMap(List<Object[]> dateTimeInfo, List<Integer> timesWithChild) {
+        Map<DayOfWeek, Integer> dayTimeMap = new HashMap<>();
+        for (int i = 0; i < dateTimeInfo.size(); i++) {
+            LocalTime startTime = (LocalTime) dateTimeInfo.get(i)[0];
+            LocalTime endTime = (LocalTime) dateTimeInfo.get(i)[1];
+            LocalDate date = (LocalDate) dateTimeInfo.get(i)[2];
+            DayOfWeek dayOfWeek = date.getDayOfWeek();
+            int time = timesWithChild.get(i);
+            dayTimeMap.put(dayOfWeek, dayTimeMap.getOrDefault(dayOfWeek, 0) + time);
+        }
+        return dayTimeMap;
+    }
+
+    private List<Map<String, String>> createResultList(LocalDate endDate, Map<DayOfWeek, Integer> dayTimeMap) {
+        List<Map<String, String>> result = new ArrayList<>();
+        for (int i = 0; i < 7; i++) {
+            LocalDate date = endDate.minusDays(i);
+            DayOfWeek dayOfWeek = date.getDayOfWeek();
+            String day = dayOfWeek.getDisplayName(TextStyle.FULL, Locale.KOREAN);
+            int time = dayTimeMap.getOrDefault(dayOfWeek, 0);
+            Map<String, String> entry = new HashMap<>();
+            entry.put("day", day);
+            entry.put("time", Integer.toString(time));
+            result.add(entry);
+        }
+        return result;
+    }
+
+    private List<Integer> findTimeWithChild(List<Object[]> dateTimeInfo) {
+        List<Integer> timesWithChild = new ArrayList<>();
+        for (Object[] data : dateTimeInfo) {
+            LocalTime startTime = (LocalTime) data[0];
+            LocalTime endTime = (LocalTime) data[1];
+            long totalMinutes = ChronoUnit.MINUTES.between(startTime, endTime);
+            int totalHours = Math.round(totalMinutes / 60.0f);
+            timesWithChild.add(totalHours);
+        }
+        System.out.println("중간 점검 로그" + timesWithChild);
+        return timesWithChild;
     }
 
 }

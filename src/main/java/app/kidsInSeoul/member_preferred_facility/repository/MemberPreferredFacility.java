@@ -34,7 +34,7 @@ public class MemberPreferredFacility extends BaseTimeEntity {
     private String facilityType; // LIBRARY, KIDSCAFE, GALLERY, PARK, OUTDOOR
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "art_gallery_id")
+    @JoinColumn(name = "facility_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Facility facility;
 

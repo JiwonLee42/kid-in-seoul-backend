@@ -1,22 +1,19 @@
 spring:
   datasource:
-    url: jdbc:h2:tcp://localhost/~/kids-in-seoul
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
+    url: jdbc:mysql://kis-db.c9eigs2o4tct.ap-northeast-2.rds.amazonaws.com:3306/kis_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: admin
+    password: kidsinseoul0510
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
-        # show_sql: true
+        show_sql: true
         format_sql: true
-        logging.level:
-        org.hibernate.SQL: debug
-        org.hibernate.type: trace
-        type: boolean_true_false
-
-
+        dialect: org.hibernate.dialect.MySQLDialect
+        default_batch_fetch_size: 100
   data:
     redis:
       host: localhost
@@ -27,6 +24,10 @@ spring:
     apiKey: NCSUKLQEKC9WIDZN
     apiSecret: XORLMAO2HZEV2DTSPZDXR0DVJHT0CEOD
     senderNumber: 01076505238
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
 
 jwt:
   secret: d913973a67d478ef73ba715f3193bbd58179b160b2bcf744061a1e802c5ea11cb661bfbe61a7af987090b49972c3144604c594a4e93bd7394d043379685e1a3c

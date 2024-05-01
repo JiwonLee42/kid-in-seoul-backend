@@ -1,0 +1,63 @@
+version: "3"
+services:
+  db:
+    image: mysql:8.0
+    restart: always
+    container_name: kis-mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: kidsinseoul0510
+      MYSQL_DATABASE: kis_db
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: kidsinseoul0510
+      TZ: Asia/Seoul
+    networks:
+      - kis_network
+
+  spring-boot:
+    container_name: spring-boot
+    image: kids-in-seoul
+    depends_on: # db가 실행된 이후에 실행
+      - db
+      - redis
+    ports:
+      - "8080:8080"
+    restart: always
+    networks:
+      - kis_network
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://kis-db.c9eigs2o4tct.ap-northeast-2.rds.amazonaws.com/kis_db?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: kis_db
+      SPRING_DATASOURCE_PASSWORD: kisinseoul0510
+      SPRING_PROFILES_ACTIVE: dev
+
+#  flask:
+#    build:
+#      context: ./flask-app
+#    ports:
+#      - "5000:5000"
+#    restart: always
+
+  redis:
+    image: redis:alpine
+    command: redis-server --port 6369
+    container_name: redis_boot
+    hostname: redis_boot
+    labels:
+      - "name=redis"
+      - "mode=standalone"
+    ports:
+      - "6379:6379"
+
+  nginx:
+    image: nginx
+    container_name: nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - spring-boot
+    restart: always
+networks:
+  kis_network:
+

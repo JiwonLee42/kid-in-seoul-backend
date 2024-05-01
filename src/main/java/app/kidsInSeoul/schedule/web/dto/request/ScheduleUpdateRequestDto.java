@@ -19,10 +19,10 @@ public class ScheduleUpdateRequestDto {
     String type;
     Long facilityId;
 
-    boolean isWithChild;
+    int isWithChild;
 
     @Builder
-    public ScheduleUpdateRequestDto(String title, String content, LocalDate date, LocalTime startTime, LocalTime endTime, boolean isWithChild, String type, Long facilityId){
+    public ScheduleUpdateRequestDto(String title, String content, LocalDate date, LocalTime startTime, LocalTime endTime, int isWithChild, String type, Long facilityId){
         this.title = title;
         this.content = content;
         this.date = date;
