@@ -78,7 +78,7 @@ jobs:
         key: ${{ secrets.PRIVATE_KEY }}
         script: |
           docker pull ${{ secrets.DOCKER_USERNAME }}/kids-in-seoul
-          docker stop server
+          docker stop spring-boot
           docker run -d --rm --name spring-boot -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/kids-in-seoul
 
 ## time
