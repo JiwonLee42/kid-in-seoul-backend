@@ -67,14 +67,14 @@ jobs:
         docker push ${{ secrets.DOCKER_USERNAME }}/kids-in-seoul:latest  # 이미지 푸시
     ## docker deploy
     - name: Deploy to dev
-      uses: appleboy/ssh-action@v0.1.4
+      uses: appleboy/ssh-action@master
       id: deploy-dev
       if: contains(github.ref, 'develop')
       with: 
         host: ${{ secrets.HOST_DEV }}
         username: ${{ secrets.USERNAME }}
         port: 22
-        key: ${{ secrets.PRIVATE_KEY }}
+        password: ${{ secrets.PASSWORD }}
         script: |
           docker pull ${{ secrets.DOCKER_USERNAME }}/kids-in-seoul
           docker stop spring-boot
