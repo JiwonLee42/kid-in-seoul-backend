@@ -31,6 +31,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -95,19 +96,28 @@ public class MemberService {
         return memberLoginResponseDto;
     }
 
-    private void checkDuplicateMemberNickname(String nickname) {
+    // 로그아웃
+    @Transactional
+    public void logout(String accessToken) {
+        Long expiration = jwtTokenProvider.getExpiration(accessToken);
+
+        redisTemplate.opsForValue()
+                .set(accessToken, "blackList", expiration, TimeUnit.MILLISECONDS);
+    }
+
+    public void checkDuplicateMemberNickname(String nickname) {
         if (memberRepository.existsByNickname(nickname)) {
             throw new CustomException(ErrorCode.EXIST_USER_NICKNAME);
         }
     }
 
-    private void checkDuplicatedMemberEmail(String email) {
+    public void checkDuplicatedMemberEmail(String email) {
         if (memberRepository.existsByEmail(email)) {
             throw new CustomException(ErrorCode.EXIST_USER_EMAIL);
         }
     }
 
-    private void checkDuplicateMemberUserID(String userId) {
+    public void checkDuplicateMemberUserID(String userId) {
         if (memberRepository.existsByUserId(userId)) {
             throw new CustomException(ErrorCode.EXIST_USER_ID);
         }
