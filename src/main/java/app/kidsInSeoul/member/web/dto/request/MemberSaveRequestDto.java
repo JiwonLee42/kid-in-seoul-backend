@@ -15,7 +15,7 @@ public class MemberSaveRequestDto {
     private String name;
     private String nickname;
     private String userId;
-    private String email;
+    //private String email;
     private String password;
     private String phoneNum;
     private Long regionId;

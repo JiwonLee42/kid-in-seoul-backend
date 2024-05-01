@@ -11,7 +11,6 @@ import java.math.BigDecimal;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Entity
 @DiscriminatorValue("library")
 public class Library extends Facility{

@@ -12,7 +12,6 @@ import java.time.LocalDate;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @DiscriminatorValue("art_gallery")
 @Entity
 public class ArtGallery extends Facility{

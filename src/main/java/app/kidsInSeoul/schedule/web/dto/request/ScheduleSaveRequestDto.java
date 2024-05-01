@@ -52,7 +52,6 @@ public class ScheduleSaveRequestDto {
                 .member(member)
                 .facility(facility)
                 .isWithChild(isWithChild)
-                .artGallery(artGallery)
                 .type(type)
                 .build();
     }

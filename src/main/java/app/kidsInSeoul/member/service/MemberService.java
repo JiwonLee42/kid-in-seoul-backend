@@ -54,7 +54,7 @@ public class MemberService {
     public Member saveUser(MemberSaveRequestDto dto) {
 
         checkDuplicateMemberUserID(dto.getUserId());
-        checkDuplicatedMemberEmail(dto.getEmail());
+        //checkDuplicatedMemberEmail(dto.getEmail());
         checkDuplicateMemberNickname(dto.getNickname());
 
         Region region = regionRepository.findById(dto.getRegionId())
@@ -64,7 +64,7 @@ public class MemberService {
                 .userId(dto.getUserId())
                 .name(dto.getName())
                 .nickname(dto.getNickname())
-                .email(dto.getEmail())
+                //.email(dto.getEmail())
                 .phoneNum(dto.getPhoneNum())
                 .password(passwordEncoder.encode(dto.getPassword()))
                 .roles(Collections.singletonList("ROLE_USER"))

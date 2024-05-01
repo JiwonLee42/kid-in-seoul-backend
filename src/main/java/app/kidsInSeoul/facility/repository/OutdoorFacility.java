@@ -11,7 +11,6 @@ import java.math.BigDecimal;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Entity
 @DiscriminatorValue("outdoor_facility")
 public class OutdoorFacility extends Facility{

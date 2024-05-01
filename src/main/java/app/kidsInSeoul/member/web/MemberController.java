@@ -34,7 +34,7 @@ public class MemberController {
                 .id(member.getId())
                 .name(member.getName())
                 .nickname(member.getNickname())
-                .email(member.getEmail())
+                //.email(member.getEmail())
                 .userId(member.getUserId())
                 .phoneNum(member.getPhoneNum())
                 .region_id(member.getRegion().getId())
@@ -44,7 +44,7 @@ public class MemberController {
     }
 
     // 로그인
-    @PostMapping("/members/login")
+    @PostMapping("/login")
     public ResponseEntity<MemberLoginResponseDto> login(@RequestBody MemberLoginRequestDto memberLoginRequestDto) {
 
         MemberLoginResponseDto memberLoginResponseDto = memberService.login(memberLoginRequestDto);
@@ -53,7 +53,7 @@ public class MemberController {
     }
 
     // 로그아웃
-    @PostMapping("/members/logout")
+    @PostMapping("/logout")
     public ResponseEntity<Void> logout(@RequestHeader("Authorization") String accessToken) {
 
         memberService.logout(accessToken);
@@ -62,7 +62,7 @@ public class MemberController {
     }
 
     // 아이디 중복 체크
-    @GetMapping("/members/check-id")
+    @GetMapping("/check-id")
     public ResponseEntity<Void> checkUserId(@RequestParam("userId") String userId) {
 
         memberService.checkDuplicateMemberUserID(userId);
@@ -71,7 +71,7 @@ public class MemberController {
     }
 
     // 닉네임 중복 체크
-    @GetMapping("/members/check-nickname")
+    @GetMapping("/check-nickname")
     public ResponseEntity<Void> checkUserNickname(@RequestParam("nickname") String nickname) {
 
         memberService.checkDuplicateMemberNickname(nickname);

@@ -8,7 +8,6 @@ import java.math.BigDecimal;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Entity
 @DiscriminatorValue("kidscafe")
 public class KidsCafe extends Facility{
