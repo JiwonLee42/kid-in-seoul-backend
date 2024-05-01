@@ -55,11 +55,20 @@ jobs:
         echo "${{secrets.YML_DEV}}" > ./application.yml
       shell: bash # 추후 수정
 
-    ## grade build
-    - name: Build with Gradle
-      run: ./gradlew build  # 추후 수정
-    
-    ## docker build & push deploy to develop
+    - name: Grant Execute Permission For Gradlew
+      run: chmod +x gradlew
+
+    - name: Build With Gradle
+      run: ./gradlew build -x *.jar
+
+    ## docker build&push
+    - name: docker build
+      run: |
+        docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+        docker build -f Dockerfile -t ${{ secrets.DOCKER_USERNAME }}/{{ secrets.DOCKER_REPO }} .
+        docker run -d --name spring-boot -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/kids-in-seoul
+        docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO }}:latest  # 이미지 푸시
+    ## docker deploy
     - name: Deploy to dev
       uses: appleboy/ssh-action@master
       id: deploy-dev
@@ -71,11 +80,10 @@ jobs:
         port: 22
         key: ${{ secrets.PRIVATE_KEY }}
         script: |
-          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-          docker build -f Dockerfile -t ${{ secrets.DOCKER_USERNAME }}/kids-in-seoul .
-          docker stop kids-in-seoul || true
-          docker rm kids-in-seoul || true
-          docker run -d --name kids-in-seoul -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/kids-in-seoul:latest  
+          docker pull ${{ secrets.DOCKER_USERNAME }}/{{ secrets.DOCKER_REPO }}
+          docker stop server
+          docker run -d --rm --name server -p 8080:8080 spring-boot/test
+
 ## time
   current-time:
     needs: CI-CD
