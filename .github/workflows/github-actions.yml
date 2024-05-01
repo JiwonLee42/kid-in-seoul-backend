@@ -58,11 +58,11 @@ jobs:
     - name: Grant Execute Permission For Gradlew
       run: chmod +x gradlew
 
-    ## docker build&push
+    ## docker build & push
     - name: docker build
       run: |
         docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-        docker build -f Dockerfile -t ${{ secrets.DOCKER_USERNAME }}/{{ secrets.DOCKER_REPO }} .
+        docker build -t Dockerfile -t ${{ secrets.DOCKER_USERNAME }}/{{ secrets.DOCKER_REPO }} .
         docker run -d --name spring-boot -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/kids-in-seoul
         docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO }}:latest  # 이미지 푸시
     ## docker deploy
