@@ -71,10 +71,10 @@ jobs:
       id: deploy-dev
       if: contains(github.ref, 'develop')
       with: 
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
         host: ${{ secrets.HOST_DEV }}
         username: ${{ secrets.USERNAME }}
         port: 22
-        password: ${{ secrets.PASSWORD }}
         script: |
           docker pull ${{ secrets.DOCKER_USERNAME }}/kids-in-seoul
           docker stop spring-boot
