@@ -14,6 +14,7 @@ spring:
         logging.level:
         org.hibernate.SQL: debug
         org.hibernate.type: trace
+        type: boolean_true_false
 
 
   data:

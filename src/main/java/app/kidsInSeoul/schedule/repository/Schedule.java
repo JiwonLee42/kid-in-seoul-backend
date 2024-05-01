@@ -42,7 +42,8 @@ public class Schedule {
     private LocalTime endTime;
 
     @Column(name = "is_withchild")
-    private boolean isWithChild;
+  //  @Convert(converter = BooleanToYNConverter.class)
+    private Boolean isWithChild;
 
     @Column(nullable = false)
     private String type;

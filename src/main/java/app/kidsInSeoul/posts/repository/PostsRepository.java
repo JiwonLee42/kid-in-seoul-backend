@@ -8,10 +8,10 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 public interface PostsRepository extends JpaRepository<Posts,Long>  {
 
-    @Query("select u from Posts u where u.region.id = :regionId order by u.createdDate")
+    @Query("select u from Posts u where u.region.id = :regionId order by u.id DESC")
     Page<Posts> findByRegionId(@Param("regionId") Long regionId, Pageable pageable);
 
-    @Query("select u from Posts u where u.region.id = :regionId order by u.likeNum")
+    @Query("SELECT u FROM Posts u WHERE u.region.id = :regionId order by u.likeNum DESC, u.id DESC")
     Page<Posts> findByRegionIdMostLiked(@Param("regionId") Long regionId, Pageable pageable);
 
     @Modifying
