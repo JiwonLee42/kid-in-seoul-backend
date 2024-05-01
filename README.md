@@ -1,1 +1,1 @@
-# kid-in-seoul-backend
+# kids-in-seoul-backend
