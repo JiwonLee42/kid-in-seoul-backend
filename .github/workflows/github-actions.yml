@@ -79,10 +79,10 @@ jobs:
         key: ${{ secrets.PRIVATE_KEY }}
         script: |
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-          docker build -f Dockerfile -t ${{ secrets.DOCKER_REPO }}/kids-in-seoul-dev .
-          docker stop kids-in-seoul-dev || true
-          docker rm kids-in-seoul-dev || true
-          docker run -d --name kids-in-seoul-dev -p 80:80 ${{ secrets.DOCKER_REPO }}/kids-in-seoul-dev:latest
+          docker build -f Dockerfile -t ${{ secrets.DOCKER_REPO }}/kids-in-seoul .
+          docker stop kids-in-seoul || true
+          docker rm kids-in-seoul || true
+          docker run -d --name kids-in-seoul -p 8080:8080 ${{ secrets.DOCKER_REPO }}/kids-in-seoul:latest
 ## time
   current-time:
     needs: CI-CD
