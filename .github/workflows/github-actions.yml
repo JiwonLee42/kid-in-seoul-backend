@@ -77,9 +77,9 @@ jobs:
         port: 22
         key: ${{ secrets.PRIVATE_KEY }}
         script: |
-          docker pull ${{ secrets.DOCKER_USERNAME }}/{{ secrets.DOCKER_REPO }}
+          docker pull ${{ secrets.DOCKER_USERNAME }}/kids-in-seoul
           docker stop server
-          docker run -d --rm --name server -p 8080:8080 spring-boot/test
+          docker run -d --rm --name spring-boot -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/kids-in-seoul
 
 ## time
   current-time:
