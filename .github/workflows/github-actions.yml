@@ -58,16 +58,9 @@ jobs:
     ## grade build
     - name: Build with Gradle
       run: ./gradlew build  # 추후 수정
-    ## docker build & push
-    - name: Docker build & push to prod
-      if: contains(github.ref,'develop')
-      run: | 
-          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-          docker build -f Dockerfile -t ${{ secrets.DOCKER_REPO }}/kids-in-seoul-dev .
-          docker push ${{ secrets.DOCKER_REPO }}/kids-in-seoul-dev
     
     ## docker build & push deploy to develop
-    - name: Deploy to prod
+    - name: Deploy to dev
       uses: appleboy/ssh-action@master
       id: deploy-dev
       if: contains(github.ref, 'develop')
@@ -79,10 +72,10 @@ jobs:
         key: ${{ secrets.PRIVATE_KEY }}
         script: |
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-          docker build -f Dockerfile -t ${{ secrets.DOCKER_REPO }}/kids-in-seoul .
+          docker build -f Dockerfile -t ${{ secrets.DOCKER_USERNAME }}/kids-in-seoul .
           docker stop kids-in-seoul || true
           docker rm kids-in-seoul || true
-          docker run -d --name kids-in-seoul -p 8080:8080 ${{ secrets.DOCKER_REPO }}/kids-in-seoul:latest
+          docker run -d --name kids-in-seoul -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/kids-in-seoul:latest  
 ## time
   current-time:
     needs: CI-CD
