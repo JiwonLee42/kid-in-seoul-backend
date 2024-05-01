@@ -67,7 +67,7 @@ jobs:
         docker push ${{ secrets.DOCKER_USERNAME }}/kids-in-seoul:latest  # 이미지 푸시
     ## docker deploy
     - name: Deploy to dev
-      uses: appleboy/ssh-action@master
+      uses: appleboy/ssh-action@v0.1.4
       id: deploy-dev
       if: contains(github.ref, 'develop')
       with: 
