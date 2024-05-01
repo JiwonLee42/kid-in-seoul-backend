@@ -54,12 +54,9 @@ jobs:
         touch ./application.yml
         echo "${{secrets.YML_DEV}}" > ./application.yml
       shell: bash # 추후 수정
-
+      
     - name: Grant Execute Permission For Gradlew
       run: chmod +x gradlew
-
-    - name: Build With Gradle
-      run: ./gradlew build -x *.jar
 
     ## docker build&push
     - name: docker build
