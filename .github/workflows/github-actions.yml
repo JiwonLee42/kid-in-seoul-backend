@@ -78,7 +78,10 @@ jobs:
         script: |
           docker pull ${{ secrets.DOCKER_USERNAME }}/kids-in-seoul
           docker stop spring-boot
+          docker rm spring-boot
           docker run -d --rm --name spring-boot -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/kids-in-seoul
+          docker-compose up -d
+          docker image prune -f
 
 ## time
   current-time:
