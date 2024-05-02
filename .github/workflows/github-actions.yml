@@ -63,7 +63,6 @@ jobs:
       run: |
         docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
         docker build -t ${{ secrets.DOCKER_USERNAME }}/kids-in-seoul .
-        docker run -d --name spring-boot -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/kids-in-seoul
         docker push ${{ secrets.DOCKER_USERNAME }}/kids-in-seoul:latest  # 이미지 푸시
     ## docker deploy
     - name: Deploy to dev
@@ -76,10 +75,8 @@ jobs:
         username: ${{ secrets.USERNAME }}
         port: 22
         script: |
+          docker rm -f $(docker ps -qa)
           docker pull ${{ secrets.DOCKER_USERNAME }}/kids-in-seoul
-          docker stop spring-boot
-          docker rm spring-boot
-          docker run -d --rm --name spring-boot -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/kids-in-seoul
           docker-compose up -d
           docker image prune -f
 
