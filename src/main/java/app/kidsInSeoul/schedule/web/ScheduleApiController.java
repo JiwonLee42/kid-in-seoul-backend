@@ -77,6 +77,13 @@ public class ScheduleApiController {
         return ResponseEntity.status(HttpStatus.OK).body(responseDto);
     }
 
+    // 아이와 함께한 시간 조회
+    @GetMapping("/view/with-child")
+    public ResponseEntity<List<Map<String,String>>> findTimeWithChild(@AuthenticationPrincipal CustomUserDetails userDetails) {
+        List<Map<String,String>> result = scheduleService.findTimeChild(userDetails.getMember());
+        return ResponseEntity.ok(result);
+    }
+
 
 
 

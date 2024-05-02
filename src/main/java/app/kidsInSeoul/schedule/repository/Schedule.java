@@ -3,6 +3,7 @@ package app.kidsInSeoul.schedule.repository;
 import app.kidsInSeoul.facility.repository.*;
 import app.kidsInSeoul.member.repository.Member;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -42,8 +43,8 @@ public class Schedule {
     private LocalTime endTime;
 
     @Column(name = "is_withchild")
-  //  @Convert(converter = BooleanToYNConverter.class)
-    private Boolean isWithChild;
+    @Max(value = 1, message = "값은 1 이하여야 합니다.")
+    private int isWithChild = 1;
 
     @Column(nullable = false)
     private String type;
@@ -54,7 +55,7 @@ public class Schedule {
 
 
     @Builder
-    public Schedule(Member member, String title, String content,LocalDate date,LocalTime startTime,LocalTime endTime, Facility facility, boolean isWithChild, String type){
+    public Schedule(Member member, String title, String content,LocalDate date,LocalTime startTime,LocalTime endTime, Facility facility, int isWithChild, String type){
         this.member = member;
         this.title = title;
         this.content = content;
@@ -66,7 +67,7 @@ public class Schedule {
         this.type = type;
     }
 
-    public void update(String title,String content, LocalDate date, LocalTime startTime, LocalTime endTime, boolean isWithChild, String type, Facility facility){
+    public void update(String title,String content, LocalDate date, LocalTime startTime, LocalTime endTime, int isWithChild, String type, Facility facility){
         this.title = title;
         this.content = content;
         this.date = date;

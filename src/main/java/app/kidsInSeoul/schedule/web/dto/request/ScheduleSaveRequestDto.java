@@ -2,6 +2,7 @@ package app.kidsInSeoul.schedule.web.dto.request;
 import app.kidsInSeoul.facility.repository.*;
 import app.kidsInSeoul.member.repository.Member;
 import app.kidsInSeoul.schedule.repository.Schedule;
+import jakarta.validation.constraints.Max;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,14 +22,15 @@ public class ScheduleSaveRequestDto {
     private LocalTime endTime;
     private Member member;
 
-    private boolean isWithChild;
+
+    private int isWithChild;
 
     private String type;
 
     private Long facilityId;
 
     @Builder
-    public ScheduleSaveRequestDto(String title, String content, LocalDate date, LocalTime startTime, LocalTime endTime, boolean isWithChild, Member member, String type, Long facilityId){
+    public ScheduleSaveRequestDto(String title, String content, LocalDate date, LocalTime startTime, LocalTime endTime, int isWithChild, Member member, String type, Long facilityId){
         this.title = title;
         this.content = content;
         this.date = date;
