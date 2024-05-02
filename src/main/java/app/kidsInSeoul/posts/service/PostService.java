@@ -91,6 +91,14 @@ public class PostService {
         return new PostResponseDto(posts);
     }
 
+    @Transactional
+    public PostResponseDto likePostsCancel(Long postId){
+        Posts posts = postsRepository.findById(postId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 게시글이 없습니다. id=" + postId));
+        postsRepository.decreaseLikes(postId);
+        return new PostResponseDto(posts);
+    }
+
 
 
 }

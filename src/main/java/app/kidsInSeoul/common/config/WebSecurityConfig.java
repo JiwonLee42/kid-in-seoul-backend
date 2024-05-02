@@ -68,7 +68,7 @@ public class WebSecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.addAllowedOrigin("http://localhost:8080");
+        configuration.addAllowedOrigin("http://kids-in-seoul.shop");
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("*");
         configuration.setAllowCredentials(true); // 인증정보 포함한 요청 허용
@@ -84,6 +84,8 @@ public class WebSecurityConfig {
             "/posts/**",
             "/kindergarden/**",
             "/swagger-ui/**",
-            "/members/**"
+            "/members/**",
+            "/friendship/**",
+            "/facility/**"
     };
 }
