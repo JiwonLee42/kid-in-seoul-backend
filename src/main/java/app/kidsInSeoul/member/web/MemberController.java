@@ -34,7 +34,7 @@ public class MemberController {
                 .id(member.getId())
                 .name(member.getName())
                 .nickname(member.getNickname())
-                .email(member.getEmail())
+                //.email(member.getEmail())
                 .userId(member.getUserId())
                 .phoneNum(member.getPhoneNum())
                 .region_id(member.getRegion().getId())
@@ -43,20 +43,40 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.OK).body(memberSaveResponseDto);
     }
 
-    // 휴대폰 인증
-//    @PostMapping("/verify-phone")
-//    public ResponseEntity verifyPhone(@RequestBody MemberPhoneVerifyRequestDto memberPhoneVerifyRequestDto) {
-//
-//        return (ResponseEntity) ResponseEntity.status(HttpStatus.OK);
-//    }
-
     // 로그인
-    @PostMapping("/members/login")
+    @PostMapping("/login")
     public ResponseEntity<MemberLoginResponseDto> login(@RequestBody MemberLoginRequestDto memberLoginRequestDto) {
 
         MemberLoginResponseDto memberLoginResponseDto = memberService.login(memberLoginRequestDto);
 
         return ResponseEntity.status(HttpStatus.OK).body(memberLoginResponseDto);
+    }
+
+    // 로그아웃
+    @PostMapping("/logout")
+    public ResponseEntity<Void> logout(@RequestHeader("Authorization") String accessToken) {
+
+        memberService.logout(accessToken);
+
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    // 아이디 중복 체크
+    @GetMapping("/check-id")
+    public ResponseEntity<Void> checkUserId(@RequestParam("userId") String userId) {
+
+        memberService.checkDuplicateMemberUserID(userId);
+
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    // 닉네임 중복 체크
+    @GetMapping("/check-nickname")
+    public ResponseEntity<Void> checkUserNickname(@RequestParam("nickname") String nickname) {
+
+        memberService.checkDuplicateMemberNickname(nickname);
+
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     // 회원 정보 조회
