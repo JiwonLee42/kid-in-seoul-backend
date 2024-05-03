@@ -37,7 +37,8 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
-	runtimeOnly 'com.mysql:mysql-connector-j'
+	// runtimeOnly 'com.mysql:mysql-connector-j'
+	implematation group: 'mysql', name: 'mysql-connector-java', version: '8.0.35'
 	// H2
 	// runtimeOnly 'com.h2database:h2'
 
