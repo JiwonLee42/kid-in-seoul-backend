@@ -57,14 +57,14 @@ jobs:
         docker push ${{ secrets.DOCKER_USERNAME }}/kids-in-seoul-spring:latest  # 이미지 푸시
     ## docker deploy with password
     - name: Deploy to dev
-      uses: appleboy/ssh-action@master
+      uses: appleboy/ssh-action@v1.0.3
       id: deploy-dev
       if: contains(github.ref, 'develop')
-      with: 
-        #key: ${{ secrets.PRIVATE_KEY }}
+      with:
         host: ${{ secrets.HOST_DEV }}
         username: ${{ secrets.USERNAME }}
-        password: ${{ secrets.PASSWORD }}
+        key: ${{ secrets.PRIVATE_KEY }}
+       # password: ${{ secrets.PASSWORD }}
         port: 22
         script: |
           docker rm -f $(docker ps -qa)
