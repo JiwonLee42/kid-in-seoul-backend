@@ -1,1 +1,1 @@
-# kids-in-seoul-backend-repository
+# kids-in-seoul-backend-repo
