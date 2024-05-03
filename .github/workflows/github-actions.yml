@@ -61,10 +61,10 @@ jobs:
       id: deploy-dev
       if: contains(github.ref, 'develop')
       with: 
-        key: ${{ secrets.PRIVATE_KEY }}
+        #key: ${{ secrets.PRIVATE_KEY }}
         host: ${{ secrets.HOST_DEV }}
         username: ${{ secrets.USERNAME }}
-        #password: ${{ secrets.PASSWORD }}
+        password: ${{ secrets.PASSWORD }}
         port: 22
         script: |
           docker rm -f $(docker ps -qa)
