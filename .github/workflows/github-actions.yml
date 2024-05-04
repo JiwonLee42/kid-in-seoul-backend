@@ -83,6 +83,6 @@ jobs:
           format: YYYY-MM-DDTHH:mm:ss
           utcOffset: "+09:00"
       - name: Print Current Time
-        run: echo "Current Time=${{steps.current-time.outputs.formattedTime}}"
+        run: echo "Current Time=${{ steps.current-time.outputs.formattedTime }}"
         shell: bash
 
