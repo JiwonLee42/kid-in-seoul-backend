@@ -40,8 +40,6 @@ jobs:
     - name: set .yml for main
       run: |
         cd ./src/main/resources
-        rm ./application.yml
-        ls -al
         touch ./application.yml
         echo "${{ secrets.YML_DEV }}" >> ./application.yml
       shell: bash
