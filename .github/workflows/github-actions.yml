@@ -36,6 +36,14 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
+
+    ## set application.yml
+    - uses: actions/checkout@v2
+    - run: echo "{{ secrets.YML_DEV }}" > ./src/main/resources/application.yml
+    - uses: actions/upload-artifact@v2
+      with:
+        name: application.yml
+        path: ./src/main/resources/application.yml
     - name: Grant Execute Permission For Gradlew
       run: chmod +x gradlew
 
