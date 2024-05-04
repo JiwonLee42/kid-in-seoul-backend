@@ -37,18 +37,15 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
-	runtimeOnly 'com.mysql:mysql-connector-j'
-	// H2
-	// runtimeOnly 'com.h2database:h2'
+	// runtimeOnly 'com.mysql:mysql-connector-j'
 
+	implementation group: 'com.mysql', name: 'mysql-connector-j', version: '8.0.33'
+	
 	//cool sms
 	implementation 'net.nurigo:sdk:4.3.0'
 
 	//Redis
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
-
-	// h2
-	// runtimeOnly 'com.h2database:h2'
 
 	//swagger
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
