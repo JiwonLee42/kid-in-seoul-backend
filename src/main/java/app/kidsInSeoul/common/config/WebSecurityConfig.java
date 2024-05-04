@@ -86,6 +86,7 @@ public class WebSecurityConfig {
             "/swagger-ui/**",
             "/members/**",
             "/friendship/**",
-            "/facility/**"
+            "/facility/**",
+            "/sms-certification/**"
     };
 }
