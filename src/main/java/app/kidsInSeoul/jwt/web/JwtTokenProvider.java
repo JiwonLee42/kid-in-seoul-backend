@@ -30,7 +30,7 @@ public class JwtTokenProvider {
     private String refreshSecretKey;
 
     // 토큰 유효시간 30분
-    private long accessTokenValidTime = Duration.ofMinutes(30).toMillis();
+    private long accessTokenValidTime = Duration.ofMinutes(300).toMillis();
     // 리프레시 토큰 유효시간 2주
     private long refreshTokenValidTime = Duration.ofDays(14).toMillis();
 
