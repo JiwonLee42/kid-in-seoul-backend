@@ -36,19 +36,13 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
-        
-    ## create application.yml
-    - name: make application.yml
-      if : contains(github.ref,'develop')
-      run : | 
+
+    - name: set .yml for main
+      run: |
         cd ./src/main/resources
         touch ./application.yml
-        echo "${{ secrets.YML_DEV }}" > ./application.yml
+        echo "${{ secrets.YML_DEV }}" >> ./application.yml
       shell: bash
-      
-    - name: Grant Execute Permission For Gradlew
-      run: chmod +x gradlew
-
     ## docker build & push
     - name: docker build
       run: |
