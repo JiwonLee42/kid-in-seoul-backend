@@ -38,14 +38,13 @@ jobs:
             ${{ runner.os }}-gradle-
 
     ## set application.yml
-    - uses: actions/checkout@v2
-    - run: echo "{{ secrets.YML_DEV }}" > ./src/main/resources/application.yml
-    - uses: actions/upload-artifact@v2
-      with:
-        name: application.yml
-        path: ./src/main/resources/application.yml
-    - name: Grant Execute Permission For Gradlew
-      run: chmod +x gradlew
+    - name: set .yml for main
+      run: |
+        # main 설정 파일 디렉토리로 이동
+        cd ./src/main/resources
+        touch ./application.yml
+        echo "${{ secrets.YML_DEV }}" >> ./application.yml
+        shell: bash
 
     ## docker build & push
     - name: docker build
