@@ -37,15 +37,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-    ## set application.yml
     - name: set .yml for main
       run: |
-        # main 설정 파일 디렉토리로 이동
         cd ./src/main/resources
+        rm ./application.yml
+        ls -al
         touch ./application.yml
         echo "${{ secrets.YML_DEV }}" >> ./application.yml
-        shell: bash
-
+      shell: bash
     ## docker build & push
     - name: docker build
       run: |
