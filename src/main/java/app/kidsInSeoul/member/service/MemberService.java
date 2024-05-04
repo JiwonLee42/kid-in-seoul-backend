@@ -143,7 +143,6 @@ public class MemberService {
                 .name(findMember.getName())
                 .nickname(findMember.getNickname())
                 .userId(findMember.getUserId())
-                .email(findMember.getEmail())
                 .phoneNum(findMember.getPhoneNum())
                 .birthDate(findMember.getBirthDate())
                 .build();
