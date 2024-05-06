@@ -8,6 +8,7 @@ import app.kidsInSeoul.facility.web.dto.response.*;
 import app.kidsInSeoul.member.repository.Member;
 import app.kidsInSeoul.member_preferred_facility.repository.MemberPreferredFacilityRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 @Service
@@ -30,7 +32,19 @@ public class FacilityService {
 
     public List<ArtGalleryListDto> getArtGalleryList() {
         List<ArtGallery> findAll = artGalleryRepository.findAll();
-        return findAll.stream().map(ArtGalleryListDto::new).collect(Collectors.toList());
+        System.out.println("미술관" + findAll.get(0).getId() + findAll.get(0).getName());
+        log.info("미술관" + findAll.get(0).getId() + findAll.get(0).getName() + findAll.get(0).getUrl());
+        return findAll.stream().map(artGallery -> new ArtGalleryListDto(
+                artGallery.getId(),
+                artGallery.getName(),
+                artGallery.getLikeCount(),
+                artGallery.getFacilityType(), // facilityType은 고정값으로 ART_GALLERY를 사용하는 것으로 가정
+                artGallery.getAddress(),
+                artGallery.getPhoneNum(),
+                artGallery.getUrl(),
+                artGallery.getAdultFee(),
+                artGallery.getChildFee()
+        )).collect(Collectors.toList());
     }
 
     public ArtGalleryResponseDto getArtGallery(Member member, Long facilityId) {
@@ -56,9 +70,24 @@ public class FacilityService {
 
     }
 
-    public List<KidsCafeResponseDto> getKidsCafeList() {
+    public List<KidsCafeListDto> getKidsCafeList() {
         List<KidsCafe> findAll = kidsCafeRepository.findAll();
-        return findAll.stream().map(KidsCafeResponseDto::new).collect(Collectors.toList());
+        return findAll.stream().map(kidsCafe -> new KidsCafeListDto(
+                kidsCafe.getId(),
+                kidsCafe.getName(),
+                kidsCafe.getFacilityType(),
+                kidsCafe.getRegionGu(),
+                kidsCafe.getRegionDong(),
+                kidsCafe.getLatitude(),
+                kidsCafe.getLongitude(),
+                kidsCafe.getAddress(),
+                kidsCafe.getPhoneNum(),
+                kidsCafe.getClosedDays(),
+                kidsCafe.getOperatingDays(),
+                kidsCafe.getUsageCapacity(),
+                kidsCafe.getAvailableAge(),
+                kidsCafe.getLikeCount()
+        )).collect(Collectors.toList());
     }
 
     public KidsCafeResponseDto getKidsCafe(Member member, Long facilityId) {
@@ -88,9 +117,22 @@ public class FacilityService {
                 .build();
     }
 
-    public List<LibraryResponseDto> getLibraryList() {
+    public List<LibraryListDto> getLibraryList() {
         List<Library> findAll = libraryRepository.findAll();
-        return findAll.stream().map(LibraryResponseDto::new).collect(Collectors.toList());
+        return findAll.stream().map(library -> new LibraryListDto(
+                library.getId(),
+                library.getName(),
+                library.getFacilityType(), // facilityType은 고정값으로 LIBRARY를 사용하는 것으로 가정
+                library.getRegionGu(),
+                library.getStreet(),
+                library.getPhoneNum(),
+                library.getHomepageUrl(),
+                library.getPostNum(),
+                library.getLatitude(),
+                library.getLongitude(),
+                library.getOperatingTime(),
+                library.getLikeCount()
+        )).collect(Collectors.toList());
     }
 
     public LibraryResponseDto getLibrary(Member member, Long facilityId) {
@@ -119,9 +161,24 @@ public class FacilityService {
     }
 
 
-    public List<OutdoorFacilityResponseDto> getOutdoorFacilityList() {
+    public List<OutdoorFacilityListDto> getOutdoorFacilityList() {
         List<OutdoorFacility> findAll = outdoorFacilityRepository.findAll();
-        return findAll.stream().map(OutdoorFacilityResponseDto::new).collect(Collectors.toList());
+        return findAll.stream().map(outdoorFacility -> new OutdoorFacilityListDto(
+                outdoorFacility.getId(),
+                outdoorFacility.getName(),
+                "OUTDOOR", // facilityType은 고정값으로 OUTDOOR를 사용하는 것으로 가정
+                outdoorFacility.getRegionGu(),
+                outdoorFacility.getAgeClassification(),
+                outdoorFacility.getLatitude(),
+                outdoorFacility.getLongitude(),
+                outdoorFacility.getAddress(),
+                outdoorFacility.getDetailAddress(),
+                outdoorFacility.getPostNum(),
+                outdoorFacility.isFree(),
+                outdoorFacility.getFee(),
+                outdoorFacility.getUrlLink(),
+                outdoorFacility.getLikeCount()
+        )).collect(Collectors.toList());
     }
 
     public OutdoorFacilityResponseDto getOutdoorFacility(Member member, Long facilityId) {
@@ -152,9 +209,20 @@ public class FacilityService {
     }
 
 
-    public List<ParkResponseDto> getParkList() {
+    public List<ParkListDto> getParkList() {
         List<Park> findAll = parkRepository.findAll();
-        return findAll.stream().map(ParkResponseDto::new).collect(Collectors.toList());
+        return findAll.stream().map(park -> new ParkListDto(
+                park.getId(),
+                park.getName(),
+                "PARK", // facilityType은 고정값으로 PARK를 사용하는 것으로 가정
+                park.getRegionSi(),
+                park.getRegionGu(),
+                park.getRegionDong(),
+                park.getAddress(),
+                park.getCallNumber(),
+                park.getMainCategory(),
+                park.getLikeCount()
+        )).collect(Collectors.toList());
     }
 
     public ParkResponseDto getPark(Member member, Long facilityId) {

@@ -34,7 +34,7 @@ public class FacilityController {
     }
 
     @GetMapping("/kids-cafe/list")
-    public ResponseEntity<List<KidsCafeResponseDto>> getKidsCafeList() {
+    public ResponseEntity<List<KidsCafeListDto>> getKidsCafeList() {
         return ResponseEntity.status(HttpStatus.OK).body(facilityService.getKidsCafeList());
     }
 
@@ -44,7 +44,7 @@ public class FacilityController {
     }
 
     @GetMapping("/library/list")
-    public ResponseEntity<List<LibraryResponseDto>> getLibraryList() {
+    public ResponseEntity<List<LibraryListDto>> getLibraryList() {
         return ResponseEntity.status(HttpStatus.OK).body(facilityService.getLibraryList());
     }
 
@@ -54,7 +54,7 @@ public class FacilityController {
     }
 
     @GetMapping("/outdoor-facility/list")
-    public ResponseEntity<List<OutdoorFacilityResponseDto>> getOutdoorFacilityList() {
+    public ResponseEntity<List<OutdoorFacilityListDto>> getOutdoorFacilityList() {
         return ResponseEntity.status(HttpStatus.OK).body(facilityService.getOutdoorFacilityList());
     }
 
@@ -64,7 +64,7 @@ public class FacilityController {
     }
 
     @GetMapping("/park/list")
-    public ResponseEntity<List<ParkResponseDto>> getParkList() {
+    public ResponseEntity<List<ParkListDto>> getParkList() {
         return ResponseEntity.status(HttpStatus.OK).body(facilityService.getParkList());
     }
 

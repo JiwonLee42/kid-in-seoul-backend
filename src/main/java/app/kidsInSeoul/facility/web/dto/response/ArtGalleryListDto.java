@@ -10,14 +10,15 @@ import lombok.*;
 @Builder
 public class ArtGalleryListDto {
 
-    private Long facilityId;
+    private Long id;
     private String name;
+    private Long likeCount;
+    private String facilityType;
     private String address;
     private String phoneNum;
     private String url;
     private int adultFee;
     private int childFee;
-    private Long likeCount;
 
     public ArtGalleryListDto(ArtGallery artGallery) {
     }
