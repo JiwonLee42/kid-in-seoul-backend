@@ -88,7 +88,7 @@ public class WebSecurityConfig {
             "/members/**",
             "/friendship/**",
             "/facility/**",
-            "/sms-certification/**"
+            "/sms-certification/**",
             "/park/**",
             "/outdoor-facility/**",
             "/kids-cafe/**",
