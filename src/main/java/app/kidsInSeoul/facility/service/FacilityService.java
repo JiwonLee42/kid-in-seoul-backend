@@ -122,7 +122,7 @@ public class FacilityService {
         return findAll.stream().map(library -> new LibraryListDto(
                 library.getId(),
                 library.getName(),
-                library.getFacilityType(), // facilityType은 고정값으로 LIBRARY를 사용하는 것으로 가정
+                library.getFacilityType(),
                 library.getRegionGu(),
                 library.getStreet(),
                 library.getPhoneNum(),
@@ -166,7 +166,7 @@ public class FacilityService {
         return findAll.stream().map(outdoorFacility -> new OutdoorFacilityListDto(
                 outdoorFacility.getId(),
                 outdoorFacility.getName(),
-                "OUTDOOR", // facilityType은 고정값으로 OUTDOOR를 사용하는 것으로 가정
+                outdoorFacility.getFacilityType(),
                 outdoorFacility.getRegionGu(),
                 outdoorFacility.getAgeClassification(),
                 outdoorFacility.getLatitude(),
@@ -214,7 +214,7 @@ public class FacilityService {
         return findAll.stream().map(park -> new ParkListDto(
                 park.getId(),
                 park.getName(),
-                "PARK", // facilityType은 고정값으로 PARK를 사용하는 것으로 가정
+                park.getFacilityType(),
                 park.getRegionSi(),
                 park.getRegionGu(),
                 park.getRegionDong(),
@@ -262,7 +262,7 @@ public class FacilityService {
             result.add(FacilityResponseDto.builder()
                     .id(o.getId())
                     .name(o.getName())
-                    .type("ART_GALLERY")
+                    .type(o.getFacilityType())
                     .likeCount(o.getLikeCount())
                     .build());
         }
@@ -271,7 +271,7 @@ public class FacilityService {
             result.add(FacilityResponseDto.builder()
                     .id(o.getId())
                     .name(o.getName())
-                    .type("KIDS_CAFE")
+                    .type(o.getFacilityType())
                     .likeCount(o.getLikeCount())
                     .build());
         }
@@ -280,7 +280,7 @@ public class FacilityService {
             result.add(FacilityResponseDto.builder()
                     .id(o.getId())
                     .name(o.getName())
-                    .type("LIBRARY")
+                    .type(o.getFacilityType())
                     .likeCount(o.getLikeCount())
                     .build());
         }
@@ -289,7 +289,7 @@ public class FacilityService {
             result.add(FacilityResponseDto.builder()
                     .id(o.getId())
                     .name(o.getName())
-                    .type("OUTDOOR")
+                    .type(o.getFacilityType())
                     .likeCount(o.getLikeCount())
                     .build());
         }
@@ -298,7 +298,7 @@ public class FacilityService {
             result.add(FacilityResponseDto.builder()
                     .id(o.getId())
                     .name(o.getName())
-                    .type("PARK")
+                    .type(o.getFacilityType())
                     .likeCount(o.getLikeCount())
                     .build());
         }
