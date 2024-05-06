@@ -10,7 +10,7 @@ import lombok.*;
 @Builder
 public class ArtGalleryListDto {
 
-    private Long id;
+    private Long facilityId;
     private String name;
     private String address;
     private String phoneNum;
