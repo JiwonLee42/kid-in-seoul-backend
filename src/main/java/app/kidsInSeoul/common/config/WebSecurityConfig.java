@@ -89,5 +89,11 @@ public class WebSecurityConfig {
             "/friendship/**",
             "/facility/**",
             "/sms-certification/**"
+            "/park/**",
+            "/outdoor-facility/**",
+            "/kids-cafe/**",
+            "/art-gallery/**",
+            "/all/**"
+            "/library/**"
     };
 }
