@@ -19,8 +19,6 @@ public class KindergardenResponseDto {
 
     private String phoneNum;
 
-    Long region_id;
-
     private String feature;
 
     private String type;
@@ -28,6 +26,7 @@ public class KindergardenResponseDto {
     private String faxNum;
 
     private String postNum;
+    private Long region_id;
 
     @Builder
     public KindergardenResponseDto(Kindergarden kindergarden) {
