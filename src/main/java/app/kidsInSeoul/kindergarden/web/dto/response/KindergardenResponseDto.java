@@ -40,7 +40,7 @@ public class KindergardenResponseDto {
         this.phoneNum = kindergarden.getPhoneNum();
         this.feature = kindergarden.getFeature();
         this.type = kindergarden.getType();
-        this.faxNum = kindergarden.getMaxNum();
+        this.faxNum = kindergarden.getFaxNum();
         this.postNum = kindergarden.getPostNum();
         this.regionId = kindergarden.getRegion().getId();
     }
