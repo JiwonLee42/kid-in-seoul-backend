@@ -21,7 +21,7 @@ import java.util.List;
 @RequestMapping("/kindergarden")
 public class KindergardenController {
 
-    KindergardenService kindergardenService;
+    private final KindergardenService kindergardenService;
 
     @GetMapping("/view-region")
     public ResponseEntity<List<KindergardenResponseDto>> findByRegionId(@AuthenticationPrincipal CustomUserDetails userDetails) {
