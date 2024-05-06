@@ -16,7 +16,7 @@ public class SmsServiceImpl implements SmsService{
     private final SmsCertificationUtil smsUtil;
     private final SmsCertificationDao smsCertificationDao;
 
-    public void sendSms(UserSmsRequestDto requestDto){
+    public void sendSms(UserSmsRequestDto requestDto) {
         String to = requestDto.getPhone();
         int randomNumber = (int) (Math.random() * 9000) + 1000;
         String certificationNumber = String.valueOf(randomNumber);
