@@ -28,9 +28,9 @@ public class FacilityService {
 
     private final MemberPreferredFacilityRepository memberPreferredFacilityRepository;
 
-    public List<ArtGalleryResponseDto> getArtGalleryList() {
+    public List<ArtGalleryListDto> getArtGalleryList() {
         List<ArtGallery> findAll = artGalleryRepository.findAll();
-        return findAll.stream().map(ArtGalleryResponseDto::new).collect(Collectors.toList());
+        return findAll.stream().map(ArtGalleryListDto::new).collect(Collectors.toList());
     }
 
     public ArtGalleryResponseDto getArtGallery(Member member, Long facilityId) {
