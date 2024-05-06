@@ -93,7 +93,7 @@ public class WebSecurityConfig {
             "/outdoor-facility/**",
             "/kids-cafe/**",
             "/art-gallery/**",
-            "/all/**"
+            "/all/**",
             "/library/**"
     };
 }
