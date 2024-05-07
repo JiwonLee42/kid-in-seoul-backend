@@ -14,12 +14,12 @@ public class KindergardenResponseDto {
 
     private String name;
 
+    private String regionName;
+
     private String address;
 
 
     private String phoneNum;
-
-    Long region_id;
 
     private String feature;
 
@@ -28,18 +28,21 @@ public class KindergardenResponseDto {
     private String faxNum;
 
     private String postNum;
+    
+    private Long regionId;
 
     @Builder
     public KindergardenResponseDto(Kindergarden kindergarden) {
-        this.id = id;
-        this.name = name;
-        this.address = address;
-        this.phoneNum = phoneNum;
-        this.region_id = region_id;
-        this.feature = feature;
-        this.type = type;
-        this.faxNum = faxNum;
-        this.postNum = postNum;
+        this.id = kindergarden.getId();
+        this.name = kindergarden.getName();
+        this.regionName = kindergarden.getRegionName();
+        this.address = kindergarden.getAddress();
+        this.phoneNum = kindergarden.getPhoneNum();
+        this.feature = kindergarden.getFeature();
+        this.type = kindergarden.getType();
+        this.faxNum = kindergarden.getFaxNum();
+        this.postNum = kindergarden.getPostNum();
+        this.regionId = kindergarden.getRegion().getId();
     }
 
 }
