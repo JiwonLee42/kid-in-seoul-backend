@@ -51,7 +51,10 @@ public enum ErrorCode {
     NOT_VALID_URI(HttpStatus.BAD_REQUEST, "유효한 경로로 요청해주세요."),
 
     //게시글 예외
-    NOT_FOUND_POST(HttpStatus.NOT_FOUND, "해당 게시글이 존재하지 않습니다.");
+    NOT_FOUND_POST(HttpStatus.NOT_FOUND, "해당 게시글이 존재하지 않습니다."),
+
+    // 지역구 예외
+    NOT_FOUND_REGION(HttpStatus.NOT_FOUND, "해당 지역구가 존재하지 않습니다.");
 
 
     private final HttpStatus httpStatus;
