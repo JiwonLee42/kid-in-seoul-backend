@@ -4,13 +4,13 @@ import app.kidsInSeoul.facility.web.dto.response.MemberPreferredFacilityResponse
 import app.kidsInSeoul.jwt.service.dto.CustomUserDetails;
 import app.kidsInSeoul.member.repository.Member;
 import app.kidsInSeoul.member.service.MemberService;
-import app.kidsInSeoul.member.web.dto.request.MemberLoginRequestDto;
-import app.kidsInSeoul.member.web.dto.request.MemberPhoneVerifyRequestDto;
-import app.kidsInSeoul.member.web.dto.request.MemberSaveRequestDto;
+import app.kidsInSeoul.member.web.dto.request.*;
 import app.kidsInSeoul.member.web.dto.response.MemberLoginResponseDto;
 import app.kidsInSeoul.member.web.dto.response.MemberResponse;
 import app.kidsInSeoul.member.web.dto.response.MemberSaveResponseDto;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import okhttp3.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -79,6 +79,17 @@ public class MemberController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    // 비밀번호 재설정
+    @PatchMapping("/password")
+    public ResponseEntity<Void> changePassword(
+            @RequestBody PasswordchangeRequest passwordchangeRequest,
+            @AuthenticationPrincipal CustomUserDetails userDetails
+    ) {
+        memberService.changePassword(userDetails.getMember().getId(), passwordchangeRequest.getPassword());
+
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
     // 회원 정보 조회
     @GetMapping("/me")
     public ResponseEntity<MemberResponse> getMember(@AuthenticationPrincipal CustomUserDetails userDetails) {
@@ -86,6 +97,15 @@ public class MemberController {
         MemberResponse memberResponse = memberService.getMember(userDetails.getMember().getId());
 
         return ResponseEntity.status(HttpStatus.OK).body(memberResponse);
+    }
+
+    // 회원 정보 수정
+    @PatchMapping("/update")
+    public ResponseEntity<Void> updateUser(@AuthenticationPrincipal CustomUserDetails userDetails,
+                                           MemberUpdateRequest memberUpdateRequest) {
+        memberService.updateUser(userDetails.getMember().getId(), memberUpdateRequest);
+
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     // ====== 시설 좋아요 ======

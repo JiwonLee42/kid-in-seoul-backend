@@ -12,6 +12,7 @@ import app.kidsInSeoul.member.repository.Member;
 import app.kidsInSeoul.member.repository.MemberRepository;
 import app.kidsInSeoul.member.web.dto.request.MemberLoginRequestDto;
 import app.kidsInSeoul.member.web.dto.request.MemberSaveRequestDto;
+import app.kidsInSeoul.member.web.dto.request.MemberUpdateRequest;
 import app.kidsInSeoul.member.web.dto.response.MemberLoginResponseDto;
 import app.kidsInSeoul.member.web.dto.response.MemberResponse;
 import app.kidsInSeoul.member_preferred_facility.repository.MemberPreferredFacility;
@@ -48,7 +49,6 @@ public class MemberService {
 
     private final MemberPreferredFacilityRepository memberPreferredFacilityRepository;
     private final FacilityRepository facilityRepository;
-
 
     @Transactional
     public Member saveUser(MemberSaveRequestDto dto) {
@@ -202,5 +202,37 @@ public class MemberService {
         }
 
         return result;
+    }
+
+    @Transactional
+    public void changePassword(Long loginMemberId, String password) {
+
+        Member findMember = memberRepository.findById(loginMemberId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_MEMBER));
+
+        if (passwordEncoder.matches(password, findMember.getPassword())) {
+            throw new CustomException(ErrorCode.SHOULD_CHANGE_PASSWORD);
+        }
+
+        findMember.changePassword(passwordEncoder.encode(password));
+    }
+
+
+    // 회원정보 수정
+    @Transactional
+    public void updateUser(Long id, MemberUpdateRequest memberUpdateRequest) {
+
+        Member findMember = memberRepository.findById(id).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_MEMBER));
+
+        Region region = regionRepository.findById(memberUpdateRequest.getRegionId()).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_REGION));
+
+        if(findMember.isUpdatedUserId(memberUpdateRequest.getUserId())) {
+            checkDuplicateMemberUserID(memberUpdateRequest.getUserId());
+        }
+
+        if(findMember.isUpdatedNickname(memberUpdateRequest.getNickname())) {
+            checkDuplicateMemberNickname(memberUpdateRequest.getNickname());
+        }
+
+        findMember.updateUser(memberUpdateRequest, region);
     }
 }

@@ -1,7 +1,9 @@
 package app.kidsInSeoul.member.repository;
 
 import app.kidsInSeoul.friends.repository.Friendship;
+import app.kidsInSeoul.member.web.dto.request.MemberUpdateRequest;
 import app.kidsInSeoul.region.repository.Region;
+import io.micrometer.common.util.StringUtils;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -56,5 +58,32 @@ public class Member {
         this.phoneNum = phoneNum;
         this.email = email;
         this.region = region;
+    }
+
+    public void changePassword(String password) {
+        this.password = password;
+    }
+
+    public void updateUser(MemberUpdateRequest dto, Region region) {
+        this.userId = dto.getUserId();
+        this.nickname = dto.getNickname();
+        this.name = dto.getName();
+        this.phoneNum = dto.getPhoneNum();
+        this.region = region;
+    }
+
+    // 이메일이 수정됐는지 확인. 본인 이메일 그대로거나, 비어있을 경우 수정되지 않은 걸로 간주해 false 반환.
+    public boolean isUpdatedUserId(String userId){
+        if(StringUtils.isNotBlank(userId) && !userId.equals(this.userId)){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isUpdatedNickname(String nickname){
+        if(StringUtils.isNotBlank(nickname) && !nickname.equals(this.nickname)){
+            return true;
+        }
+        return false;
     }
 }
