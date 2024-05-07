@@ -1,5 +1,6 @@
 package app.kidsInSeoul.facility.repository;
 
+import app.kidsInSeoul.region.repository.Region;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,6 +27,10 @@ public class Facility {
     private Long likeCount = 0L;
 
     private String facilityType;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "region_id")
+    private Region region;
 
     public void plusLikeCount() { this.likeCount++; }
 
