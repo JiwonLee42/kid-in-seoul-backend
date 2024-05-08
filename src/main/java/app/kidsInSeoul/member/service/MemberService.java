@@ -144,7 +144,6 @@ public class MemberService {
                 .nickname(findMember.getNickname())
                 .userId(findMember.getUserId())
                 .phoneNum(findMember.getPhoneNum())
-                .birthDate(findMember.getBirthDate())
                 .regionId(findMember.getRegion().getId())
                 .regionName(findMember.getRegion().getRegion_name())
                 .build();
