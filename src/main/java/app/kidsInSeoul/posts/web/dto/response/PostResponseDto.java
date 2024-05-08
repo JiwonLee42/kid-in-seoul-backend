@@ -18,15 +18,15 @@ public class PostResponseDto {
     private Long memberId;
     private String content;
 
-    private LocalDateTime created_at;
+    private LocalDateTime createdDate;
 
     private Long regionId;
 
     private int likeNum;
 
-    private String authorName;
+    private String authorNickname;
 
-    private String authorId;
+    private String authorUserId;
 
     @Builder
     public PostResponseDto(Posts entity){
@@ -34,9 +34,9 @@ public class PostResponseDto {
         this.title = entity.getTitle();
         this.content = entity.getContent();
         this.memberId = entity.getMember().getId();
-        this.authorName = entity.getMember().getNickname();
-        this.authorId = entity.getMember().getUserId();
-        this.created_at = entity.getCreatedDate();
+        this.authorNickname = entity.getMember().getNickname();
+        this.authorUserId = entity.getMember().getUserId();
+        this.createdDate = entity.getCreatedDate();
         this.regionId = entity.getRegion().getId();
         this.likeNum = entity.getLikeNum();
     }
