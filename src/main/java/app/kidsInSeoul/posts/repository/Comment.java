@@ -1,5 +1,6 @@
 package app.kidsInSeoul.posts.repository;
 
+import app.kidsInSeoul.BaseTimeEntity;
 import app.kidsInSeoul.member.repository.Member;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -15,7 +16,7 @@ import java.util.List;
 @Getter
 @Entity
 @NoArgsConstructor
-public class Comment {
+public class Comment extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,10 +38,6 @@ public class Comment {
     private Boolean is_recomment;
     @Column(name = "content", columnDefinition = "TEXT")
     private String content;
-    @Column(name = "created_at", nullable = false)
-    @CreatedDate
-    private LocalDateTime createdDate = LocalDateTime.now();
-
 
     @Builder
     public Comment(Posts post, Comment parentComment, List<Comment> childComments, Member member, Boolean is_recomment, String content) {

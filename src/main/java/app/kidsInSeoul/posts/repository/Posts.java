@@ -1,5 +1,6 @@
 package app.kidsInSeoul.posts.repository;
 
+import app.kidsInSeoul.BaseTimeEntity;
 import app.kidsInSeoul.member.repository.Member;
 import app.kidsInSeoul.region.repository.Region;
 import jakarta.persistence.*;
@@ -14,7 +15,7 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 @Entity
-public class Posts {
+public class Posts extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "posts_id")
@@ -25,10 +26,6 @@ public class Posts {
 
     @Column(name = "content",columnDefinition = "TEXT",nullable = false)
     private String content;
-
-    @Column(name = "created_at", nullable = false)
-    @CreatedDate
-    private LocalDateTime createdDate = LocalDateTime.now();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")

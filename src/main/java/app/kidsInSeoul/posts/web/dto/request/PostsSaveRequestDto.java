@@ -17,16 +17,11 @@ public class PostsSaveRequestDto {
     private String title;
     private String content;
 
-    private Member member;
-
-    private LocalDateTime created_at;
 
     @Builder
-    public PostsSaveRequestDto(String title, String content,Member member,LocalDateTime created_at){
+    public PostsSaveRequestDto(String title, String content,Member member){
         this.title = title;
         this.content = content;
-        this.member = member;
-        this.created_at = created_at;
     }
 
     public Posts toEntity(Member member, Region region) {

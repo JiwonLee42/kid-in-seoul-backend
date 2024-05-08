@@ -15,10 +15,8 @@ public class ScheduleUpdateRequestDto {
     LocalDate date;
     LocalTime startTime;
     LocalTime endTime;
-
     String type;
     Long facilityId;
-
     int isWithChild;
 
     @Builder

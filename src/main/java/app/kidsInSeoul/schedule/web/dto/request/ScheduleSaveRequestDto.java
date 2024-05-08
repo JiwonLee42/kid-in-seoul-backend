@@ -14,29 +14,21 @@ import java.time.LocalTime;
 public class ScheduleSaveRequestDto {
 
     private String title;
-
     private String content;
-
     private LocalDate date;
     private LocalTime startTime;
     private LocalTime endTime;
-    private Member member;
-
-
     private int isWithChild;
-
     private String type;
-
     private Long facilityId;
 
     @Builder
-    public ScheduleSaveRequestDto(String title, String content, LocalDate date, LocalTime startTime, LocalTime endTime, int isWithChild, Member member, String type, Long facilityId){
+    public ScheduleSaveRequestDto(String title, String content, LocalDate date, LocalTime startTime, LocalTime endTime, int isWithChild, String type, Long facilityId){
         this.title = title;
         this.content = content;
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.member = member;
         this.isWithChild = isWithChild;
         this.facilityId = facilityId;
         this.type = type;
