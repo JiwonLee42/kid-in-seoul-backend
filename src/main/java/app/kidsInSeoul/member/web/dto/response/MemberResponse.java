@@ -23,4 +23,6 @@ public class MemberResponse {
     private String name;
     private String nickname;
     private String phoneNum;
+    private Long regionId;
+    private String regionName;
 }
