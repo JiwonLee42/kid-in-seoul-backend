@@ -3,6 +3,7 @@ package app.kidsInSeoul.friends.service;
 import app.kidsInSeoul.common.exception.CustomException;
 import app.kidsInSeoul.common.exception.ErrorCode;
 import app.kidsInSeoul.friends.web.dto.response.FriendListDto;
+import app.kidsInSeoul.friends.web.dto.response.RequestFriendListDto;
 import app.kidsInSeoul.friends.web.dto.response.WaitingFriendListDto;
 import app.kidsInSeoul.friends.repository.Friendship;
 import app.kidsInSeoul.friends.repository.FriendshipRepository;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 @Service
 public class FriendshipService {
 
@@ -95,7 +97,7 @@ public class FriendshipService {
                 Member friend = memberRepository.findByUserId(x.getFriendUserId()).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_MEMBER));
                 result.add(WaitingFriendListDto.builder()
                                 .friendshipId(x.getId())
-                                .friendName(friend.getName())
+                                .friendNickname(friend.getNickname())
                                 .friendUserId(friend.getUserId())
                                 .status(x.getStatus())
                                 .build());
@@ -118,7 +120,6 @@ public class FriendshipService {
         return "승인 성공";
     }
 
-    @Transactional
     // 친구목록 조회
     public List<FriendListDto> getFriendList(Member member) {
         List<Friendship> friendshipList = member.getFriendshipList();
@@ -132,6 +133,26 @@ public class FriendshipService {
                                 .id(friend.getId())
                                 .userId(friend.getUserId())
                                 .nickname(friend.getNickname())
+                        .build());
+            }
+        }
+
+        return result;
+    }
+
+    public List<RequestFriendListDto> getRequestFriendList(Member member) {
+        List<Friendship> friendshipList = member.getFriendshipList();
+        List<RequestFriendListDto> result = new ArrayList<>();
+
+        for (Friendship x : friendshipList) {
+            // 받은 요청이 아니고 && 수락 대기중인 요청만 조회
+            if (x.isFrom() && x.getStatus().equals("WAITING")) {
+                Member friend = memberRepository.findByUserId(x.getFriendUserId()).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_MEMBER));
+                result.add(RequestFriendListDto.builder()
+                        .friendshipId(x.getId())
+                        .friendNickname(friend.getNickname())
+                        .friendUserId(friend.getUserId())
+                        .status(x.getStatus())
                         .build());
             }
         }
