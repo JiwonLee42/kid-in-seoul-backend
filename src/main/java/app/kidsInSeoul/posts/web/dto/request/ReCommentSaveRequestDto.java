@@ -12,15 +12,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ReCommentSaveRequestDto {
     private String content;
-    private Member member;
     private Long postId;
-
     private Long commentId;
 
     @Builder
     public ReCommentSaveRequestDto(String content, Member member,Long postId, Long commentId){
         this.content = content;
-        this.member = member;
         this.postId = postId;
         this.commentId = commentId;
     }
