@@ -106,6 +106,7 @@ public class MemberService {
                 .email(findMember.getEmail())
                 .phoneNum(findMember.getPhoneNum())
                 .birthDate(findMember.getBirthDate())
+                .regionId(findMember.getRegion().getRegion_id())
                 .build();
 
         return memberResponse;
