@@ -18,8 +18,6 @@ public class MemberResponse {
 
     private Long id;
     private String userId;
-    private String password;
-    private LocalDate birthDate;
     private String name;
     private String nickname;
     private String phoneNum;
