@@ -7,9 +7,10 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class WaitingFriendListDto {
+public class RequestFriendListDto {
     private Long friendshipId;
-    private String friendUserId;
+    private Long id;
     private String friendNickname;
+    private String friendUserId;
     private String status;
 }
