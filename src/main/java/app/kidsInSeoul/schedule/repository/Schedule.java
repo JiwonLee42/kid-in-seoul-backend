@@ -2,6 +2,7 @@ package app.kidsInSeoul.schedule.repository;
 
 import app.kidsInSeoul.facility.repository.*;
 import app.kidsInSeoul.member.repository.Member;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import lombok.Builder;
