@@ -22,9 +22,12 @@ public class ScheduleResponseDto {
 
     private LocalTime endTime;
 
-    private String facilityName;
+    private String type;
 
     private Long facilityId;
+
+    private String facilityName;
+
 
 
     @Builder
@@ -35,8 +38,9 @@ public class ScheduleResponseDto {
         this.date = schedule.getDate();
         this.startTime = schedule.getStartTime();
         this.endTime = schedule.getEndTime();
+        this.type = schedule.getType();
         this.facilityName = schedule.getFacility().getName();
-        this.facilityId = schedule.getFacility().getId();
+        this.facilityId = schedule.getFacility().getId()
 
     }
 
