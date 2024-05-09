@@ -18,9 +18,10 @@ public class ScheduleUpdateRequestDto {
     String type;
     Long facilityId;
     int isWithChild;
+    Long memberId;
 
     @Builder
-    public ScheduleUpdateRequestDto(String title, String content, LocalDate date, LocalTime startTime, LocalTime endTime, int isWithChild, String type, Long facilityId){
+    public ScheduleUpdateRequestDto(String title, String content, LocalDate date, LocalTime startTime, LocalTime endTime, int isWithChild, String type, Long facilityId, Long memberId){
         this.title = title;
         this.content = content;
         this.date = date;
@@ -29,6 +30,7 @@ public class ScheduleUpdateRequestDto {
         this.isWithChild = isWithChild;
         this.type = type;
         this.facilityId = facilityId;
+        this.memberId = memberId;
     }
 
 }
