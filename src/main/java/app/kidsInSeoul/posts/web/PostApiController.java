@@ -110,7 +110,7 @@ public class PostApiController {
 
     @PatchMapping("/posts/like-cancel/{postId}")
     public ResponseEntity<PostResponseDto> likePostsCancel(@PathVariable Long postId) {
-        PostResponseDto postResponseDto = postsService.likePosts(postId);
+        PostResponseDto postResponseDto = postsService.likePostsCancel(postId);
         return ResponseEntity.ok(postResponseDto);
     }
 
