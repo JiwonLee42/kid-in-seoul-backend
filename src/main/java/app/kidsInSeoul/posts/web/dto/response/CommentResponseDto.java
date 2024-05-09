@@ -28,7 +28,7 @@ public class CommentResponseDto {
         this.comment_id = entity.getId();
         this.content = entity.getContent();
         this.member_id = entity.getMember().getId();
-        this.author = entity.getMember().getName();
+        this.author = entity.getMember().getNickname();
         this.postId = entity.getId();
         this.createdDate = entity.getCreatedDate();
     }
