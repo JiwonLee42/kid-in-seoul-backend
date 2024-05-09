@@ -21,9 +21,10 @@ public class ScheduleSaveRequestDto {
     private int isWithChild;
     private String type;
     private Long facilityId;
+    private Long memberId;
 
     @Builder
-    public ScheduleSaveRequestDto(String title, String content, LocalDate date, LocalTime startTime, LocalTime endTime, int isWithChild, String type, Long facilityId){
+    public ScheduleSaveRequestDto(String title, String content, LocalDate date, LocalTime startTime, LocalTime endTime, int isWithChild, String type, Long facilityId, String memberId){
         this.title = title;
         this.content = content;
         this.date = date;
@@ -32,7 +33,7 @@ public class ScheduleSaveRequestDto {
         this.isWithChild = isWithChild;
         this.facilityId = facilityId;
         this.type = type;
-
+        this.memberId = memberId;
     }
 
 
