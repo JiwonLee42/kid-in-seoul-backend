@@ -40,7 +40,7 @@ public class ScheduleResponseDto {
         this.endTime = schedule.getEndTime();
         this.type = schedule.getType();
         this.facilityName = schedule.getFacility().getName();
-        this.facilityId = schedule.getFacility().getId()
+        this.facilityId = schedule.getFacility().getId();
 
     }
 
