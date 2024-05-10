@@ -36,6 +36,7 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.cors();
         http
                 .csrf((csrf) -> csrf.disable()); //csrf 보안 토큰 disable 처리
         http    .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(
