@@ -70,6 +70,7 @@ public class WebSecurityConfig {
 
         configuration.addAllowedOrigin("http://3.39.179.50:8080");
         configuration.addAllowedOrigin("http://3.39.159.108:8080");
+        configuration.addAllowedOrigin("https://main--kid-in-seoul.netlify.app");
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("*");
         configuration.setAllowCredentials(true); // 인증정보 포함한 요청 허용
