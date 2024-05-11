@@ -96,6 +96,7 @@ public class WebSecurityConfig {
             "/kids-cafe/**",
             "/art-gallery/**",
             "/all/**",
-            "/library/**"
+            "/library/**",
+            "/events/**"
     };
 }
