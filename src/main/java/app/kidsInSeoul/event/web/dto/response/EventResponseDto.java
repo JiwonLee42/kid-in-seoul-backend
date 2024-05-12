@@ -3,11 +3,11 @@ package app.kidsInSeoul.event.web.dto.response;
 import app.kidsInSeoul.event.repository.Events;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@Getter
 public class EventResponseDto {
 
     private Long id;
@@ -21,6 +21,7 @@ public class EventResponseDto {
 
     private String content;
 
+    @Builder
     public EventResponseDto(Events event) {
         this.id = event.getId();
         this.eventName = event.getEventName();
