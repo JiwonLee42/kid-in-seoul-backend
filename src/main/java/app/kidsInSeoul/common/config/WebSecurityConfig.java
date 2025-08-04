@@ -94,6 +94,7 @@ public class WebSecurityConfig {
             "/kids-cafe/**",
             "/art-gallery/**",
             "/all/**",
-            "/library/**"
+            "/library/**",
+            "/login/oauth2/code/kakao"
     };
 }

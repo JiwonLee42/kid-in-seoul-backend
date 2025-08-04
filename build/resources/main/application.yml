@@ -1,34 +1,57 @@
 spring:
+  # H2 Database 설정
   datasource:
-    url: jdbc:mysql://kis-db-server-new.c9aeqe20csxy.ap-northeast-2.rds.amazonaws.com:3306/kids_in_seoul?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
-    username: admin
-    password: kidsinseoul202405
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:tcp://localhost/~/kis-new # H2 DB 연결 주소 (Embedded Mode)
+    username: sa       # H2 DB 접속 ID (사용자 지정)
+    password:     # H2 DB 접속 PW (사용자 지정)
 
-  jpa:
-    hibernate:
-      ddl-auto: update
-    properties:
-      hibernate:
-        show_sql: true
-        format_sql: true
-        dialect: org.hibernate.dialect.MySQLDialect
-        default_batch_fetch_size: 100
+  # H2 Console 설정
+  h2:
+    console: # H2 DB를 웹에서 관리할 수 있는 기능
+      enabled: true           # H2 Console 사용 여부
+      path: /h2-console       # H2 Console 접속 주소
   data:
     redis:
-      host: localhost
-      port: 6379
-      repositories:
-        enabled: false
+      host: http://localhost
+      port: 80
+
+  # JPA 설정
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create        # DB 초기화 전략 (none, create, create-drop, update, validate)
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        format_sql: true      # 쿼리 로그 포맷 (정렬)
+        show_sql: true        # 쿼리 로그 출력
+  security:
+    oauth2:
+      client:
+        registration:
+          kakao:
+            client-id: 12ae51c942add73cf5093021fdb1186a
+            client-secret:  # 사용 안 해도 되는 경우도 있음
+            client-authentication-method: POST
+            authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:8080/login/oauth2/code/kakao
+            scope:
+              - profile_nickname
+              - account_email
+            client-name: Kakao
+            provider: kakao
+        provider:
+          kakao:
+            authorization-uri: https://kauth.kakao.com/oauth/authorize
+            token-uri: https://kauth.kakao.com/oauth/token
+            user-info-uri: https://kapi.kakao.com/v2/user/me
+            user-name-attribute: id
+
   coolsms:
-    apiKey: NCSUKLQEKC9WIDZN
-    apiSecret: XORLMAO2HZEV2DTSPZDXR0DVJHT0CEOD
-    senderNumber: 01076505238
-
-logging:
-  level:
-    org.hibernate.SQL: DEBUG
-
+    senderNumber:
+    apiKey:
+    apiSecret:
 jwt:
-  secret: d913973a67d478ef73ba715f3193bbd58179b160b2bcf744061a1e802c5ea11cb661bfbe61a7af987090b49972c3144604c594a4e93bd7394d043379685e1a3c
-  secret_refresh: 1bc76915039947696df7c21439c5995cbd7e7d10559613d4c13c44cb05d9f2b176e7c8e7da6f972de6b269442e41f29f2316e84bf515fe5fed8396790838658a
+  secret: d8f49e0d5f1b42389a7c4bc8e25a9e3aa6f1ce3a524c47e4a9aef621ba3b9f4a
+  secret_refresh: a4e07c3b8f694f8b9d7586245f4382c7cefe40cf36a44eb1918e2069b0c6d91f

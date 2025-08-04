@@ -54,8 +54,10 @@ public enum ErrorCode {
     NOT_FOUND_POST(HttpStatus.NOT_FOUND, "해당 게시글이 존재하지 않습니다."),
 
     // 지역구 예외
-    NOT_FOUND_REGION(HttpStatus.NOT_FOUND, "해당 지역구가 존재하지 않습니다.");
+    NOT_FOUND_REGION(HttpStatus.NOT_FOUND, "해당 지역구가 존재하지 않습니다."),
 
+    // JSON 파싱에러
+    _PARSING_ERROR(HttpStatus.BAD_REQUEST, "JSON 파싱 중 문제가 발생하였습니다.");
 
     private final HttpStatus httpStatus;
     private final String detail;

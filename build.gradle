@@ -61,6 +61,16 @@ dependencies {
 	//validation
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 
+	// kakao
+	implementation("org.springframework.boot:spring-boot-starter-security")
+	implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
+	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("com.fasterxml.jackson.core:jackson-databind") // 카카오 유저 정보 파싱용
+
+	// h2
+	implementation 'com.h2database:h2';
+
+
 }
 
 
