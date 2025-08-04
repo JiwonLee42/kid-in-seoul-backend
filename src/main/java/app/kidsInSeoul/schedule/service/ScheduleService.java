@@ -94,7 +94,6 @@ public class ScheduleService {
     public List<Map<String, String>> getDateTimeInfo(Member member) {
         LocalDate endDate = LocalDate.now();
         LocalDate startDate = endDate.minusDays(6);
-        System.out.println("시간 출력!" + endDate.toString() + "~" + startDate.toString());
 
         List<Object[]> dateTimeInfo = scheduleRepository.getDateTimeInfo(startDate, endDate, member);
         List<Integer> timesWithChild = findTimeWithChild(dateTimeInfo);

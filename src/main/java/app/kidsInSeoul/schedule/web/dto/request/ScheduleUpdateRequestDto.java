@@ -18,6 +18,7 @@ public class ScheduleUpdateRequestDto {
     String type;
     Long facilityId;
     int isWithChild;
+    Long memberId;
 
     @Builder
     public ScheduleUpdateRequestDto(String title, String content, LocalDate date, LocalTime startTime, LocalTime endTime, int isWithChild, String type, Long facilityId){

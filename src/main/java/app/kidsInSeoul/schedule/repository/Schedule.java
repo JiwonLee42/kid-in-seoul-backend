@@ -2,6 +2,7 @@ package app.kidsInSeoul.schedule.repository;
 
 import app.kidsInSeoul.facility.repository.*;
 import app.kidsInSeoul.member.repository.Member;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import lombok.Builder;
@@ -33,12 +34,16 @@ public class Schedule {
     @Column(name = "content", columnDefinition = "TEXT")
     private String content;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     @Column(nullable = false)
     private LocalDate date;
 
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm", timezone = "Asia/Seoul")
     @Column(nullable = false)
     private LocalTime startTime;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm", timezone = "Asia/Seoul")
     @Column(nullable = false)
     private LocalTime endTime;
 

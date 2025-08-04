@@ -36,6 +36,7 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.cors();
         http
                 .csrf((csrf) -> csrf.disable()); //csrf 보안 토큰 disable 처리
         http    .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(
@@ -70,6 +71,7 @@ public class WebSecurityConfig {
 
         configuration.addAllowedOrigin("http://3.39.179.50:8080");
         configuration.addAllowedOrigin("http://3.39.159.108:8080");
+        configuration.addAllowedOrigin("https://main--kid-in-seoul.netlify.app");
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("*");
         configuration.setAllowCredentials(true); // 인증정보 포함한 요청 허용
@@ -94,6 +96,7 @@ public class WebSecurityConfig {
             "/kids-cafe/**",
             "/art-gallery/**",
             "/all/**",
-            "/library/**"
+            "/library/**",
+            "/events/**"
     };
 }

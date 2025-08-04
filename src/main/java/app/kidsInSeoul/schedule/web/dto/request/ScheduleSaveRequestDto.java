@@ -32,7 +32,6 @@ public class ScheduleSaveRequestDto {
         this.isWithChild = isWithChild;
         this.facilityId = facilityId;
         this.type = type;
-
     }
 
 
