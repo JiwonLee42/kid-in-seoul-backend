@@ -1,4 +1,4 @@
-<img width="695" height="390" alt="image" src="https://github.com/user-attachments/assets/73a9007f-68c8-49a2-822a-2b8fa789892b" /><img width="695" height="390" alt="image" src="https://github.com/user-attachments/assets/d2b64492-fe0c-4317-8099-e87d734dd86c" /># Kids in Seoul
+# Kids in Seoul
 
 **Kids in Seoul** 은 어린이와 보호자를 위한 커뮤니티, 장소 정보, 친구 맺기, 행사 참여 기능을 제공하는 웹 서비스 입니다.
 
